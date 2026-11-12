@@ -104,6 +104,7 @@ button { font: inherit; color: inherit; }
 
 .section { position: relative; padding: var(--space-8) 0 var(--space-6); scroll-margin-top: 0; }
 .section:last-child { padding-bottom: 160px; }
+.section__lead { padding: 0 var(--space-3) 28px; max-width: 640px; font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--muted); }
 .section__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; padding: 0 var(--space-3) 28px; }
 
 /* ---------- Work grid + cards ---------- */
@@ -180,7 +181,9 @@ button { font: inherit; color: inherit; }
   background: var(--stage-peach); color: var(--on-stage);
 }
 .sticky:nth-child(1) { transform: rotate(-2deg); }
-.sticky:nth-child(2) { transform: rotate(1.5deg); background: var(--stage-ochre); }
+.sticky:nth-child(2) { transform: rotate(1.5deg); background: var(--stage-sage); }
+.sticky:nth-child(3) { transform: rotate(-1deg); background: var(--stage-lake); }
+.sticky b { font-weight: 700; }
 .skills { grid-column: span 4; padding: 0 var(--space-3); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
 .skills dd { font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); margin-top: 6px; }
 
@@ -207,6 +210,7 @@ button { font: inherit; color: inherit; }
 
 /* Profile content (shared by the lightbox and /work/[slug]/) */
 .pf-top { padding: var(--space-7) var(--space-7) 48px; display: flex; flex-direction: column; gap: var(--space-5); }
+.pf-sub { font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--muted); margin-top: calc(var(--space-2) * -1); max-width: 640px; }
 .pf-tag { font-size: var(--text-label); font-weight: 600; color: var(--ember-text); }
 .pf-title {
   font-family: var(--font-serif); font-weight: var(--weight-serif);
@@ -225,7 +229,7 @@ button { font: inherit; color: inherit; }
 .pf-photo { height: 440px; background: var(--stage); display: flex; align-items: center; justify-content: center; padding: 48px; }
 .pf-photo > .shot { width: 62%; height: 100%; }
 .pf-lesson { font-family: var(--font-serif); font-weight: var(--weight-serif); font-style: italic; font-size: 36px; line-height: 1.22; }
-.pf-meta { padding: 32px var(--space-7); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); border-bottom: 1px solid var(--line); }
+.pf-meta { padding: 32px var(--space-7); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-5); border-bottom: 1px solid var(--line); }
 .pf-meta dd { margin-top: 6px; font-size: 17px; }
 .pf-foot { padding: var(--space-6) var(--space-7) var(--space-7); display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
 .btn-primary {
@@ -292,7 +296,7 @@ button { font: inherit; color: inherit; }
   .pf-flag { padding: 48px 24px; }
   .pf-photo { height: 300px; padding: 24px; }
   .pf-photo > .shot { width: 100%; }
-  .pf-meta { grid-template-columns: 1fr; }
+  .pf-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .story { padding: 0 24px 80px; }
 }
 

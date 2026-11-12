@@ -5,7 +5,7 @@ import Panel from '../components/Panel.astro';
 import Handles from '../components/Handles.astro';
 import Shot from '../components/Shot.astro';
 import Profile from '../components/Profile.astro';
-import { experience, skills } from '../data/resume';
+import { value, experience, notes, skills } from '../data/resume';
 
 const work = (await getCollection('work', (e) => !e.data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
@@ -31,7 +31,7 @@ const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-al
 
         <section class="section" id="work" aria-labelledby="work-h">
           <div class="section__head">
-            <h2 class="t-h2" id="work-h">Selected work</h2>
+            <h2 class="t-h2" id="work-h">I design things that ship</h2>
             <span class="t-label">Click a card for the quick profile</span>
           </div>
           <div class="work-grid">
@@ -62,6 +62,24 @@ const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-al
           </div>
         </section>
 
+        <section class="section" id="value" aria-labelledby="value-h">
+          <div class="section__head">
+            <h2 class="t-h2" id="value-h">How I can help your team</h2>
+          </div>
+          <p class="section__lead">
+            I lead end-to-end design as a tech-literate architect, prototyper and alignment facilitator.
+          </p>
+          {
+            value.map((v) => (
+              <div class="exp-row">
+                <span class="exp-row__year">{v.label}</span>
+                <span class="exp-row__org">{v.title}</span>
+                <span class="exp-row__what">{v.text}</span>
+              </div>
+            ))
+          }
+        </section>
+
         <section class="section" id="experience" aria-labelledby="exp-h">
           <div class="section__head"><h2 class="t-h2" id="exp-h">Experience</h2></div>
           {
@@ -80,19 +98,19 @@ const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-al
           <div class="about">
             <div class="about__text">
               <p>
-                Engineering and business degrees in Taipei, then an MS in Human Centered Design &amp;
-                Engineering in Seattle. I like the moment a messy system finally clicks into a shape
-                people can hold.
+                Outside of Figma and front-end code, I’m an open-water swimmer, a plant parent and an
+                avid picnicker.
               </p>
               <p>
-                These days I design with AI in the loop: Claude Skills and Codex for research
-                synthesis, code audits and fast workflow maps, so more of my time goes to the
-                decisions that matter.
+                Engineering and business degrees in Taipei, then an MS in Human Centered Design &amp;
+                Engineering at the University of Washington. I’m also a Toastmasters club president,
+                so yes, I like meetings.
               </p>
             </div>
             <div class="about__notes">
-              <div class="sticky">Toastmasters club president. I’ll ask a better question than you expect.</div>
-              <div class="sticky">[One personal detail]</div>
+              {notes.map((n) => (
+                <div class="sticky"><b>{n.title}.</b> {n.text}</div>
+              ))}
             </div>
             <dl class="skills">
               {skills.map((s) => (

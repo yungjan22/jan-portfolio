@@ -9,6 +9,8 @@ const work = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/work' }),
   schema: z.object({
     title: z.string(),
+    subtitle: z.string(), // One-line case study title, sentence case
+    category: z.string(), // e.g. "AI product", "B2B SaaS · Dashboard"
     org: z.string(),
     year: z.string(),
     tag: z.string(), // Status for the "Status · Company · Year" tag line
@@ -21,9 +23,10 @@ const work = defineCollection({
     stat: z.string(), // Green flag number
     statLabel: z.string(),
     lesson: z.string(), // "What I'd do differently"
+    client: z.string(),
+    platform: z.string(),
+    led: z.string(),
     team: z.string(),
-    timeline: z.string(),
-    tools: z.string(),
     // Optional images, as paths under public/ (e.g. /work/qin/hero.png).
     // Without them, labelled placeholders render instead.
     hero: z.string().optional(),

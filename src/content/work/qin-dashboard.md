@@ -1,53 +1,51 @@
 ---
-title: QIN AI Traceability
+title: QinSight
+subtitle: A centralized dashboard for faster, clearer operational insights
+category: B2B SaaS · Dashboard
 org: WiAdvance
 year: '2022'
 tag: 1st place
-order: 1
+order: 2
 stage: sage
-short: 264 labor hours saved every month
-metric: 1st place at a Microsoft hackathon, then 264 labor hours saved every month after rollout.
-problem: '[Paper logs made food traceability slow and impossible to audit.]'
-role: Lead UI/UX Engineer. I designed and engineered the system, then pitched its business value to the judges.
+short: 264 hours saved every month
+metric: An AI factory solution that won a Microsoft hackathon, then saved 264 hours every month in a real factory.
+problem: What did “digital transformation” actually mean to the people in a factory still running on paper records?
+role: I led user interviews, product design and the pitch. The system started as my winning Microsoft hackathon project and became a real-world implementation.
 stat: '264'
-statLabel: labor hours saved every month, plus 1st place at a Microsoft hackathon.
+statLabel: hours saved every month, and 83% less production harm.
 lesson: '[One honest reflection.]'
-team: '[N people]'
-timeline: '[Months], 2022'
-tools: '[Figma · Azure · …]'
+client: Microsoft · Super Qin Enterprise
+platform: SaaS application
+led: User interviews, product design, presenting
+team: Team of 3
 ---
 
 <!-- Slug matches the old URL jan.bitbypixel.com/qin-dashboard/ linked from the resume. -->
 
-## The problem I fell for
+## How it started
 
-[Who was keeping the food traceability records, how, and what went wrong when an audit or recall came.]
+I built an AI-powered factory solution at a Microsoft hackathon, where it took 1st place. Then it became a real-world implementation.
 
-## My role
+## The problem we were trying to solve
 
-As Lead UI/UX Engineer at WiAdvance Technology, I engineered an AI food traceability system and pitched its business value to Microsoft Hackathon judges.
+I interviewed people across the factory to figure out what “digital transformation” actually meant to them:
 
-[What you owned: research, flows, UI, front-end build, the pitch.]
+- Factory executive
+- Production supervisor
+- Supply chain manager
 
-## What I did
+## What I designed
 
-### [Step 1 · Understanding the floor]
+I turned those jobs to be done into a system that digitized messy factory data, from paper records to AI-powered image recognition.
 
-[What you observed or learned from the people doing the logging.]
+[Dataset and dashboard screens.]
 
-### [Step 2 · Designing the system]
+## Good news
 
-[Key decisions and the trade-offs behind them. Add before/after screens.]
+- **83% less production harm.**
+- **264 hours saved every month.**
+- **1st place** at the Microsoft hackathon.
 
-### [Step 3 · The pitch]
-
-[How you framed the business value for the judges.]
-
-## Green flag
-
-- **1st place** at a Microsoft hackathon.
-- **264 labor hours eliminated every month** after implementation.
-
-## What I'd do differently
+## What I’d do differently
 
 [One honest reflection.]

@@ -8,6 +8,7 @@ interface Props {
 const { base = '' } = Astro.props;
 const sections = [
   { id: 'work', label: 'Work' },
+  { id: 'value', label: 'How I help' },
   { id: 'experience', label: 'Experience' },
   { id: 'about', label: 'About' },
 ];
@@ -15,12 +16,15 @@ const sections = [
 <header class="panel">
   <div class="panel__id">
     <a class="panel__name" href="/">{site.name}</a>
-    <span class="panel__role">{site.role} · {site.location}</span>
+    <span class="panel__role">
+      {site.role} · {site.location}
+      <time class="panel__clock" data-clock={site.timeZone}></time>
+    </span>
   </div>
-  <h1 class="panel__headline">I love meeting <i>intriguingly.</i></h1>
+  <h1 class="panel__headline">A product designer who actually <i>likes meetings.</i></h1>
   <p class="panel__intro">
-    I turn complex B2B logic and data-heavy SaaS workflows into products people understand the
-    first time. MS HCDE, University of Washington.
+    I enjoy conversations with project managers, researchers, engineers and stakeholders. And I
+    design things that ship.
   </p>
 
   <nav class="nav" aria-label="Sections">
@@ -51,3 +55,13 @@ const sections = [
     </div>
   </div>
 </header>
+
+<script>
+  // Jan's local time, e.g. "3:51 PM". Static HTML shows nothing until this runs.
+  document.querySelectorAll<HTMLTimeElement>('[data-clock]').forEach((el) => {
+    const fmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: el.dataset.clock });
+    const tick = () => (el.textContent = ` · ${fmt.format(new Date())}`);
+    tick();
+    setInterval(tick, 30_000);
+  });
+</script>

@@ -1,46 +1,44 @@
 ---
-title: BenQ Hardware × Software
+title: BenQ Ergo Monitor Arm
+subtitle: User behaviour that shaped the design of an ergo monitor arm
+category: Hardware · Physical product
 org: BenQ
 year: '2024'
 tag: Patent
-order: 3
+order: 4
 stage: lake
-short: −8% production cost, 1 patent
-metric: 11 UX gaps found, production cost down 8%, 1 patent.
-problem: '[Where do usability findings get lost between a hardware spec and the quick-start manual?]'
-role: UI/UX Design Intern. I turned usability and A/B findings into hardware specs with engineering.
+short: −8% development cost, 1 patent
+metric: I pushed to measure the whole force curve, not just the peak. The findings removed a button, cut development cost by 8% and helped secure a patent.
+problem: How much force does it take to move a monitor arm? The goal was an arm that takes less than 3 kg to move.
+role: I led the usability study. The PM wanted the maximum force. I pushed to measure the full force curve, because people push, hit resistance, then push harder.
 stat: '−8%'
-statLabel: production cost, 11 UX gaps found, and 1 patent secured.
+statLabel: development cost, from removing a separate button. Plus 1 patent.
 lesson: '[One honest reflection.]'
-team: '[Hardware + software engineering]'
-timeline: Jun – Aug 2024
-tools: '[Usability tests · A/B tests]'
+client: BenQ
+platform: Hardware
+led: Usability study
+team: Team of 3
 ---
 
-## The problem I fell for
+## Quick question
 
-[The product, and where the hardware and software experience didn't line up.]
+How much force do you think it takes to move a monitor arm: less than 1.5 kg, 2.5 kg or more than 3.5 kg?
 
-## My role
+Our goal was to design a monitor arm that takes less than 3 kg of force to move, based on customer needs.
 
-As a UI/UX Design Intern at BenQ in Taipei, I worked closely with hardware and software engineering teams.
+## What we measured
 
-## What I did
+The PM wanted the maximum force. I pushed to measure the full force curve instead, because users didn’t move the monitor with one steady force. They pushed, hit resistance, then pushed harder to get past it.
 
-### From usability findings to hardware specs
+[Force curve chart.]
 
-I translated qualitative and quantitative usability test findings into hardware design specs, which reduced production costs by 8% and secured 1 patent.
+## What I recommended
 
-### Closing 11 UX gaps in one month
+1. Different directions need different force thresholds to trigger motor assistance.
+2. Remove a separate button, which cut development costs by 8%.
 
-A/B tests surfaced 11 UX gaps across hardware and software. Under a tight 1-month constraint, those findings shaped the quick-start manuals and the web presentation.
+The work also helped secure 1 patent.
 
-## Green flag
-
-- **−8% production cost.**
-- **1 patent** secured.
-- **11 UX gaps** identified and addressed.
-
-## What I'd do differently
+## What I’d do differently
 
 [One honest reflection.]

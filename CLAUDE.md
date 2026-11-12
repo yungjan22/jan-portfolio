@@ -27,7 +27,8 @@ Rules that matter most:
 - `stage`: `sage` · `ochre` · `lake` · `heather` · `peach`.
 - Images go in `public/work/<slug>/` and are referenced as `/work/<slug>/file.png` in `hero`, `before`, `after`, `photo` (+ `alt`). Missing ones render as labelled placeholders.
 - **Real, verified numbers only.** Unknowns stay as `[BRACKETS]` until Jan fills them. Nothing confidential.
-- Facts come from Jan's "Product Designer" resume in Reactive Resume. Experience and skills are in `src/data/resume.ts`; contact links in `src/site.ts`.
+- **Sources:** the previous jan.bitbypixel.com (WordPress) content is primary; Jan's "Product Designer" resume in Reactive Resume fills weak points. Value props, experience, About notes and skills are in `src/data/resume.ts`; contact links in `src/site.ts`.
+- **Desktop first.** Most visitors are on a laptop or desktop: design and check at 1280–1440px first, then make sure phones still work.
 
 ## Commands
 

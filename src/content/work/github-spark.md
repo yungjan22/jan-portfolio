@@ -1,46 +1,57 @@
 ---
 title: GitHub Spark
-org: GitHub × UW
+subtitle: Overcoming iteration barriers in AI code generation
+category: AI product
+org: GitHub
 year: '2025'
 tag: Shipped
-order: 4
+order: 1
 stage: heather
-short: Research shaped the 2025 release
-metric: My research shaped core AI features in GitHub Spark’s official 2025 release.
-problem: '[Where do people who aren’t engineers get stuck when they build software with AI?]'
-role: Research lead. Multi-method research, platform design and concept testing with GitHub’s research team.
+short: My design became part of the features launched with GitHub Spark.
+metric: I designed for people who aren’t engineers using GitHub’s vibe coding tool. My design became part of the features launched with GitHub Spark.
+problem: People felt they had lost control of the AI. They asked for one change and it changed everything.
+role: I led UX research, product design and prototyping, taking the team through observation, a survey, interviews, competitive analysis and usability tests.
 stat: '2025'
-statLabel: official release shipped core AI features shaped by this research.
+statLabel: My design became part of the features launched with GitHub Spark.
 lesson: '[One honest reflection.]'
-team: GitHub Research + [N]
-timeline: Dec 2024 – Jun 2025
-tools: '[Interviews · concept tests]'
+client: GitHub
+platform: AI web application
+led: UX research, product design, prototyping
+team: Team of 3
 ---
 
 <!-- Slug matches the old URL jan.bitbypixel.com/github-spark/ linked from the resume. -->
 
-## The problem I fell for
+## About this product
 
-[The question the GitHub research team brought, and why it mattered.]
+I worked with GitHub to research and design for people who aren’t engineers but use vibe coding tools.
 
-## My role
+## My approach to messy problems
 
-I directed multi-method research, platform design and concept testing with the GitHub research team, as part of my MS in Human Centered Design & Engineering at the University of Washington.
+I led the team through different research methods to find answers:
 
-## What I did
+- Online observation
+- Survey
+- User interviews
+- Competitive analysis
+- Usability testing
 
-### [Research]
+## What we discovered
 
-[Methods, participants and what you learned. Only share what GitHub has made public.]
+Participants felt a lack of control over the AI.
 
-### [Concept testing]
+> “I’m just asking a question or changing one thing. Why did it change everything?”
 
-[The concepts you tested and what changed.]
+## How I solved it
 
-## Green flag
+I designed features that gave users more control.
 
-User insights from this work became core AI features in GitHub Spark’s official 2025 product release.
+[Details of the features, with before and after screens.]
 
-## What I'd do differently
+## The part I’m proud of
+
+The design became part of the features launched with GitHub Spark.
+
+## What I’d do differently
 
 [One honest reflection.]

@@ -16,6 +16,7 @@ const Heading = headingLevel;
 <div class="pf-top">
   <span class="pf-tag">{d.tag} · {d.org} · {d.year}</span>
   <Heading class="pf-title" id={headingId}>{d.title}</Heading>
+  <p class="pf-sub">{d.subtitle}</p>
 </div>
 
 <figure class="pf-stage">
@@ -59,7 +60,8 @@ const Heading = headingLevel;
 </section>
 
 <dl class="pf-meta">
+  <div><dt class="t-label">Client</dt><dd>{d.client}</dd></div>
+  <div><dt class="t-label">Platform</dt><dd>{d.platform}</dd></div>
+  <div><dt class="t-label">Led</dt><dd>{d.led}</dd></div>
   <div><dt class="t-label">Team</dt><dd>{d.team}</dd></div>
-  <div><dt class="t-label">Timeline</dt><dd>{d.timeline}</dd></div>
-  <div><dt class="t-label">Tools</dt><dd>{d.tools}</dd></div>
 </dl>

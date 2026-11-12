@@ -23,7 +23,7 @@
   --col-hot: rgba(255,106,44,0.07); /* Tint on columns a hovered card spans. */
   --scrim: rgba(24,17,13,0.72);     /* Lightbox backdrop, with 12px blur. */
 
-  /* Project stages: deep in light, mid-tone in dark. Image areas only. */
+  /* Project stages (sage QinSight, ochre Web SEO, lake BenQ, heather GitHub Spark, peach About): deep in light, mid-tone in dark. Image areas only. */
   --stage-sage: #3F4D36;
   --stage-ochre: #5E4B24;
   --stage-lake: #2F4A58;
