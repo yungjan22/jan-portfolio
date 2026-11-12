@@ -1,0 +1,142 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Panel from '../components/Panel.astro';
+import Handles from '../components/Handles.astro';
+import Shot from '../components/Shot.astro';
+import Profile from '../components/Profile.astro';
+import { experience, skills } from '../data/resume';
+
+const work = (await getCollection('work', (e) => !e.data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Rhythm: wide (4 cols) → small (left 2) + small (right 2) → wide → …
+const cards = work.map((entry, i) => {
+  const slot = i % 3;
+  const span = slot === 0 ? 'all' : slot === 1 ? 'left' : 'right';
+  return { entry, wide: slot === 0, span };
+});
+const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-alt: var(--stage-${stage}-alt)`;
+---
+<Base>
+  <div class="shell">
+    <Panel />
+
+    <main class="main" id="content">
+      <div class="cols-wrap">
+        <div class="cols" aria-hidden="true">
+          <div class="c-l"></div><div class="c-l"></div><div class="c-r"></div><div class="c-r"></div>
+        </div>
+
+        <section class="section" id="work" aria-labelledby="work-h">
+          <div class="section__head">
+            <h2 class="t-h2" id="work-h">Selected work</h2>
+            <span class="t-label">Click a card for the quick profile</span>
+          </div>
+          <div class="work-grid">
+            {
+              cards.map(({ entry, wide, span }) => (
+                <div class:list={['card sel', { 'card--wide': wide }]} data-span={span} style={stageVars(entry.data.stage)}>
+                  <a
+                    class="card__btn"
+                    href={`/work/${entry.id}/`}
+                    data-open={entry.id}
+                    aria-haspopup="dialog"
+                  >
+                    <span class="card__img">
+                      <Shot src={entry.data.hero} alt={entry.data.alt.hero} placeholder="Project image" />
+                    </span>
+                    <span class="card__txt">
+                      <span class="t-tag card__tag">
+                        {entry.data.tag} · {entry.data.org} · {entry.data.year}
+                      </span>
+                      <span class="card__title">{entry.data.title}</span>
+                      <span class="card__desc">{wide ? entry.data.metric : entry.data.short}</span>
+                    </span>
+                  </a>
+                  <Handles />
+                </div>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="section" id="experience" aria-labelledby="exp-h">
+          <div class="section__head"><h2 class="t-h2" id="exp-h">Experience</h2></div>
+          {
+            experience.map((e) => (
+              <div class="exp-row">
+                <span class="exp-row__year">{e.year}</span>
+                <span class="exp-row__org">{e.org}</span>
+                <span class="exp-row__what"><b>{e.role}.</b> {e.what}</span>
+              </div>
+            ))
+          }
+        </section>
+
+        <section class="section" id="about" aria-labelledby="about-h">
+          <div class="section__head"><h2 class="t-h2" id="about-h">About</h2></div>
+          <div class="about">
+            <div class="about__text">
+              <p>
+                Engineering and business degrees in Taipei, then an MS in Human Centered Design &amp;
+                Engineering in Seattle. I like the moment a messy system finally clicks into a shape
+                people can hold.
+              </p>
+              <p>
+                These days I design with AI in the loop: Claude Skills and Codex for research
+                synthesis, code audits and fast workflow maps, so more of my time goes to the
+                decisions that matter.
+              </p>
+            </div>
+            <div class="about__notes">
+              <div class="sticky">Toastmasters club president. I’ll ask a better question than you expect.</div>
+              <div class="sticky">[One personal detail]</div>
+            </div>
+            <dl class="skills">
+              {skills.map((s) => (
+                <div><dt class="t-label">{s.name}</dt><dd>{s.items}</dd></div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="lightbox" aria-labelledby="lb-title-0">
+    <Handles badge={false} />
+    <div class="lb-head">
+      <span class="t-label" style="font-variant-numeric: tabular-nums">
+        Project profile · <span data-pos>1</span> / {work.length}
+      </span>
+      <button class="lb-close" type="button" data-close aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" stroke="currentColor" stroke-width="1.6" fill="none"><path d="M2 2l10 10M12 2L2 12"></path></svg>
+      </button>
+    </div>
+    <div class="lb-body" data-lb-body>
+      {
+        work.map((entry, i) => {
+          const next = work[(i + 1) % work.length];
+          return (
+            <article data-profile={entry.id} hidden={i !== 0} style={stageVars(entry.data.stage)}>
+              <Profile entry={entry} headingId={`lb-title-${i}`} />
+              <div class="pf-foot">
+                <a class="btn-primary" href={`/work/${entry.id}/`}>Read the full story →</a>
+                <button class="next-link" type="button" data-next={next.id}>
+                  <span>Next profile</span>
+                  <span>{next.data.title} →</span>
+                </button>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </dialog>
+
+  <script>
+    import '../scripts/home';
+  </script>
+</Base>

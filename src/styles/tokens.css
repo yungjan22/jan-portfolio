@@ -1,0 +1,135 @@
+/*
+ * Jan Chang Portfolio: design tokens.
+ * THE single source of tokens for this site. Mirrors project/tokens.json in the
+ * design system: https://claude.ai/artifact/6Y6p5gffonRbTo89pxNsQk
+ * Change a value there first, then here. Never hard-code these values elsewhere.
+ *
+ * Themes: light is the default. Dark follows prefers-color-scheme unless the
+ * Appearance control sets <html data-theme="light|dark">.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ---------- Colour (light) ---------- */
+  --bg: #F3ECE1;          /* Page background (Burnt Paper). */
+  --surface: #FBF7F0;     /* Cards, lightbox bands, screenshot frames. */
+  --line: #D8C8B4;        /* Hairlines: column lines, card borders, dividers. Decorative only. */
+  --ink: #2A1F18;         /* Primary text. 13.7:1 */
+  --muted: #6E5D4E;       /* Secondary text on bg/surface. 5.4:1. Never on stages. */
+  --ember: #FF6A2C;       /* The only bright colour. FILLS only. */
+  --ember-text: #B8410F;  /* Orange TEXT on bg/surface. 4.7:1 */
+  --on-ember: #2A1F18;    /* Text on an ember fill. Never white. */
+  --col-hot: rgba(255,106,44,0.07); /* Tint on columns a hovered card spans. */
+  --scrim: rgba(24,17,13,0.72);     /* Lightbox backdrop, with 12px blur. */
+
+  /* Project stages: deep in light, mid-tone in dark. Image areas only. */
+  --stage-sage: #3F4D36;
+  --stage-ochre: #5E4B24;
+  --stage-lake: #2F4A58;
+  --stage-heather: #523C4E;
+  --stage-peach: #6E3B24;
+  --on-stage: #FBF7F0;    /* Rare caption chip on a stage. */
+  /* Duotone grading pair: the "other" end of each stage (used for photo grading). */
+  --stage-sage-alt: #AEB99C;
+  --stage-ochre-alt: #C7B587;
+  --stage-lake-alt: #A2B6C0;
+  --stage-heather-alt: #BBA7B5;
+  --stage-peach-alt: #D2AE96;
+
+  /* ---------- Type ---------- */
+  --font-serif: Newsreader, Georgia, serif;          /* Everything you notice. */
+  --font-sans: Figtree, system-ui, sans-serif;       /* Everything you read or click. */
+
+  --text-stat: 148px;         --lh-stat: 1;     --ls-stat: -0.04em;
+  --text-display-lg: 76px;    --lh-display-lg: 1.04; --ls-display-lg: -0.025em;
+  --text-display: 56px;       --lh-display: 1.06;    --ls-display: -0.025em;
+  --text-h2: 44px;            --lh-h2: 1.1;
+  --text-answer: 42px;        --lh-answer: 1.18;     --ls-answer: -0.01em;
+  --text-card-title-wide: 40px; --lh-card-title: 1.1;
+  --text-card-title: 26px;
+  --text-lead: 18px;          --lh-lead: 1.55;
+  --text-body: 16px;          --lh-body: 1.6;
+  --text-small: 14px;         --lh-small: 1.5;
+  --text-label: 13px;         --lh-label: 1.4;
+  --text-tag: 12px;           --lh-tag: 1.4;
+  --text-badge: 11px;         --lh-badge: 1.3;
+  --weight-serif: 500;
+
+  /* ---------- Spacing ---------- */
+  --space-1: 4px;   /* Handle offset. */
+  --space-2: 8px;   /* Tight stacks. */
+  --space-3: 12px;  /* Inner gutter inside each column line. */
+  --space-4: 16px;  /* Small card padding, button padding. */
+  --space-5: 24px;  /* THE gap between cards. */
+  --space-6: 40px;  /* Panel padding. */
+  --space-7: 56px;  /* Scrolling column side padding. */
+  --space-8: 72px;  /* Space above each section. */
+
+  /* ---------- Radius ---------- */
+  --radius-none: 0px; /* Everything. */
+
+  /* ---------- Layout ---------- */
+  --panel-width: 440px;
+  --column-count: 4;
+  --handle-size: 8px;
+  --lightbox-width: 880px;
+
+  /* ---------- Motion ---------- */
+  --dur-handles: 150ms;
+  --dur-tint: 200ms;
+  --dur-bar: 200ms;
+}
+
+/* Dark values, shared by the media query and the manual override. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #1B1612;
+    --surface: #241E19;
+    --line: #3A3029;
+    --ink: #F3ECE1;
+    --muted: #B5A390;
+    --ember: #FF7A35;
+    --ember-text: #FF8A4C;
+    --on-ember: #1B1612;
+    --col-hot: rgba(255,122,53,0.07);
+    --scrim: rgba(0,0,0,0.78);
+    --stage-sage: #AEB99C;
+    --stage-ochre: #C7B587;
+    --stage-lake: #A2B6C0;
+    --stage-heather: #BBA7B5;
+    --stage-peach: #D2AE96;
+    --on-stage: #2A1F18;
+    --stage-sage-alt: #3F4D36;
+    --stage-ochre-alt: #5E4B24;
+    --stage-lake-alt: #2F4A58;
+    --stage-heather-alt: #523C4E;
+    --stage-peach-alt: #6E3B24;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1B1612;
+  --surface: #241E19;
+  --line: #3A3029;
+  --ink: #F3ECE1;
+  --muted: #B5A390;
+  --ember: #FF7A35;
+  --ember-text: #FF8A4C;
+  --on-ember: #1B1612;
+  --col-hot: rgba(255,122,53,0.07);
+  --scrim: rgba(0,0,0,0.78);
+  --stage-sage: #AEB99C;
+  --stage-ochre: #C7B587;
+  --stage-lake: #A2B6C0;
+  --stage-heather: #BBA7B5;
+  --stage-peach: #D2AE96;
+  --on-stage: #2A1F18;
+  --stage-sage-alt: #3F4D36;
+  --stage-ochre-alt: #5E4B24;
+  --stage-lake-alt: #2F4A58;
+  --stage-heather-alt: #523C4E;
+  --stage-peach-alt: #6E3B24;
+}

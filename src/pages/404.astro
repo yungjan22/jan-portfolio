@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import Panel from '../components/Panel.astro';
+---
+<Base title="Not found">
+  <div class="shell">
+    <Panel base="/" />
+    <main class="main" id="content">
+      <div class="story" style="padding-top: var(--space-8)">
+        <h2 class="t-h2">This frame is empty.</h2>
+        <p style="margin-top: var(--space-5)">The page you’re after moved or never existed.</p>
+        <a class="btn-primary" href="/">Back to the work →</a>
+      </div>
+    </main>
+  </div>
+</Base>

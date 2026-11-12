@@ -1,0 +1,65 @@
+---
+// The Hinge-style project profile. Used in the lightbox and atop each case study page.
+import type { CollectionEntry } from 'astro:content';
+import Shot from './Shot.astro';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  headingId?: string;
+  headingLevel?: 'h1' | 'h2';
+}
+const { entry, headingId, headingLevel = 'h2' } = Astro.props;
+const d = entry.data;
+const stageName = d.stage[0].toUpperCase() + d.stage.slice(1);
+const Heading = headingLevel;
+---
+<div class="pf-top">
+  <span class="pf-tag">{d.tag} · {d.org} · {d.year}</span>
+  <Heading class="pf-title" id={headingId}>{d.title}</Heading>
+</div>
+
+<figure class="pf-stage">
+  <Shot src={d.hero} alt={d.alt.hero} placeholder={`Image 1 · hero on ${stageName} stage`} />
+</figure>
+
+<section class="pf-sec">
+  <span class="t-label">The problem I fell for</span>
+  <p class="t-answer">{d.problem}</p>
+</section>
+
+<figure class="pf-pair">
+  <div>
+    <Shot src={d.before} alt={d.alt.before} placeholder="Image 2a · before" />
+    <figcaption>Before</figcaption>
+  </div>
+  <div>
+    <Shot src={d.after} alt={d.alt.after} placeholder="Image 2b · after" class="shot--after" />
+    <figcaption>After</figcaption>
+  </div>
+</figure>
+
+<section class="pf-sec">
+  <span class="t-label">My role</span>
+  <p class="t-answer">{d.role}</p>
+</section>
+
+<section class="pf-flag">
+  <span class="t-label">Green flag</span>
+  <span class="t-stat">{d.stat}</span>
+  <span class="pf-flag__label">{d.statLabel}</span>
+</section>
+
+<figure class="pf-photo">
+  <Shot src={d.photo} alt={d.alt.photo} placeholder={`Image 3 · photo graded to ${stageName}`} graded />
+</figure>
+
+<section class="pf-sec">
+  <span class="t-label">What I’d do differently</span>
+  <p class="pf-lesson">{d.lesson}</p>
+</section>
+
+<dl class="pf-meta">
+  <div><dt class="t-label">Team</dt><dd>{d.team}</dd></div>
+  <div><dt class="t-label">Timeline</dt><dd>{d.timeline}</dd></div>
+  <div><dt class="t-label">Tools</dt><dd>{d.tools}</dd></div>
+</dl>

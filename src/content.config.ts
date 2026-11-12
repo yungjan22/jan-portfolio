@@ -1,0 +1,45 @@
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+
+// One Markdown file per case study in src/content/work/.
+// Frontmatter = the Hinge-style profile (shown in the lightbox).
+// Body = the full story (shown at /work/<slug>/).
+const work = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/work' }),
+  schema: z.object({
+    title: z.string(),
+    org: z.string(),
+    year: z.string(),
+    tag: z.string(), // Status for the "Status · Company · Year" tag line
+    order: z.number(), // Card order. Rhythm: wide → small + small → wide → …
+    stage: z.enum(['sage', 'ochre', 'lake', 'heather', 'peach']),
+    short: z.string(), // One-line result for small cards
+    metric: z.string(), // Longer result for wide cards
+    problem: z.string(), // "The problem I fell for"
+    role: z.string(), // "My role"
+    stat: z.string(), // Green flag number
+    statLabel: z.string(),
+    lesson: z.string(), // "What I'd do differently"
+    team: z.string(),
+    timeline: z.string(),
+    tools: z.string(),
+    // Optional images, as paths under public/ (e.g. /work/qin/hero.png).
+    // Without them, labelled placeholders render instead.
+    hero: z.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    photo: z.string().optional(),
+    alt: z
+      .object({
+        hero: z.string().optional(),
+        before: z.string().optional(),
+        after: z.string().optional(),
+        photo: z.string().optional(),
+      })
+      .default({}),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { work };

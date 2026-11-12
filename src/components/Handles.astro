@@ -1,0 +1,14 @@
+---
+// The selection frame: outline, four corner handles and a live size badge.
+// Only ever placed on interactive things ("if it has handles, you can click it").
+interface Props {
+  badge?: boolean;
+}
+const { badge = true } = Astro.props;
+---
+<span class="h h--ol" aria-hidden="true"></span>
+<span class="h h--hd h--tl" aria-hidden="true"></span>
+<span class="h h--hd h--tr" aria-hidden="true"></span>
+<span class="h h--hd h--bl" aria-hidden="true"></span>
+<span class="h h--hd h--br" aria-hidden="true"></span>
+{badge && <span class="h h--badge" aria-hidden="true" data-size></span>}

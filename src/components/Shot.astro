@@ -1,0 +1,14 @@
+---
+// A screenshot frame: shows the image if given, else a labelled placeholder.
+interface Props {
+  src?: string;
+  alt?: string;
+  placeholder: string;
+  class?: string;
+  graded?: boolean; // duotone-grade a photo to the current --stage
+}
+const { src, alt = '', placeholder, class: cls = '', graded = false } = Astro.props;
+---
+<div class:list={['shot', cls, { graded: graded && src }]}>
+  {src ? <img src={src} alt={alt} loading="lazy" decoding="async" /> : <span>[{placeholder}]</span>}
+</div>

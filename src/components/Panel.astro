@@ -1,0 +1,53 @@
+---
+import { site } from '../site';
+
+interface Props {
+  /** Prefix for section links: '' on the home page, '/' elsewhere. */
+  base?: string;
+}
+const { base = '' } = Astro.props;
+const sections = [
+  { id: 'work', label: 'Work' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'about', label: 'About' },
+];
+---
+<header class="panel">
+  <div class="panel__id">
+    <a class="panel__name" href="/">{site.name}</a>
+    <span class="panel__role">{site.role} · {site.location}</span>
+  </div>
+  <h1 class="panel__headline">I love meeting <i>intriguingly.</i></h1>
+  <p class="panel__intro">
+    I turn complex B2B logic and data-heavy SaaS workflows into products people understand the
+    first time. MS HCDE, University of Washington.
+  </p>
+
+  <nav class="nav" aria-label="Sections">
+    {
+      sections.map((s, i) => (
+        <a href={`${base}#${s.id}`} data-spy={s.id} aria-current={i === 0 && base === '' ? 'true' : 'false'}>
+          <span class="nav__bar" aria-hidden="true" />
+          <span class="nav__num" aria-hidden="true">{`0${i + 1}`}</span>
+          {s.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="panel__foot">
+    <span class="status">{site.status}</span>
+    <div class="contact">
+      {site.email && <a href={`mailto:${site.email}`}>Email</a>}
+      <a href={site.linkedin} rel="me noopener" target="_blank">LinkedIn ↗</a>
+      {site.resume && <a href={site.resume}>Resume ↗</a>}
+    </div>
+    <div class="appearance" role="group" aria-label="Appearance">
+      Appearance
+      <div class="seg">
+        <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+      </div>
+    </div>
+  </div>
+</header>

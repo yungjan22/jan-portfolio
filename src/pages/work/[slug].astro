@@ -1,0 +1,44 @@
+---
+// Full case study page, one per Markdown file in src/content/work/.
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Panel from '../../components/Panel.astro';
+import Profile from '../../components/Profile.astro';
+
+export async function getStaticPaths() {
+  const work = (await getCollection('work', (e) => !e.data.draft)).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return work.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: work[(i + 1) % work.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={d.title} description={`${d.title}: ${d.metric}`}>
+  <div class="shell">
+    <Panel base="/" />
+    <main class="main" id="content">
+      <article style={`--stage: var(--stage-${d.stage}); --stage-alt: var(--stage-${d.stage}-alt)`}>
+        <div style="padding: 24px var(--space-7) 0">
+          <a class="back-link" href="/#work">← All work</a>
+        </div>
+        <Profile entry={entry} headingLevel="h1" />
+        <div class="story">
+          <Content />
+        </div>
+        <div class="pf-foot" style="border-top: 1px solid var(--line)">
+          <a class="back-link" href="/#work">← All work</a>
+          <a class="next-link" href={`/work/${next.id}/`}>
+            <span>Next case study</span>
+            <span>{next.data.title} →</span>
+          </a>
+        </div>
+      </article>
+    </main>
+  </div>
+</Base>
