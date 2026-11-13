@@ -151,6 +151,9 @@ button { font: inherit; color: inherit; }
 /* Optional stage background image (stageImage in frontmatter), same in both themes. */
 .card__img, .pf-stage { background-image: var(--stage-image, none); background-size: cover; background-position: center; }
 
+/* Coded demos are centred in the stage (screenshots sit on the bottom edge instead). */
+.card__img:has(.shot--demo), .pf-stage:has(.shot--demo) { padding: 0; align-items: stretch; }
+
 /* Screenshot frame (image or placeholder) */
 .shot {
   background: var(--surface); border: 1px solid var(--line);
