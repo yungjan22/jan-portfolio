@@ -3,8 +3,9 @@
 // Use in frontmatter as: heroDemo: <name>
 import SparkLogo from './SparkLogo.astro';
 import QinDefectChart from './QinDefectChart.astro';
+import WebSeoOverview from './WebSeoOverview.astro';
 
-const demos = { 'spark-logo': SparkLogo, 'qin-defect-chart': QinDefectChart } as const;
+const demos = { 'spark-logo': SparkLogo, 'qin-defect-chart': QinDefectChart, 'web-seo-overview': WebSeoOverview } as const;
 export type DemoName = keyof typeof demos;
 
 interface Props {

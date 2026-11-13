@@ -18,6 +18,7 @@ client: Law firm
 platform: Responsive website
 led: Web design, front end
 team: Team of 3
+heroDemo: web-seo-overview
 ---
 
 ## What went wrong
