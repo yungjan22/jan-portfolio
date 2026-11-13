@@ -148,6 +148,9 @@ button { font: inherit; color: inherit; }
 .card__desc { font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); }
 .card--wide .card__desc { font-size: var(--text-body); }
 
+/* Optional stage background image (stageImage in frontmatter), same in both themes. */
+.card__img, .pf-stage { background-image: var(--stage-image, none); background-size: cover; background-position: center; }
+
 /* Screenshot frame (image or placeholder) */
 .shot {
   background: var(--surface); border: 1px solid var(--line);
@@ -233,7 +236,7 @@ button { font: inherit; color: inherit; }
   font-family: var(--font-serif); font-weight: var(--weight-serif);
   font-size: var(--text-display-lg); line-height: var(--lh-display-lg); letter-spacing: var(--ls-display-lg);
 }
-.pf-stage { height: 500px; background: var(--stage); display: flex; align-items: flex-end; padding: 48px 64px 0; }
+.pf-stage { height: 500px; background-color: var(--stage); display: flex; align-items: flex-end; padding: 48px 64px 0; }
 .pf-stage > .shot { flex: 1; height: 100%; border-bottom: 0; }
 .pf-sec { padding: 64px var(--space-7); display: flex; flex-direction: column; gap: 20px; border-bottom: 1px solid var(--line); }
 .pf-pair { padding: 48px var(--space-7) var(--space-5); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }

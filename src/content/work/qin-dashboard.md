@@ -18,6 +18,8 @@ client: Microsoft · Super Qin Enterprise
 platform: SaaS application
 led: User interviews, product design, presenting
 team: Team of 3
+heroDemo: qin-defect-chart
+stageImage: /work/qin-dashboard/stage-bg.webp
 ---
 
 <!-- Slug matches the old URL jan.bitbypixel.com/qin-dashboard/ linked from the resume. -->

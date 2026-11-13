@@ -16,6 +16,7 @@ const work = defineCollection({
     tag: z.string(), // Status for the "Status · Company · Year" tag line
     order: z.number(), // Card order. Rhythm: wide → small + small → wide → …
     stage: z.enum(['sage', 'ochre', 'lake', 'heather', 'peach']),
+    stageImage: z.string().optional(), // background image for the hero stage, under public/ (both themes)
     short: z.string(), // One-line result for small cards
     metric: z.string(), // Longer result for wide cards
     problem: z.string(), // "The problem I fell for"

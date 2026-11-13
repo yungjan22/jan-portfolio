@@ -6,6 +6,7 @@ import Handles from '../components/Handles.astro';
 import Shot from '../components/Shot.astro';
 import Profile from '../components/Profile.astro';
 import { value, experience, notes, skills } from '../data/resume';
+import { stageStyle } from '../lib/stage';
 
 const work = (await getCollection('work', (e) => !e.data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
@@ -17,7 +18,7 @@ const cards = work.map((entry, i) => {
   const span = slot === 0 ? 'all' : slot === 1 ? 'left' : 'right';
   return { entry, wide: slot === 0, span };
 });
-const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-alt: var(--stage-${stage}-alt)`;
+
 ---
 <Base>
   <div class="shell">
@@ -37,7 +38,7 @@ const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-al
           <div class="work-grid">
             {
               cards.map(({ entry, wide, span }) => (
-                <div class:list={['card sel', { 'card--wide': wide }]} data-span={span} style={stageVars(entry.data.stage)}>
+                <div class:list={['card sel', { 'card--wide': wide }]} data-span={span} style={stageStyle(entry)}>
                   <a
                     class="card__btn"
                     href={`/work/${entry.id}/`}
@@ -140,7 +141,7 @@ const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-al
         work.map((entry, i) => {
           const next = work[(i + 1) % work.length];
           return (
-            <article data-profile={entry.id} hidden={i !== 0} style={stageVars(entry.data.stage)}>
+            <article data-profile={entry.id} hidden={i !== 0} style={stageStyle(entry)}>
               <Profile entry={entry} headingId={`lb-title-${i}`} />
               <div class="pf-foot">
                 <button class="next-link" type="button" data-next={next.id}>

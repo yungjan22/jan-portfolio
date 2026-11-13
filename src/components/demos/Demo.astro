@@ -2,8 +2,9 @@
 // Coded animations that can stand in for a case study's hero image.
 // Use in frontmatter as: heroDemo: <name>
 import SparkLogo from './SparkLogo.astro';
+import QinDefectChart from './QinDefectChart.astro';
 
-const demos = { 'spark-logo': SparkLogo } as const;
+const demos = { 'spark-logo': SparkLogo, 'qin-defect-chart': QinDefectChart } as const;
 export type DemoName = keyof typeof demos;
 
 interface Props {
