@@ -42,8 +42,8 @@ const sections = [
   <div class="panel__foot">
     <ul class="facts">
       <li class="status">{site.status}</li>
+      <li>Based in {site.location}<time class="panel__clock" data-clock={site.timeZone}></time></li>
       <li>{site.relocation}</li>
-      <li>{site.location}<time class="panel__clock" data-clock={site.timeZone}></time></li>
     </ul>
     <div class="contact">
       {site.email && <a href={`mailto:${site.email}`}>Email</a>}

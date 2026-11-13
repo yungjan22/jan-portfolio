@@ -48,11 +48,13 @@ const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-al
                       <Shot src={entry.data.hero} demo={entry.data.heroDemo} alt={entry.data.alt.hero} placeholder="Project image" />
                     </span>
                     <span class="card__txt">
+                      <span class="card__main">
+                        <span class="card__title">{entry.data.title}</span>
+                        <span class="card__desc">{wide ? entry.data.metric : entry.data.short}</span>
+                      </span>
                       <span class="t-tag card__tag">
                         {entry.data.tag} · {entry.data.org} · {entry.data.year}
                       </span>
-                      <span class="card__title">{entry.data.title}</span>
-                      <span class="card__desc">{wide ? entry.data.metric : entry.data.short}</span>
                     </span>
                   </a>
                   <Handles />

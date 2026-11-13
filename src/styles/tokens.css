@@ -71,6 +71,7 @@
 
   /* ---------- Layout ---------- */
   --panel-width: 440px;
+  --card-text-max: 56ch; /* Readable line length for card title + description. */
   --avatar-size: 64px; /* Photo beside name and role in the panel. */
   --column-count: 4;
   --handle-size: 8px;

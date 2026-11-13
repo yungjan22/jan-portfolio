@@ -132,16 +132,21 @@ button { font: inherit; color: inherit; }
 }
 .card--wide .card__img { height: 340px; padding: 36px 48px 0; }
 .card__img > .shot { flex: 1; height: 100%; border-bottom: 0; }
-.card__txt { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); padding: 18px 22px; }
-.card--wide .card__txt {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: var(--space-5); row-gap: var(--space-3); padding: var(--space-5) 28px 26px; align-content: start;
+/* Card text: title + description together on the left (kept to a readable
+   width), the "Status · Company · Year" tag on the right. */
+.card__txt {
+  flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: start;
+  column-gap: var(--space-4); row-gap: var(--space-2); padding: 18px 22px;
 }
-.card__tag { color: var(--ember-text); }
+.card--wide .card__txt { column-gap: var(--space-5); padding: var(--space-5) 28px 26px; }
+.card__main { display: contents; }
+.card__title { grid-column: 1; grid-row: 1; }
+.card__desc { grid-column: 1 / -1; grid-row: 2; max-width: var(--card-text-max); }
+.card__tag { grid-column: 2; grid-row: 1; color: var(--ember-text); text-align: right; padding-top: 0.35em; white-space: nowrap; }
 .card__title { font-family: var(--font-serif); font-weight: var(--weight-serif); font-size: var(--text-card-title); line-height: var(--lh-card-title); }
 .card--wide .card__title { font-size: var(--text-card-title-wide); }
 .card__desc { font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); }
-.card--wide .card__desc { grid-column: 2; grid-row: 1 / span 2; align-self: end; font-size: var(--text-body); }
+.card--wide .card__desc { font-size: var(--text-body); }
 
 /* Screenshot frame (image or placeholder) */
 .shot {
@@ -290,7 +295,11 @@ button { font: inherit; color: inherit; }
   .card, .card--wide { grid-column: auto; height: auto; min-height: 360px; }
   .card__btn { position: relative; inset: auto; min-height: 360px; }
   .card__img, .card--wide .card__img { height: 200px; padding: 20px 20px 0; }
-  .card--wide .card__txt { display: flex; flex-direction: column; padding: 18px 22px; }
+  .card--wide .card__txt { padding: 18px 22px; }
+  .card__txt { grid-template-columns: minmax(0, 1fr); }
+  .card__tag { grid-column: 1; grid-row: 1; text-align: left; padding-top: 0; white-space: normal; }
+  .card__title { grid-row: 2; }
+  .card__desc { grid-column: 1; grid-row: 3; }
   .card--wide .card__title { font-size: var(--text-card-title); }
   .card--wide .card__desc { font-size: var(--text-small); }
   .exp-row { grid-template-columns: 1fr; row-gap: 4px; }
