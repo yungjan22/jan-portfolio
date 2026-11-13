@@ -19,6 +19,8 @@ platform: AI web application
 led: UX research, product design, prototyping
 team: Team of 3
 heroDemo: spark-logo
+stageImage: /work/github-spark/stage-bg-light.webp
+stageImageDark: /work/github-spark/stage-bg-dark.webp
 ---
 
 <!-- Slug matches the old URL jan.bitbypixel.com/github-spark/ linked from the resume. -->
