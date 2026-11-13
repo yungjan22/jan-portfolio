@@ -68,10 +68,8 @@ button { font: inherit; color: inherit; }
 .panel.is-portrait .panel__id { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
 .panel.is-portrait .panel__photo {
   width: auto; height: min(calc(var(--panel-width) * 4 / 3 - 107px), calc(100vh - 360px)); aspect-ratio: 3 / 4;
-  max-width: 100%; object-fit: cover; object-position: 50% 0; min-height: 160px;
-  animation: photo-in var(--dur-tint) ease;
+  max-width: 100%; object-fit: cover; min-height: 160px;
 }
-@keyframes photo-in { from { opacity: 0; } to { opacity: 1; } }
 .panel__intro em { font-style: italic; color: var(--ink); }
 .panel__foot { margin-top: auto; display: flex; flex-direction: column; gap: var(--space-4); }
 .facts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: var(--text-small); color: var(--muted); }
@@ -278,7 +276,7 @@ button { font: inherit; color: inherit; }
   .shell { flex-direction: column; }
   .panel { position: static; width: auto; height: auto; overflow: visible; border-right: 0; border-bottom: 1px solid var(--line); padding: 32px 24px; }
   .panel.is-portrait .panel__id { flex-direction: row; align-items: center; }
-  .panel.is-portrait .panel__photo { width: var(--avatar-size); height: var(--avatar-size); min-height: 0; aspect-ratio: auto; animation: none; object-position: 50% 30%; }
+  .panel.is-portrait .panel__photo { width: var(--avatar-size); height: var(--avatar-size); min-height: 0; aspect-ratio: auto; }
   .panel.is-portrait .panel__intro { display: block; }
   .panel.is-portrait .nav { display: flex; }
   .nav { flex-direction: row; flex-wrap: wrap; gap: 0 20px; }

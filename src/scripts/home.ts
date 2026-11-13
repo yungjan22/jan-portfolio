@@ -89,13 +89,93 @@ const sections = links
   .filter((s): s is HTMLElement => !!s);
 
 const panel = document.querySelector<HTMLElement>('.panel');
+const photo = panel?.querySelector<HTMLElement>('.panel__photo');
+const idText = panel?.querySelector<HTMLElement>('.panel__idtext');
+const extras = panel ? Array.from(panel.querySelectorAll<HTMLElement>('.panel__intro, .nav')) : [];
+const css = getComputedStyle(document.documentElement);
+// Token durations may be minified to seconds (".5s"), so convert both units.
+const ms = (name: string, fallback: number) => {
+  const v = css.getPropertyValue(name).trim();
+  const n = parseFloat(v);
+  if (!Number.isFinite(n)) return fallback;
+  return v.endsWith('ms') ? n : v.endsWith('s') ? n * 1000 : n;
+};
+const EASE = 'cubic-bezier(0.2, 0.7, 0.2, 1)';
+let portraitWanted = false;
+
+// Smoothly zoom the panel photo between the small thumbnail and the 3:4 portrait,
+// with the name gliding from beside it to below it (FLIP).
+function setPortrait(on: boolean) {
+  if (!panel || !photo || !idText || on === portraitWanted) return;
+  portraitWanted = on;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches || innerWidth < 900;
+  [photo, idText, ...extras].forEach((el) => el.getAnimations().forEach((a) => a.cancel()));
+  if (still) {
+    panel.classList.toggle('is-portrait', on);
+    return;
+  }
+  const dur = ms('--dur-portrait', 500);
+  const fade = ms('--dur-fade', 150);
+
+  const flip = () => {
+    if (portraitWanted !== on) return;
+    const p0 = photo.getBoundingClientRect();
+    const n0 = idText.getBoundingClientRect();
+    panel.classList.toggle('is-portrait', on);
+    const p1 = photo.getBoundingClientRect();
+    // Where the name sits in the new layout while the photo is still its old size.
+    photo.style.width = `${p0.width}px`;
+    photo.style.height = `${p0.height}px`;
+    const nStart = idText.getBoundingClientRect();
+    photo.style.width = '';
+    photo.style.height = '';
+    const opts = { duration: dur, easing: EASE };
+    photo.animate(
+      [
+        { width: `${p0.width}px`, height: `${p0.height}px` },
+        { width: `${p1.width}px`, height: `${p1.height}px` },
+      ],
+      opts,
+    );
+    const dx = n0.left - nStart.left;
+    const dy = n0.top - nStart.top;
+    if (on) {
+      // Drop below the photo early, then glide left while the photo keeps growing,
+      // so the name never sits on top of the image.
+      idText.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: `translate(${dx * 0.75}px, 0px)`, offset: 0.25 },
+          { transform: 'none' },
+        ],
+        opts,
+      );
+    } else {
+      idText.animate([{ opacity: 0 }, { opacity: 0, offset: 0.55 }, { opacity: 1 }], opts);
+    }
+    if (!on) extras.forEach((el) => el.animate([{ opacity: 0 }, { opacity: 0, offset: 0.5 }, { opacity: 1 }], opts));
+  };
+
+  if (on) {
+    // Fade the intro and section links out first, then zoom.
+    const fades = extras.map((el) => el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: fade, fill: 'forwards' }));
+    Promise.all(fades.map((a) => a.finished))
+      .then(() => {
+        flip();
+        fades.forEach((a) => a.cancel());
+      })
+      .catch(() => {});
+  } else {
+    flip();
+  }
+}
 function spy() {
   const y = window.scrollY + window.innerHeight * 0.3;
   let active = sections[0]?.id;
   for (const s of sections) if (s.offsetTop <= y) active = s.id;
   if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) active = sections.at(-1)?.id;
   links.forEach((l) => l.setAttribute('aria-current', String(l.dataset.spy === active)));
-  panel?.classList.toggle('is-portrait', active === 'experience' || active === 'about');
+  setPortrait(active === 'experience' || active === 'about');
 }
 window.addEventListener('scroll', spy, { passive: true });
 window.addEventListener('resize', spy);

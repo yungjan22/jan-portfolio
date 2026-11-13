@@ -80,6 +80,8 @@
   --dur-handles: 150ms;
   --dur-tint: 200ms;
   --dur-bar: 200ms;
+  --dur-portrait: 500ms; /* Panel photo zoom between thumbnail and 3:4 portrait (approved exception to the 8px rule). */
+  --dur-fade: 150ms;
 }
 
 /* Dark values, shared by the media query and the manual override. */
