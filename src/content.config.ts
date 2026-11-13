@@ -33,6 +33,7 @@ const work = defineCollection({
     // Without them, labelled placeholders render instead.
     hero: z.string().optional(),
     heroDemo: z.string().optional(), // coded animation in src/components/demos/ (wins over hero)
+    heroVideo: z.string().optional(), // short silent looping clip URL (wins over hero image)
     before: z.string().optional(),
     after: z.string().optional(),
     photo: z.string().optional(),

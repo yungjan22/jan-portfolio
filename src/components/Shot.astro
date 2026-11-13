@@ -1,17 +1,53 @@
 ---
-// A screenshot frame: a coded demo, an image, or a labelled placeholder.
+// A screenshot frame: a coded demo, a looping video, an image, or a labelled placeholder.
 import Demo from './demos/Demo.astro';
 
 interface Props {
   src?: string;
   alt?: string;
   demo?: string; // name of a coded animation in src/components/demos/
+  video?: string; // URL of a short silent clip (mp4/webm); fills the stage
   placeholder: string;
   class?: string;
   graded?: boolean; // duotone-grade a photo to the current --stage
 }
-const { src, alt = '', demo, placeholder, class: cls = '', graded = false } = Astro.props;
+const { src, alt = '', demo, video, placeholder, class: cls = '', graded = false } = Astro.props;
 ---
-<div class:list={['shot', cls, { graded: graded && src, 'shot--demo': demo }]}>
-  {demo ? <Demo name={demo} /> : src ? <img src={src} alt={alt} loading="lazy" decoding="async" /> : <span>[{placeholder}]</span>}
+<div class:list={['shot', cls, { graded: graded && src && !video, 'shot--demo': demo, 'shot--video': video && !demo }]}>
+  {
+    demo ? (
+      <Demo name={demo} />
+    ) : video ? (
+      <video
+        src={video}
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        disablepictureinpicture
+        aria-label={alt || undefined}
+        data-autoplay
+      />
+    ) : src ? (
+      <img src={src} alt={alt} loading="lazy" decoding="async" />
+    ) : (
+      <span>[{placeholder}]</span>
+    )
+  }
 </div>
+
+<script>
+  // Play clips only while visible, and never automatically with reduced motion.
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting && !still.matches) v.play().catch(() => {});
+        else v.pause();
+      }
+    },
+    { threshold: 0.25 },
+  );
+  document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]').forEach((v) => io.observe(v));
+</script>

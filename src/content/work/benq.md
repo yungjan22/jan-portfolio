@@ -18,6 +18,10 @@ client: BenQ
 platform: Hardware
 led: Usability study
 team: Team of 3
+# BenQ's own product clip, linked from their site (not copied into this repo).
+heroVideo: https://image.benq.com/is/content/benqco/b2c/en/g6/monitor/professional/pd2706ua_2022/image/kv-2560x1174.mp4
+alt:
+  hero: BenQ monitor on its ergonomic arm (BenQ product video)
 ---
 
 ## Quick question

@@ -156,7 +156,9 @@ button { font: inherit; color: inherit; }
 :root[data-theme="dark"] :is(.card__img, .pf-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
 
 /* Coded demos are centred in the stage (screenshots sit on the bottom edge instead). */
-.card__img:has(.shot--demo), .pf-stage:has(.shot--demo) { padding: 0; align-items: stretch; }
+.card__img:has(.shot--demo, .shot--video), .pf-stage:has(.shot--demo, .shot--video) { padding: 0; align-items: stretch; }
+.shot--video { padding: 0; background: transparent; border: 0; }
+.shot--video video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* Screenshot frame (image or placeholder) */
 .shot {
