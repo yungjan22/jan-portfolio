@@ -36,10 +36,12 @@
   --chart-2: #D2551E;  /* ember-dark orange */
   --chart-3: #B9851A;  /* ochre */
   --chart-4: #7E5C92;  /* heather */
-  --chart-ok: #4A7A36; /* "Normal" status */
-  --chart-card: rgba(251,247,240,0.86); /* Frosted panel over a stage image */
-  --chart-chip: rgba(255,253,249,0.9);
+  --chart-ok: #3F6A2E; /* "Normal" status */
+  --chart-card: rgba(251,247,240,0.68); /* Frosted panel over a stage image */
+  --chart-chip: rgba(255,253,249,0.72);
   --chart-card-line: rgba(42,31,24,0.12);
+  --chart-muted: #4F4236;  /* Muted text on the see-through panels (stays ≥4.5:1) */
+  --chart-accent-text: #8F3208; /* Orange text on the see-through panels */
   /* Duotone grading pair: the "other" end of each stage (used for photo grading). */
   --stage-sage-alt: #AEB99C;
   --stage-ochre-alt: #C7B587;
@@ -120,9 +122,11 @@
     --chart-3: #E2B65C;
     --chart-4: #BFA2D8;
     --chart-ok: #9CCB86;
-    --chart-card: rgba(27,22,18,0.78);
-    --chart-chip: rgba(36,30,25,0.85);
+    --chart-card: rgba(27,22,18,0.6);
+    --chart-chip: rgba(36,30,25,0.66);
     --chart-card-line: rgba(243,236,225,0.12);
+    --chart-muted: #D4C6B4;
+    --chart-accent-text: #FFAA78;
     --stage-sage-alt: #3F4D36;
     --stage-ochre-alt: #5E4B24;
     --stage-lake-alt: #2F4A58;
@@ -154,9 +158,11 @@
   --chart-3: #E2B65C;
   --chart-4: #BFA2D8;
   --chart-ok: #9CCB86;
-  --chart-card: rgba(27,22,18,0.78);
-  --chart-chip: rgba(36,30,25,0.85);
+  --chart-card: rgba(27,22,18,0.6);
+  --chart-chip: rgba(36,30,25,0.66);
   --chart-card-line: rgba(243,236,225,0.12);
+  --chart-muted: #D4C6B4;
+  --chart-accent-text: #FFAA78;
   --stage-sage-alt: #3F4D36;
   --stage-ochre-alt: #5E4B24;
   --stage-lake-alt: #2F4A58;
