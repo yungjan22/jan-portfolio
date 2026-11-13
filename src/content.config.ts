@@ -30,6 +30,7 @@ const work = defineCollection({
     // Optional images, as paths under public/ (e.g. /work/qin/hero.png).
     // Without them, labelled placeholders render instead.
     hero: z.string().optional(),
+    heroDemo: z.string().optional(), // coded animation in src/components/demos/ (wins over hero)
     before: z.string().optional(),
     after: z.string().optional(),
     photo: z.string().optional(),

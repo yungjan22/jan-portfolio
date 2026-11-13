@@ -1,14 +1,17 @@
 ---
-// A screenshot frame: shows the image if given, else a labelled placeholder.
+// A screenshot frame: a coded demo, an image, or a labelled placeholder.
+import Demo from './demos/Demo.astro';
+
 interface Props {
   src?: string;
   alt?: string;
+  demo?: string; // name of a coded animation in src/components/demos/
   placeholder: string;
   class?: string;
   graded?: boolean; // duotone-grade a photo to the current --stage
 }
-const { src, alt = '', placeholder, class: cls = '', graded = false } = Astro.props;
+const { src, alt = '', demo, placeholder, class: cls = '', graded = false } = Astro.props;
 ---
-<div class:list={['shot', cls, { graded: graded && src }]}>
-  {src ? <img src={src} alt={alt} loading="lazy" decoding="async" /> : <span>[{placeholder}]</span>}
+<div class:list={['shot', cls, { graded: graded && src, 'shot--demo': demo }]}>
+  {demo ? <Demo name={demo} /> : src ? <img src={src} alt={alt} loading="lazy" decoding="async" /> : <span>[{placeholder}]</span>}
 </div>

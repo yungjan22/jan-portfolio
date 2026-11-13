@@ -18,6 +18,7 @@ client: GitHub
 platform: AI web application
 led: UX research, product design, prototyping
 team: Team of 3
+heroDemo: spark-logo
 ---
 
 <!-- Slug matches the old URL jan.bitbypixel.com/github-spark/ linked from the resume. -->

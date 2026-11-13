@@ -1,0 +1,14 @@
+---
+// Coded animations that can stand in for a case study's hero image.
+// Use in frontmatter as: heroDemo: <name>
+import SparkLogo from './SparkLogo.astro';
+
+const demos = { 'spark-logo': SparkLogo } as const;
+export type DemoName = keyof typeof demos;
+
+interface Props {
+  name: string;
+}
+const Component = demos[Astro.props.name as DemoName];
+---
+{Component ? <Component /> : <span>[Unknown demo: {Astro.props.name}]</span>}
