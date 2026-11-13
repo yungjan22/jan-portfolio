@@ -19,6 +19,8 @@ platform: Responsive website
 led: Web design, front end
 team: Team of 3
 heroDemo: web-seo-overview
+stageImage: /work/web-seo/stage-bg-light.webp
+stageImageDark: /work/web-seo/stage-bg-dark.webp
 ---
 
 ## What went wrong
