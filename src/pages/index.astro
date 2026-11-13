@@ -141,7 +141,6 @@ const stageVars = (stage: string) => `--stage: var(--stage-${stage}); --stage-al
             <article data-profile={entry.id} hidden={i !== 0} style={stageVars(entry.data.stage)}>
               <Profile entry={entry} headingId={`lb-title-${i}`} />
               <div class="pf-foot">
-                <a class="btn-primary" href={`/work/${entry.id}/`}>Read the full story →</a>
                 <button class="next-link" type="button" data-next={next.id}>
                   <span>Next profile</span>
                   <span>{next.data.title} →</span>

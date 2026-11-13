@@ -71,6 +71,7 @@
 
   /* ---------- Layout ---------- */
   --panel-width: 440px;
+  --avatar-size: 64px; /* Photo beside name and role in the panel. */
   --column-count: 4;
   --handle-size: 8px;
   --lightbox-width: 880px;

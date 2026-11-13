@@ -14,18 +14,18 @@ const sections = [
 ];
 ---
 <header class="panel">
-  <div class="panel__id">
-    <a class="panel__name" href="/">{site.name}</a>
-    <span class="panel__role">
-      {site.role} · {site.location}
-      <time class="panel__clock" data-clock={site.timeZone}></time>
-    </span>
+  <div class="panel__top">
+    <div class="panel__id">
+      <img class="panel__photo" src={site.photo} alt="" width="64" height="64" decoding="async" />
+      <div class="panel__idtext">
+        <a class="panel__name" href="/">{site.name}</a>
+        <span class="panel__role">{site.role}</span>
+      </div>
+    </div>
+    <p class="panel__intro">
+      A product designer who actually <em>likes meetings.</em> {site.intro}
+    </p>
   </div>
-  <h1 class="panel__headline">A product designer who actually <i>likes meetings.</i></h1>
-  <p class="panel__intro">
-    I enjoy conversations with project managers, researchers, engineers and stakeholders. And I
-    design things that ship.
-  </p>
 
   <nav class="nav" aria-label="Sections">
     {
@@ -40,7 +40,11 @@ const sections = [
   </nav>
 
   <div class="panel__foot">
-    <span class="status">{site.status}</span>
+    <ul class="facts">
+      <li class="status">{site.status}</li>
+      <li>{site.relocation}</li>
+      <li>{site.location}<time class="panel__clock" data-clock={site.timeZone}></time></li>
+    </ul>
     <div class="contact">
       {site.email && <a href={`mailto:${site.email}`}>Email</a>}
       <a href={site.linkedin} rel="me noopener" target="_blank">LinkedIn ↗</a>

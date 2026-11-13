@@ -8,7 +8,10 @@ export const site = {
   url: 'https://jan.bitbypixel.com',
   description:
     'Jan Chang, a product designer in Vancouver who actually likes meetings. I design things that ship: AI products, B2B SaaS dashboards, web and hardware.',
-  status: 'Open to Product Design roles',
+  status: 'Looking for a Product Design role',
+  relocation: 'Open to relocation',
+  intro: 'Previously, I partnered with GitHub, Microsoft and Wistron.',
+  photo: '/jan-chang.jpg',
   email: 'yungjan22@gmail.com',
   linkedin: 'https://www.linkedin.com/in/yungjan/',
   resume: '', // e.g. '/Jan-Chang-Resume.pdf' (drop the PDF in public/). Hidden while empty.
