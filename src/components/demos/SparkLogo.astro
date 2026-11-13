@@ -1,9 +1,11 @@
 ---
 // Animated GitHub Spark lockup, from Jan's SVG (Group 697).
 // Sequence: octocat rises in → "GitHub Spark" wipes in left to right →
-// the four sparkles pop in at the top right → the big sparkle keeps a slow twinkle.
+// the four sparkles pop in at the top right → the small green sparkle keeps a slow twinkle.
 // Plays each time it scrolls into view (or its profile opens). Static with reduced motion.
-// Mark and wordmark use --ink so they follow Light/Dark; sparkles keep their brand colours.
+// Sits straight on the stage colour (no inner frame). Mark and wordmark use --on-stage:
+// cream on the deep purple in Light mode, dark ink on the light purple in Dark mode.
+// Sparkles keep their brand colours.
 const uid = `spark-${Math.random().toString(36).slice(2, 8)}`;
 ---
 <div class="spark-demo" data-demo-play>
@@ -32,7 +34,7 @@ const uid = `spark-${Math.random().toString(36).slice(2, 8)}`;
 <style>
   .spark-demo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 8% 10%; }
   .spark-demo svg { width: 100%; height: 100%; max-width: 440px; overflow: visible; }
-  .sd-word, .sd-mark { fill: var(--ink); }
+  .sd-word, .sd-mark { fill: var(--on-stage); }
   .sd-mark, .sd-star { transform-box: fill-box; transform-origin: center; }
 
   /* Before playing: hidden. Reduced motion skips straight to the final state. */
@@ -47,8 +49,8 @@ const uid = `spark-${Math.random().toString(36).slice(2, 8)}`;
   .is-playing .sd-star--dot { animation-delay: 1250ms; }
   .is-playing .sd-star--square { animation-delay: 1400ms; --sd-turn: 45deg; }
   .is-playing .sd-star--small { animation-delay: 1550ms; --sd-turn: 30deg; }
-  .is-playing .sd-star--big {
-    animation: sd-pop 520ms cubic-bezier(0.3, 1.6, 0.5, 1) 1050ms both, sd-twinkle 3.2s ease-in-out 2.4s infinite;
+  .is-playing .sd-star--small {
+    animation: sd-pop 520ms cubic-bezier(0.3, 1.6, 0.5, 1) 1550ms both, sd-twinkle 3.2s ease-in-out 2.4s infinite;
   }
 
   @keyframes sd-rise {
@@ -65,7 +67,7 @@ const uid = `spark-${Math.random().toString(36).slice(2, 8)}`;
   }
   @keyframes sd-twinkle {
     0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(0.86) rotate(12deg); }
+    50% { transform: scale(0.8) rotate(45deg); }
   }
 
   @media (prefers-reduced-motion: reduce) {
