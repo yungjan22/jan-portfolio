@@ -88,12 +88,14 @@ const sections = links
   .map((l) => document.getElementById(l.dataset.spy!))
   .filter((s): s is HTMLElement => !!s);
 
+const panel = document.querySelector<HTMLElement>('.panel');
 function spy() {
   const y = window.scrollY + window.innerHeight * 0.3;
   let active = sections[0]?.id;
   for (const s of sections) if (s.offsetTop <= y) active = s.id;
   if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) active = sections.at(-1)?.id;
   links.forEach((l) => l.setAttribute('aria-current', String(l.dataset.spy === active)));
+  panel?.classList.toggle('is-portrait', active === 'experience' || active === 'about');
 }
 window.addEventListener('scroll', spy, { passive: true });
 window.addEventListener('resize', spy);

@@ -56,18 +56,29 @@ button { font: inherit; color: inherit; }
 }
 .panel__top { display: flex; flex-direction: column; gap: var(--space-5); }
 .panel__id { display: flex; align-items: center; gap: var(--space-4); }
-.panel__photo { width: var(--avatar-size); height: var(--avatar-size); flex: none; object-fit: cover; background: var(--surface); border: 1px solid var(--line); }
+.panel__photo { width: var(--avatar-size); height: var(--avatar-size); flex: none; object-fit: cover; object-position: 50% 30%; background: var(--surface); border: 1px solid var(--line); }
 .panel__idtext { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .panel__name { font-family: var(--font-serif); font-weight: var(--weight-serif); font-size: 28px; line-height: 1.2; text-decoration: none; }
 .panel__role { font-size: var(--text-small); color: var(--muted); }
 .panel__intro { font-size: var(--text-body); line-height: var(--lh-body); color: var(--muted); max-width: 34ch; }
+/* Portrait mode: on Experience and About the photo grows to the panel's width,
+   with name and role below it. It shrinks to fit short screens. */
+.panel.is-portrait .panel__top { flex: 1 1 auto; min-height: 0; }
+.panel.is-portrait .panel__id { flex: 1 1 auto; min-height: 0; flex-direction: column; align-items: stretch; gap: var(--space-4); }
+.panel.is-portrait .panel__photo {
+  width: 100%; height: auto; aspect-ratio: 1; max-height: var(--panel-width);
+  flex: 1 1 auto; min-height: var(--avatar-size); object-position: 50% 30%;
+  animation: photo-in var(--dur-tint) ease;
+}
+@keyframes photo-in { from { opacity: 0; } to { opacity: 1; } }
 .panel__intro em { font-style: italic; color: var(--ink); }
 .panel__foot { margin-top: auto; display: flex; flex-direction: column; gap: var(--space-4); }
 .facts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: var(--text-small); color: var(--muted); }
 .facts .status { display: flex; align-items: center; gap: var(--space-2); }
 .status { color: var(--ink); }
 .status::before { content: ""; width: 8px; height: 8px; background: var(--ember); }
-.contact { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; font-weight: 600; }
+.contact { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: 15px; font-weight: 600; }
+.contact .seg { margin-left: auto; }
 .contact a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
 .contact a:hover { color: var(--ember-text); }
 
@@ -81,7 +92,6 @@ button { font: inherit; color: inherit; }
 .nav a[aria-current="true"] .nav__bar { width: 48px; background: var(--ember); }
 .nav__num { font-size: var(--text-tag); width: 22px; font-variant-numeric: tabular-nums; }
 
-.appearance { display: flex; align-items: center; gap: 10px; font-size: var(--text-tag); color: var(--muted); }
 .seg { display: flex; border: 1px solid var(--line); }
 .seg button {
   all: unset; cursor: pointer; min-height: 32px; padding: 0 10px;
@@ -266,6 +276,8 @@ button { font: inherit; color: inherit; }
 @media (max-width: 899px) {
   .shell { flex-direction: column; }
   .panel { position: static; width: auto; height: auto; overflow: visible; border-right: 0; border-bottom: 1px solid var(--line); padding: 32px 24px; }
+  .panel.is-portrait .panel__id { flex-direction: row; align-items: center; }
+  .panel.is-portrait .panel__photo { width: var(--avatar-size); height: var(--avatar-size); aspect-ratio: auto; flex: none; animation: none; }
   .nav { flex-direction: row; flex-wrap: wrap; gap: 0 20px; }
   .nav__bar { display: none; }
   .cols-wrap { padding: 0 var(--space-4); }
