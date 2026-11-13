@@ -61,13 +61,14 @@ button { font: inherit; color: inherit; }
 .panel__name { font-family: var(--font-serif); font-weight: var(--weight-serif); font-size: 28px; line-height: 1.2; text-decoration: none; }
 .panel__role { font-size: var(--text-small); color: var(--muted); }
 .panel__intro { font-size: var(--text-body); line-height: var(--lh-body); color: var(--muted); max-width: 34ch; }
-/* Portrait mode: on Experience and About the photo grows to the panel's width,
-   with name and role below it. It shrinks to fit short screens. */
-.panel.is-portrait .panel__top { flex: 1 1 auto; min-height: 0; }
-.panel.is-portrait .panel__id { flex: 1 1 auto; min-height: 0; flex-direction: column; align-items: stretch; gap: var(--space-4); }
+/* Portrait mode: on Experience and About the panel shows only the 3:4 photo
+   (never cropped), name and role, then the footer. The photo scales down,
+   keeping its ratio, on short screens. */
+.panel.is-portrait .panel__intro, .panel.is-portrait .nav { display: none; }
+.panel.is-portrait .panel__id { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
 .panel.is-portrait .panel__photo {
-  width: 100%; height: auto; aspect-ratio: 1; max-height: var(--panel-width);
-  flex: 1 1 auto; min-height: var(--avatar-size); object-position: 50% 30%;
+  width: auto; height: min(calc(var(--panel-width) * 4 / 3 - 107px), calc(100vh - 360px)); aspect-ratio: 3 / 4;
+  max-width: 100%; object-fit: cover; object-position: 50% 0; min-height: 160px;
   animation: photo-in var(--dur-tint) ease;
 }
 @keyframes photo-in { from { opacity: 0; } to { opacity: 1; } }
@@ -277,7 +278,9 @@ button { font: inherit; color: inherit; }
   .shell { flex-direction: column; }
   .panel { position: static; width: auto; height: auto; overflow: visible; border-right: 0; border-bottom: 1px solid var(--line); padding: 32px 24px; }
   .panel.is-portrait .panel__id { flex-direction: row; align-items: center; }
-  .panel.is-portrait .panel__photo { width: var(--avatar-size); height: var(--avatar-size); aspect-ratio: auto; flex: none; animation: none; }
+  .panel.is-portrait .panel__photo { width: var(--avatar-size); height: var(--avatar-size); min-height: 0; aspect-ratio: auto; animation: none; object-position: 50% 30%; }
+  .panel.is-portrait .panel__intro { display: block; }
+  .panel.is-portrait .nav { display: flex; }
   .nav { flex-direction: row; flex-wrap: wrap; gap: 0 20px; }
   .nav__bar { display: none; }
   .cols-wrap { padding: 0 var(--space-4); }
