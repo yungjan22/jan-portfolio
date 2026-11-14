@@ -83,6 +83,8 @@
 
   /* ---------- Layout ---------- */
   --panel-width: 440px;
+  --card-ratio-wide: 16 / 9;  /* Image area of a wide project card */
+  --card-ratio-small: 4 / 3;  /* Image area of a small project card */
   --card-text-max: 56ch; /* Readable line length for card title + description. */
   --avatar-size: 64px; /* Photo beside name and role in the panel. */
   --column-count: 4;

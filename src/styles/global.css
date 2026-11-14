@@ -119,18 +119,19 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Work grid + cards ---------- */
 .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-5); }
-.card { position: relative; margin: 0 var(--space-3); height: 370px; }
-.card--wide { grid-column: span 2; height: 500px; }
+/* Card height follows its image: 16:9 on wide cards, 4:3 on small ones. */
+.card { position: relative; margin: 0 var(--space-3); display: flex; }
+.card--wide { grid-column: span 2; }
 .card__btn {
-  all: unset; cursor: pointer; position: absolute; inset: 0;
+  all: unset; cursor: pointer; position: relative; flex: 1; box-sizing: border-box;
   display: flex; flex-direction: column;
   background: var(--surface); border: 1px solid var(--line); color: var(--ink);
 }
 .card__img {
-  flex: none; height: 236px; padding: 24px 28px 0;
+  flex: none; aspect-ratio: var(--card-ratio-small); padding: 24px 28px 0;
   background: var(--stage); display: flex; align-items: flex-end; overflow: hidden;
 }
-.card--wide .card__img { height: 340px; padding: 36px 48px 0; }
+.card--wide .card__img { aspect-ratio: var(--card-ratio-wide); padding: 36px 48px 0; }
 .card__img > .shot { flex: 1; height: 100%; border-bottom: 0; }
 /* Card text: title + description together on the left (kept to a readable
    width), the "Status · Company · Year" tag on the right. */
@@ -301,9 +302,8 @@ button { font: inherit; color: inherit; }
   .cols { left: var(--space-4); right: var(--space-4); grid-template-columns: 1fr; }
   .cols > div:not(:first-child) { display: none; }
   .work-grid { grid-template-columns: 1fr; }
-  .card, .card--wide { grid-column: auto; height: auto; min-height: 360px; }
-  .card__btn { position: relative; inset: auto; min-height: 360px; }
-  .card__img, .card--wide .card__img { height: 200px; padding: 20px 20px 0; }
+  .card, .card--wide { grid-column: auto; }
+  .card__img, .card--wide .card__img { padding: 20px 20px 0; }
   .card--wide .card__txt { padding: 18px 22px; }
   .card__txt { grid-template-columns: minmax(0, 1fr); }
   .card__tag { grid-column: 1; grid-row: 1; text-align: left; padding-top: 0; white-space: normal; }
