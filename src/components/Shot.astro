@@ -21,7 +21,6 @@ const { src, alt = '', demo, video, placeholder, class: cls = '', graded = false
       <video
         src={video}
         muted
-        loop
         playsinline
         preload="metadata"
         disablepictureinpicture
@@ -37,17 +36,25 @@ const { src, alt = '', demo, video, placeholder, class: cls = '', graded = false
 </div>
 
 <script>
-  // Play clips only while visible, and never automatically with reduced motion.
+  // Play each clip once, the first time it scrolls into view (pausing if it leaves
+  // before the end). Never plays automatically with reduced motion.
   const still = matchMedia('(prefers-reduced-motion: reduce)');
   const io = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
         const v = e.target as HTMLVideoElement;
+        if (v.ended) {
+          io.unobserve(v);
+          continue;
+        }
         if (e.isIntersecting && !still.matches) v.play().catch(() => {});
         else v.pause();
       }
     },
     { threshold: 0.25 },
   );
-  document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]').forEach((v) => io.observe(v));
+  document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]').forEach((v) => {
+    v.addEventListener('ended', () => io.unobserve(v), { once: true });
+    io.observe(v);
+  });
 </script>
