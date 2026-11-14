@@ -10,7 +10,7 @@ export const site = {
     'Jan Chang, a product designer in Vancouver who actually likes meetings. I design things that ship: AI products, B2B SaaS dashboards, web and hardware.',
   status: 'Looking for a Product Design role',
   relocation: 'Open to relocation',
-  intro: 'Previously, I partnered with GitHub, Microsoft and Wistron.',
+  intro: 'Previously, I partnered with GitHub, Microsoft, Wistron, BenQ and AI2 (Allen Institute for AI).',
   photo: '/jan-chang.jpg',
   email: 'yungjan22@gmail.com',
   linkedin: 'https://www.linkedin.com/in/yungjan/',

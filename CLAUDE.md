@@ -20,6 +20,7 @@ Rules that matter most:
 - Text ≥ 4.5:1 in both themes. 44px touch targets. Respect `prefers-reduced-motion`.
 - No emoji, icon fonts, scroll-jacking, custom cursors or load animations.
 - **One approved motion exception:** the panel photo zooms from the thumbnail to a 3:4 portrait (name glides below it) when Experience or About becomes active (`setPortrait` in `src/scripts/home.ts`, `--dur-portrait`). It is instant with reduced motion and on phones.
+- **Approved cursor exception:** a design-tool arrow cursor (`public/cursors/`, `--cursor-arrow` / `--cursor-hover`) that grows ~30% over clickable things. Mouse/trackpad only.
 
 ## Content
 

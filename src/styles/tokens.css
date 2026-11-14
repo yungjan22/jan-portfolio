@@ -83,9 +83,11 @@
 
   /* ---------- Layout ---------- */
   --panel-width: 440px;
-  --card-ratio-wide: 16 / 9;  /* Image area of a wide project card */
+  --card-ratio-wide: 2 / 1;   /* Image area of a wide project card (16:8) */
   --card-ratio-small: 4 / 3;  /* Image area of a small project card */
-  --card-text-max: 56ch; /* Readable line length for card title + description. */
+  --card-text-max: 56ch;
+  --cursor-arrow: url('/cursors/arrow.svg');        /* Design-tool cursor */
+  --cursor-hover: url('/cursors/arrow-hover.svg');  /* Same arrow, ~30% larger, over clickable things */ /* Readable line length for card title + description. */
   --avatar-size: 64px; /* Photo beside name and role in the panel. */
   --column-count: 4;
   --handle-size: 8px;
