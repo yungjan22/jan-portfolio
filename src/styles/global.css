@@ -6,9 +6,18 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 /* Design-tool cursor (approved exception): a dark arrow that grows a little over
    anything clickable. Pointer devices only; touch is unaffected. */
 @media (hover: hover) and (pointer: fine) {
-  html { cursor: var(--cursor-arrow) 3 2, auto; }
-  :is(a[href], button, summary, label, [role="button"], .card__btn, .next-link, .lb-close, .seg button) { cursor: var(--cursor-hover) 4 3, pointer; }
+  html { cursor: var(--cursor-arrow) 3 3, auto; }
+  :is(a[href], button, summary, label, [role="button"], .card__btn, .next-link, .lb-close, .seg button) { cursor: var(--cursor-hover) 4 4, pointer; }
 }
+/* The multiplayer name tag that follows the cursor over clickable things. */
+.cursor-tag {
+  position: fixed; left: 0; top: 0; z-index: 2147483000; pointer-events: none;
+  background: var(--ember); color: var(--on-ember);
+  font: 700 var(--text-tag) / var(--lh-tag) var(--font-sans); white-space: nowrap;
+  padding: 3px var(--space-2); opacity: 0; transition: opacity var(--dur-handles) ease;
+}
+.cursor-tag.is-on { opacity: 1; }
+@media not ((hover: hover) and (pointer: fine)) { .cursor-tag { display: none; } }
 
 body {
   margin: 0;

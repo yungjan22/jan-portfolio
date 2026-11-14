@@ -42,6 +42,7 @@ const cards = work.map((entry, i) => {
                     class="card__btn"
                     href={`/work/${entry.id}/`}
                     data-open={entry.id}
+                    data-cursor={`View ${entry.data.title}`}
                     aria-haspopup="dialog"
                   >
                     <span class="card__img">
@@ -143,7 +144,7 @@ const cards = work.map((entry, i) => {
             <article data-profile={entry.id} hidden={i !== 0} style={stageStyle(entry)}>
               <Profile entry={entry} headingId={`lb-title-${i}`} />
               <div class="pf-foot">
-                <button class="next-link" type="button" data-next={next.id}>
+                <button class="next-link" type="button" data-next={next.id} data-cursor={`Next: ${next.data.title}`}>
                   <span>Next profile</span>
                   <span>{next.data.title} →</span>
                 </button>

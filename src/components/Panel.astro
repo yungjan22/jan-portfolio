@@ -18,7 +18,7 @@ const sections = [
     <div class="panel__id">
       <img class="panel__photo" src={site.photo} alt="" width="64" height="64" decoding="async" />
       <div class="panel__idtext">
-        <a class="panel__name" href="/">{site.name}</a>
+        <a class="panel__name" href="/" data-cursor="Home">{site.name}</a>
         <span class="panel__role">{site.role}</span>
       </div>
     </div>
@@ -30,7 +30,7 @@ const sections = [
   <nav class="nav" aria-label="Sections">
     {
       sections.map((s, i) => (
-        <a href={`${base}#${s.id}`} data-spy={s.id} aria-current={i === 0 && base === '' ? 'true' : 'false'}>
+        <a href={`${base}#${s.id}`} data-spy={s.id} data-cursor={`Go to ${s.label}`} aria-current={i === 0 && base === '' ? 'true' : 'false'}>
           <span class="nav__bar" aria-hidden="true" />
           <span class="nav__num" aria-hidden="true">{`0${i + 1}`}</span>
           {s.label}
@@ -46,12 +46,12 @@ const sections = [
       <li>{site.relocation}</li>
     </ul>
     <div class="contact">
-      {site.email && <a href={`mailto:${site.email}`}>Email</a>}
-      <a href={site.linkedin} rel="me noopener" target="_blank">LinkedIn ↗</a>
+      {site.email && <a href={`mailto:${site.email}`} data-cursor="Email Jan">Email</a>}
+      <a href={site.linkedin} rel="me noopener" target="_blank" data-cursor="Open LinkedIn">LinkedIn ↗</a>
       {site.resume && <a href={site.resume}>Resume ↗</a>}
       <div class="seg" role="group" aria-label="Appearance">
-        <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
-        <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-theme-set="light" aria-pressed="false" data-cursor="Light mode">Light</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false" data-cursor="Dark mode">Dark</button>
       </div>
     </div>
   </div>
