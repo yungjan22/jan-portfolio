@@ -1,12 +1,12 @@
 ---
 import type { Entry } from '../data/resume';
-interface Props { e: Entry }
-const { e } = Astro.props;
+interface Props { e: Entry; noLogo?: boolean }
+const { e, noLogo = false } = Astro.props;
 ---
-<li class="xp">
-  <span class:list={['xp__logo', { 'xp__logo--contain': e.fit === 'contain', 'xp__logo--mark': !e.logo }]} aria-hidden="true">
+<li class:list={['xp', { 'xp--nologo': noLogo }]}>
+  {!noLogo && <span class:list={['xp__logo', { 'xp__logo--contain': e.fit === 'contain', 'xp__logo--mark': !e.logo }]} aria-hidden="true">
     {e.logo ? <img src={e.logo} alt="" width="56" height="56" loading="lazy" decoding="async" /> : <span>{e.mark}</span>}
-  </span>
+  </span>}
   <div class="xp__body">
     <div class="xp__head">
       <span class="xp__org">{e.org}</span>

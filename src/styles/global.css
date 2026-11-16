@@ -227,6 +227,7 @@ button { font: inherit; color: inherit; }
 .xp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .xp { display: grid; grid-template-columns: var(--logo-box) minmax(0, 1fr); column-gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--line); }
 .xp:last-child { border-bottom: 0; }
+.xp--nologo { grid-template-columns: minmax(0, 1fr); }
 .xp__logo {
   width: var(--logo-box); height: var(--logo-box); border: 1px solid var(--line); overflow: hidden;
   background: var(--logo-bg); display: flex; align-items: center; justify-content: center;

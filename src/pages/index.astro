@@ -88,14 +88,14 @@ const cards = work.map((entry, i) => {
           <div class="section__head"><h2 class="t-h2" id="exp-h">Experience</h2></div>
           <div class="xp-grid">
             <div class="xp-col">
-              <h3 class="t-label xp-group">Work</h3>
+              <h3 class="t-label xp-group">Experience</h3>
               <ul class="xp-list">{jobs.map((e) => <ExpEntry e={e} />)}</ul>
             </div>
             <div class="xp-col">
               <h3 class="t-label xp-group">School</h3>
-              <ul class="xp-list">{schools.map((e) => <ExpEntry e={e} />)}</ul>
+              <ul class="xp-list">{schools.map((e) => <ExpEntry e={e} noLogo />)}</ul>
               <h3 class="t-label xp-group">Projects</h3>
-              <ul class="xp-list">{projects.map((e) => <ExpEntry e={e} />)}</ul>
+              <ul class="xp-list">{projects.map((e) => <ExpEntry e={e} noLogo />)}</ul>
             </div>
           </div>
         </section>

@@ -20,7 +20,7 @@ export const value = [
 ];
 
 // Experience, in three groups. `logo` is a file under public/logos/; without one,
-// a box with `mark` (initials) shows instead. `fit: 'contain'` pads wordmark logos.
+// a box with `mark` (initials) shows instead. Pass noLogo to ExpEntry to drop the box. `fit: 'contain'` pads wordmark logos.
 export type Entry = {
   org: string;
   role: string;
@@ -42,6 +42,15 @@ export const jobs: Entry[] = [
     logo: '/logos/twa.webp',
   },
   {
+    org: 'GitHub',
+    role: 'UX Researcher & Designer · UW capstone',
+    years: '2024–25',
+    place: 'Seattle',
+    what: 'Led research and design for GitHub Spark; my design became part of the features it launched with.',
+    logo: '/logos/github.svg',
+    fit: 'contain',
+  },
+  {
     org: 'BenQ',
     role: 'UI/UX Design Intern',
     years: '2024',
@@ -59,19 +68,19 @@ export const jobs: Entry[] = [
   },
   {
     org: 'NII Capital',
-    role: 'Design Consultant',
+    role: 'Designer',
     years: '2020–21',
     place: 'Taipei',
-    what: '[One line]',
+    what: 'Advised 3 startups in art, education and healthcare, from user flows to prototypes, and helped raise $500,000 in seed funding.',
     logo: '/logos/nii.svg',
     fit: 'contain',
   },
   {
     org: 'Systex',
-    role: 'Design Intern',
+    role: 'Marketing Intern',
     years: '2019–20',
     place: 'Taipei',
-    what: '[One line]',
+    what: 'Started a digital payment service for administrative fees that made a government process 30% more efficient, and made 20 presentations that explained complex ideas clearly.',
     logo: '/logos/systex.webp',
   },
 ];
@@ -82,46 +91,33 @@ export const schools: Entry[] = [
     role: 'MS, Human Centered Design & Engineering',
     years: '2023–25',
     place: 'Seattle',
-    mark: 'UW', // logo file wanted: /logos/uw.*
   },
   {
     org: 'National Taiwan Normal University',
     role: 'BEng, Graphic Arts & Communication · BBA, Business Administration',
     years: '2015–20',
     place: 'Taipei',
-    mark: 'NTNU', // logo file wanted: /logos/ntnu.*
   },
 ];
 
 export const projects: Entry[] = [
   {
-    org: 'GitHub',
-    role: 'GitHub Spark · UX research and design',
-    years: '2024–25',
-    what: 'My design became part of the features launched with GitHub Spark.',
-    logo: '/logos/github.svg',
-    fit: 'contain',
-  },
-  {
     org: 'Microsoft',
     role: 'Hackathon · 1st place',
     years: '2022',
     what: 'QinSight, an AI traceability system that went on to save 264 hours a month.',
-    mark: 'MS', // logo file wanted: /logos/microsoft.*
   },
   {
     org: 'Allen Institute for AI (AI2)',
     role: 'EarthRangers · Mobile usability testing',
     years: '2024',
     what: 'Turned interaction pain points into design specs that cut operational errors.',
-    mark: 'AI2', // logo file wanted: /logos/ai2.*
   },
   {
     org: 'DubHacks',
     role: 'AI Challenge · 2nd place',
     years: '2024',
     what: 'A dialogue MVP for an LGBTQ+ mental health assistant, with ethical guardrails.',
-    mark: 'DH',
   },
 ];
 
