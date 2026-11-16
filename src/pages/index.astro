@@ -5,7 +5,8 @@ import Panel from '../components/Panel.astro';
 import Handles from '../components/Handles.astro';
 import Shot from '../components/Shot.astro';
 import Profile from '../components/Profile.astro';
-import { value, experience, notes, skills } from '../data/resume';
+import { value, jobs, schools, projects, notes, skills } from '../data/resume';
+import ExpEntry from '../components/ExpEntry.astro';
 import { stageStyle } from '../lib/stage';
 
 const work = (await getCollection('work', (e) => !e.data.draft)).sort(
@@ -85,15 +86,18 @@ const cards = work.map((entry, i) => {
 
         <section class="section" id="experience" aria-labelledby="exp-h">
           <div class="section__head"><h2 class="t-h2" id="exp-h">Experience</h2></div>
-          {
-            experience.map((e) => (
-              <div class="exp-row">
-                <span class="exp-row__year">{e.year}</span>
-                <span class="exp-row__org">{e.org}</span>
-                <span class="exp-row__what"><b>{e.role}.</b> {e.what}</span>
-              </div>
-            ))
-          }
+          <div class="xp-grid">
+            <div class="xp-col">
+              <h3 class="t-label xp-group">Work</h3>
+              <ul class="xp-list">{jobs.map((e) => <ExpEntry e={e} />)}</ul>
+            </div>
+            <div class="xp-col">
+              <h3 class="t-label xp-group">School</h3>
+              <ul class="xp-list">{schools.map((e) => <ExpEntry e={e} />)}</ul>
+              <h3 class="t-label xp-group">Projects</h3>
+              <ul class="xp-list">{projects.map((e) => <ExpEntry e={e} />)}</ul>
+            </div>
+          </div>
         </section>
 
         <section class="section" id="about" aria-labelledby="about-h">

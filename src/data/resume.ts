@@ -19,42 +19,109 @@ export const value = [
   },
 ];
 
-export const experience = [
+// Experience, in three groups. `logo` is a file under public/logos/; without one,
+// a box with `mark` (initials) shows instead. `fit: 'contain'` pads wordmark logos.
+export type Entry = {
+  org: string;
+  role: string;
+  years: string;
+  place?: string;
+  what?: string;
+  logo?: string;
+  fit?: 'cover' | 'contain';
+  mark?: string;
+};
+
+export const jobs: Entry[] = [
   {
-    year: '2025–now',
     org: 'Thomas Wang & Associate',
     role: 'Technical Designer',
-    what: 'Rebuilt a law firm’s site for speed and AI search: load time 2.1s → 1.1s, +20% weekly traffic, +9% conversion. Brought Claude Skills and Codex into daily design ops.',
+    years: '2025–now',
+    place: 'Vancouver',
+    what: 'Rebuilt a law firm’s site for speed and AI search: 2.1s → 1.1s load, +20% weekly traffic, +9% conversion.',
+    logo: '/logos/twa.webp',
   },
   {
-    year: '2023–25',
-    org: 'University of Washington',
-    role: 'MS, Human Centered Design & Engineering',
-    what: 'Research and design with GitHub (Spark) and the Allen Institute for AI. 2nd place, DubHacks AI Challenge.',
-  },
-  {
-    year: '2024',
     org: 'BenQ',
     role: 'UI/UX Design Intern',
-    what: 'Usability study for an ergo monitor arm: force-curve findings, −8% development cost, 1 patent.',
+    years: '2024',
+    place: 'Taipei',
+    what: 'Usability study for an ergo monitor arm: −8% development cost, 1 patent.',
+    logo: '/logos/benq.webp',
   },
   {
-    year: '2021–22',
     org: 'WiAdvance Technology',
     role: 'Lead UI/UX Engineer',
-    what: 'QinSight factory dashboard (1st place, Microsoft hackathon; 264 hours saved a month). 0→1 SaaS marketplace and a design system across 7 departments (+130% traffic).',
+    years: '2021–22',
+    place: 'Taipei',
+    what: 'QinSight factory dashboard, a 0→1 SaaS marketplace, and a design system across 7 departments.',
+    logo: '/logos/wiadvance.webp',
   },
   {
-    year: '2020–21',
-    org: 'NTNU Innovation Investment',
+    org: 'NII Capital',
     role: 'Design Consultant',
+    years: '2020–21',
+    place: 'Taipei',
     what: '[One line]',
+    logo: '/logos/nii.svg',
+    fit: 'contain',
   },
   {
-    year: '2019–20',
     org: 'Systex',
     role: 'Design Intern',
+    years: '2019–20',
+    place: 'Taipei',
     what: '[One line]',
+    logo: '/logos/systex.webp',
+  },
+];
+
+export const schools: Entry[] = [
+  {
+    org: 'University of Washington',
+    role: 'MS, Human Centered Design & Engineering',
+    years: '2023–25',
+    place: 'Seattle',
+    mark: 'UW', // logo file wanted: /logos/uw.*
+  },
+  {
+    org: 'National Taiwan Normal University',
+    role: 'BEng, Graphic Arts & Communication · BBA, Business Administration',
+    years: '2015–20',
+    place: 'Taipei',
+    mark: 'NTNU', // logo file wanted: /logos/ntnu.*
+  },
+];
+
+export const projects: Entry[] = [
+  {
+    org: 'GitHub',
+    role: 'GitHub Spark · UX research and design',
+    years: '2024–25',
+    what: 'My design became part of the features launched with GitHub Spark.',
+    logo: '/logos/github.svg',
+    fit: 'contain',
+  },
+  {
+    org: 'Microsoft',
+    role: 'Hackathon · 1st place',
+    years: '2022',
+    what: 'QinSight, an AI traceability system that went on to save 264 hours a month.',
+    mark: 'MS', // logo file wanted: /logos/microsoft.*
+  },
+  {
+    org: 'Allen Institute for AI (AI2)',
+    role: 'EarthRangers · Mobile usability testing',
+    years: '2024',
+    what: 'Turned interaction pain points into design specs that cut operational errors.',
+    mark: 'AI2', // logo file wanted: /logos/ai2.*
+  },
+  {
+    org: 'DubHacks',
+    role: 'AI Challenge · 2nd place',
+    years: '2024',
+    what: 'A dialogue MVP for an LGBTQ+ mental health assistant, with ethical guardrails.',
+    mark: 'DH',
   },
 ];
 

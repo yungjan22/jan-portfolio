@@ -215,6 +215,39 @@ button { font: inherit; color: inherit; }
 .exp-row__what { grid-column: span 2; font-size: 15px; line-height: 1.5; color: var(--muted); }
 .exp-row__what b { color: var(--ink); font-weight: 600; }
 
+/* ---------- Experience: two columns (work | school + projects) ---------- */
+.xp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.xp-col { padding: 0 var(--space-3); min-width: 0; position: relative; }
+/* Hide the inner column line behind the entries so it never runs through text
+   (the padding keeps the outer lines visible). */
+.xp-col::before { content: ""; position: absolute; inset: 0 var(--space-3); background: var(--bg); z-index: -1; }
+.xp-grid { position: relative; z-index: 0; }
+.xp-group { display: block; margin: 0 0 var(--space-3); padding-bottom: var(--space-2); border-bottom: 1px solid var(--line); }
+.xp-list + .xp-group { margin-top: var(--space-6); }
+.xp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.xp { display: grid; grid-template-columns: var(--logo-box) minmax(0, 1fr); column-gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--line); }
+.xp:last-child { border-bottom: 0; }
+.xp__logo {
+  width: var(--logo-box); height: var(--logo-box); border: 1px solid var(--line); overflow: hidden;
+  background: var(--logo-bg); display: flex; align-items: center; justify-content: center;
+}
+.xp__logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.xp__logo--contain img { object-fit: contain; padding: 4px; box-sizing: border-box; }
+.xp__logo--mark { background: var(--surface); }
+.xp__logo--mark span { font-family: var(--font-serif); font-weight: var(--weight-serif); font-size: 15px; color: var(--muted); letter-spacing: 0.02em; }
+.xp__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.xp__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+.xp__org { font-family: var(--font-serif); font-weight: var(--weight-serif); font-size: 20px; line-height: 1.25; }
+.xp__years { font-size: var(--text-small); color: var(--ember-text); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.xp__role { font-size: var(--text-small); font-weight: 600; line-height: 1.45; }
+.xp__place { font-weight: 400; color: var(--muted); }
+.xp__what { font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); margin-top: 4px; max-width: 52ch; }
+
+@media (max-width: 1199px) {
+  .xp-grid { grid-template-columns: minmax(0, 1fr); }
+  .xp-col + .xp-col { margin-top: var(--space-6); }
+}
+
 /* ---------- About ---------- */
 .about { display: grid; grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); row-gap: var(--space-5); }
 .about__text { grid-column: span 2; padding: 0 var(--space-3); font-size: 17px; line-height: 1.65; display: flex; flex-direction: column; gap: var(--space-4); }
@@ -329,7 +362,8 @@ button { font: inherit; color: inherit; }
   .card--wide .card__desc { font-size: var(--text-small); }
   .exp-row { grid-template-columns: 1fr; row-gap: 4px; }
   .exp-row__what { grid-column: auto; }
-  .about, .skills { grid-template-columns: 1fr; }
+  .about, .skills, .xp-grid { grid-template-columns: 1fr; }
+  .xp-col + .xp-col { margin-top: var(--space-6); }
   .about__text, .about__notes, .skills { grid-column: auto; }
   .t-h2 { font-size: 34px; }
   .lightbox { width: 100vw; height: 100dvh; max-width: 100vw; max-height: 100dvh; margin: 0; border: 0; }

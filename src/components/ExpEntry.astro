@@ -1,0 +1,18 @@
+---
+import type { Entry } from '../data/resume';
+interface Props { e: Entry }
+const { e } = Astro.props;
+---
+<li class="xp">
+  <span class:list={['xp__logo', { 'xp__logo--contain': e.fit === 'contain', 'xp__logo--mark': !e.logo }]} aria-hidden="true">
+    {e.logo ? <img src={e.logo} alt="" width="56" height="56" loading="lazy" decoding="async" /> : <span>{e.mark}</span>}
+  </span>
+  <div class="xp__body">
+    <div class="xp__head">
+      <span class="xp__org">{e.org}</span>
+      <span class="xp__years">{e.years}</span>
+    </div>
+    <span class="xp__role">{e.role}{e.place && <span class="xp__place"> · {e.place}</span>}</span>
+    {e.what && <p class="xp__what">{e.what}</p>}
+  </div>
+</li>
