@@ -49,30 +49,41 @@ function forestTone(x: number, y: number): Tone {
   return 'pineDeep'; // shade between the trees
 }
 
-// Waves: one hand-drawn 16 x 5 curl (F foam, L light, M mid, . deep water),
-// repeated four times across and stacked in staggered rows.
-const WAVE_TILE = [
-  '.......FFF......',
-  '.....FFLLLFF....',
-  '...FFLLMMLLLF...',
-  '.FFLLMMMMMMLFF..',
-  'FLLMMMMMMMMMMLF.',
+// Waves: hand-drawn curls in three sizes (F foam, L light, M mid, . open water),
+// scattered at seeded-random sizes, gaps and heights so no pattern repeats.
+const CURLS = [
+  ['...FFF...', '.FFLLLF..', 'FLLMMMLF.'],
+  ['.....FFF....', '...FFLLLF...', '.FFLLMMMLF..', 'FLLMMMMMMLF.'],
+  ['.......FFF......', '.....FFLLLFF....', '...FFLLMMLLLF...', '.FFLLMMMMMMLFF..', 'FLLMMMMMMMMMMLF.'],
 ];
-const TILE_TONE: Record<string, Tone> = { F: 'foam', L: 'light', M: 'mid', '.': 'deep' };
-const WAVE_ROWS = [
-  { top: HORIZON + 1, offset: 4 },
-  { top: HORIZON + 6, offset: 12 },
-  { top: HORIZON + 11, offset: 4 }, // runs off the bottom edge
-];
+const TILE_TONE: Record<string, Tone> = { F: 'foam', L: 'light', M: 'mid' };
 
-function waterTone(x: number, y: number): Tone {
-  if (y === HORIZON) return 'light';
-  for (const r of WAVE_ROWS) {
-    const ty = y - r.top;
-    if (ty >= 0 && ty < WAVE_TILE.length) return TILE_TONE[WAVE_TILE[ty][(x + r.offset) % 16]];
+const SEA: Tone[][] = Array.from({ length: ROWS }, (_, y) =>
+  Array.from({ length: COLS }, () => (y === HORIZON ? 'light' : 'deep') as Tone),
+);
+{
+  let seed = 500;
+  const r = () => rand(seed++);
+  // Back to front, so nearer waves overlap the ones behind them.
+  for (let y = HORIZON - 1; y < ROWS; y += 3 + Math.floor(r() * 3)) {
+    const near = (y - HORIZON) / (ROWS - HORIZON); // bigger waves closer to the viewer
+    for (let x = -Math.floor(r() * 10); x < COLS; ) {
+      const size = Math.min(2, Math.floor(r() * 2 + near * 1.6));
+      const curl = CURLS[size];
+      const top = y + Math.floor(r() * 4) - 1;
+      curl.forEach((row, dy) => {
+        for (let dx = 0; dx < row.length; dx++) {
+          const tone = TILE_TONE[row[dx]];
+          const cy = top + dy, cx = x + dx;
+          if (tone && cy > HORIZON && cy < ROWS && cx >= 0 && cx < COLS) SEA[cy][cx] = tone;
+        }
+      });
+      x += curl[0].length + Math.floor(r() * 9);
+    }
   }
-  return 'deep';
 }
+
+const waterTone = (x: number, y: number): Tone => SEA[y][x];
 
 export const toneAt = (x: number, y: number): Tone => (y > SHORE ? waterTone(x, y) : forestTone(x, y));
 
