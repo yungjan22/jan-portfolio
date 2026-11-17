@@ -55,7 +55,7 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
       const c = (n: string) => cs.getPropertyValue(n).trim();
       return {
         tone: {
-          pineDeep: c('--wave-pine-deep'), pineDark: c('--wave-pine-dark'), pine: c('--wave-pine'), pineLight: c('--wave-pine-light'),
+          sky: c('--wave-sky'), pineDeep: c('--wave-pine-deep'), pineDark: c('--wave-pine-dark'), pine: c('--wave-pine'), pineLight: c('--wave-pine-light'),
           foam: c('--wave-foam'), light: c('--wave-light'), mid: c('--wave-mid'), deep: c('--wave-deep'),
         } as Record<Tone, string>,
         empty: parseFloat(c('--wave-empty')) || 0.5,
@@ -141,7 +141,7 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
       // Testing aid: ?fill=0.4 shows a canvas 40% full (this browser only, not saved).
       const fill = Number(new URLSearchParams(location.search).get('fill'));
       if (fill > 0) for (let i = 0; i < TOTAL; i++) if (Math.random() < fill) filled.add(i);
-      if (mode === 'local') say('Preview mode: pixels are saved only in this browser for now.');
+      if (mode === 'local') say('For now, pixels are saved only in your browser.');
       if (!canAdd()) say('Your pixel for today is in. Come back tomorrow for another.');
       update();
     }

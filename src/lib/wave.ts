@@ -1,5 +1,5 @@
 // The picture behind "Drop a pixel": an original Vancouver scene in pixels,
-// a dense evergreen forest above rows of curling ocean waves. No sky.
+// evergreens against a light orange sky, above curling ocean waves.
 // 64 x 28 cells, so each of the four architectural columns holds 16.
 // Every cell maps to one palette key; colours come from the --wave-* tokens.
 
@@ -8,7 +8,7 @@ export const ROWS = 28;
 export const TOTAL = COLS * ROWS;
 
 export type Tone =
-  | 'pineDeep' | 'pineDark' | 'pine' | 'pineLight'
+  | 'sky' | 'pineDeep' | 'pineDark' | 'pine' | 'pineLight'
   | 'foam' | 'light' | 'mid' | 'deep';
 
 const SHORE = 13; // last forest row; water starts below
@@ -22,8 +22,8 @@ const rand = (n: number) => {
 
 // Two layers of conifers. The back layer reaches the top edge so the forest
 // fills the frame; the front layer is shorter and darker.
-const BACK = Array.from({ length: 17 }, (_, k) => ({
-  cx: k * 4 + 1 + rand(k) * 1.2,
+const BACK = Array.from({ length: 13 }, (_, k) => ({
+  cx: k * 5.2 + 0.5 + rand(k) * 1.4,
   top: Math.floor(rand(k + 20) * 5) - 2, // -2..2, some run off the top
 }));
 const FRONT = Array.from({ length: 12 }, (_, k) => ({
@@ -45,18 +45,19 @@ function forestTone(x: number, y: number): Tone {
     const hit = inTree(t, x, y);
     if (hit) return hit.lit ? 'pineLight' : 'pine';
   }
-  for (const t of BACK) if (inTree(t, x, y, 0.32)) return 'pineDark';
-  return 'pineDeep'; // shade between the trees
+  for (const t of BACK) if (inTree(t, x, y, 0.3)) return 'pineDark';
+  return y >= 10 ? 'pineDeep' : 'sky'; // light orange sky above, shade low between the trees
 }
 
 // Waves: hand-drawn curls in three sizes (F foam, L light, M mid, . open water),
 // scattered at seeded-random sizes, gaps and heights so no pattern repeats.
+// D is the hollow under a curling lip.
 const CURLS = [
-  ['...FFF...', '.FFLLLF..', 'FLLMMMLF.'],
-  ['.....FFF....', '...FFLLLF...', '.FFLLMMMLF..', 'FLLMMMMMMLF.'],
-  ['.......FFF......', '.....FFLLLFF....', '...FFLLMMLLLF...', '.FFLLMMMMMMLFF..', 'FLLMMMMMMMMMMLF.'],
+  ['..FFF...', '.FLLDF..', 'FLMMD...'],
+  ['....FFF.....', '..FFLLLF....', '.FLMMDDLF...', 'FLMMMDDDF...', 'LMMMMMD.....'],
+  ['......FFFF......', '....FFLLLLFF....', '...FLLMMMDLLF...', '..FLMMMDDDDFL...', '.FLMMMMDDDDDF...', 'FLMMMMMMDD......'],
 ];
-const TILE_TONE: Record<string, Tone> = { F: 'foam', L: 'light', M: 'mid' };
+const TILE_TONE: Record<string, Tone> = { F: 'foam', L: 'light', M: 'mid', D: 'deep' };
 
 const SEA: Tone[][] = Array.from({ length: ROWS }, (_, y) =>
   Array.from({ length: COLS }, () => (y === HORIZON ? 'light' : 'deep') as Tone),

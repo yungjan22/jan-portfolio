@@ -32,6 +32,7 @@
   --on-stage: #FBF7F0;    /* Rare caption chip on a stage. */
 
   /* "Drop a pixel" forest-and-ocean scene. Same in both themes so the picture keeps its colours. */
+  --wave-sky: #F2CDB0;
   --wave-pine-deep: #142A20;
   --wave-pine-dark: #1F3A2E;
   --wave-pine: #3E6A4C;
