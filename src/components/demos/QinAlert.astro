@@ -1,0 +1,85 @@
+---
+// QinSight alert, 3:2: the Head Defect line crossing its 2% limit (left, on the project
+// stage) and the phone notification it triggers (right, on a sunlit photo).
+// Values match the example alert in Jan's case study (2.8% vs a 2% limit, 10 minutes).
+const xs = [36, 103.2, 170.4, 237.6, 304.8, 372];
+const vals = [0.7, 0.6, 0.9, 1.6, 2.4, 2.8];
+const times = ['9:25', '9:35', '9:45', '9:55', '10:05', '10:15'];
+const yAt = (v: number) => 316 - v * 48;
+const path = vals.map((v, i) => `${i ? 'L' : 'M'}${xs[i]} ${yAt(v).toFixed(1)}`).join(' ');
+---
+<div class="qa">
+  <div class="qa-chart">
+    <svg viewBox="0 0 460 360" role="img" aria-label="Head defect rate on Line 2 rising above its 2% limit, reaching 2.8% at 10:15" xmlns="http://www.w3.org/2000/svg">
+      <rect class="qa-panel" x="0" y="0" width="460" height="360" rx="12" />
+      <text class="qa-title" x="24" y="46">Head Defect · Line 2</text>
+      <rect class="qa-chip" x="318" y="26" width="118" height="28" rx="5" />
+      <text class="qa-accent" x="377" y="45" text-anchor="middle" font-size="13">Above limit</text>
+      {[4, 3, 1, 0].map((v) => <line class="qa-grid" x1="24" x2="400" y1={yAt(v)} y2={yAt(v)} />)}
+      {[4, 3, 2, 1, 0].map((v) => (
+        <text class="qa-axis" x="436" y={yAt(v) + 4} text-anchor="end">{v ? `${v}%` : '0'}</text>
+      ))}
+      <line class="qa-limit" x1="24" x2="400" y1={yAt(2)} y2={yAt(2)} />
+      <text class="qa-accent" x="28" y={yAt(2) - 8} font-size="12">Limit 2%</text>
+      <path class="qa-line" d={path} />
+      {vals.map((v, i) => <circle class="qa-dot" cx={xs[i]} cy={yAt(v)} r={i > 3 ? 6 : 5} />)}
+      <circle class="qa-ring" cx={xs[5]} cy={yAt(vals[5])} r="13" />
+      <text class="qa-accent" x={xs[5]} y={yAt(vals[5]) - 18} text-anchor="middle" font-size="13">2.8%</text>
+      {times.map((t, i) => <text class="qa-axis" x={xs[i]} y="344" text-anchor="middle" font-size="12">{t}</text>)}
+    </svg>
+  </div>
+  <div class="qa-phone" role="img" aria-label="Lock screen showing a QinSight alert: high defect rate on Line 2, check the cutting position">
+    <p class="qa-day">Tuesday</p>
+    <p class="qa-time">10:15</p>
+    <div class="qa-note">
+      <div class="qa-note__head"><span class="qa-icon" aria-hidden="true">Q</span><span>QinSight</span><span class="qa-now">now</span></div>
+      <p class="qa-note__title">High defect rate on Line 2</p>
+      <p>Head damage at 2.8% (limit 2%) for 10 minutes. Check the cutting position.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .qa { display: grid; grid-template-columns: 3fr 2fr; gap: 2px; background: var(--surface); }
+  .qa-chart {
+    height: 400px; display: flex; align-items: center; justify-content: center; padding: 56px 72px;
+    background: var(--stage) var(--stage-image, none) center / cover no-repeat;
+  }
+  .qa-chart svg { width: 100%; height: auto; font-family: var(--font-sans); }
+  .qa-panel { fill: var(--chart-card); stroke: var(--chart-card-line); }
+  .qa-title { fill: var(--ink); font-size: 20px; font-weight: 500; }
+  .qa-chip { fill: color-mix(in srgb, var(--chart-2) 14%, transparent); }
+  .qa-accent { fill: var(--chart-accent-text); font-weight: 600; }
+  .qa-grid { stroke: var(--chart-card-line); }
+  .qa-axis { fill: var(--chart-muted); font-size: 13px; }
+  .qa-limit { stroke: var(--chart-2); stroke-width: 1.4; stroke-dasharray: 5 5; opacity: 0.7; }
+  .qa-line { fill: none; stroke: var(--chart-2); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+  .qa-dot { fill: var(--chart-2); }
+  .qa-ring { fill: none; stroke: var(--chart-2); stroke-width: 2; opacity: 0.4; }
+
+  .qa-phone {
+    height: 400px; box-sizing: border-box; padding: 80px 48px 20px; display: flex; flex-direction: column; align-items: center;
+    background: var(--stage-alt) url('/work/qin-dashboard/popup-bg.webp') center / cover no-repeat;
+    color: var(--photo-ink);
+  }
+  .qa-day { font-size: var(--text-label); font-weight: 600; }
+  .qa-time { font-size: 48px; line-height: 1.1; font-weight: 500; letter-spacing: -0.02em; }
+  .qa-note {
+    margin-top: var(--space-5); width: 100%; background: var(--photo-card); border-radius: 16px; padding: var(--space-3);
+    display: flex; flex-direction: column; gap: 6px; font-size: var(--text-tag); line-height: 1.4;
+  }
+  .qa-note__head { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; }
+  .qa-note__head span:nth-child(2) { flex: 1; }
+  .qa-now { font-weight: 400; }
+  .qa-icon {
+    width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    background: var(--stage-sage); color: var(--on-stage); font-size: var(--text-badge); font-weight: 700;
+  }
+  .qa-note__title { font-size: 13px; font-weight: 700; line-height: 1.3; }
+
+  @media (max-width: 899px) {
+    .qa { grid-template-columns: 1fr; }
+    .qa-chart { height: auto; padding: 32px 24px; }
+    .qa-phone { height: 360px; padding: 64px 24px 20px; }
+  }
+</style>

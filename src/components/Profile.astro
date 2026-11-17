@@ -1,7 +1,9 @@
 ---
 // The Hinge-style project profile. Used in the lightbox and atop each case study page.
+// Small title, big one-line answers; facts grouped in one row near the top.
 import type { CollectionEntry } from 'astro:content';
 import Shot from './Shot.astro';
+import Demo from './demos/Demo.astro';
 
 interface Props {
   entry: CollectionEntry<'work'>;
@@ -12,56 +14,117 @@ const { entry, headingId, headingLevel = 'h2' } = Astro.props;
 const d = entry.data;
 const stageName = d.stage[0].toUpperCase() + d.stage.slice(1);
 const Heading = headingLevel;
+const facts = [
+  { label: 'My role', value: d.roleTitle ?? d.led, sub: d.roleTitle ? d.led : undefined },
+  { label: 'Team', value: d.team, sub: d.teamSub },
+  d.timeline ? { label: 'Timeline', value: d.timeline, sub: d.timelineSub } : null,
+  { label: d.platformLabel ?? 'Platform', value: d.platform, sub: d.platformSub },
+].filter((f): f is { label: string; value: string; sub?: string } => f !== null);
 ---
 <div class="pf-top">
   <span class="pf-tag">{d.tag} · {d.org} · {d.year}</span>
   <Heading class="pf-title" id={headingId}>{d.title}</Heading>
-  <p class="pf-sub">{d.subtitle}</p>
+  {d.summary && <p class="pf-client">For {d.client}</p>}
+  <p class="t-answer pf-hook">{d.summary ?? d.subtitle}</p>
+  <p class="pf-results">{d.results ?? d.short}</p>
+  <dl class="pf-facts" style={`--cols: ${facts.length}`}>
+    {
+      facts.map((f) => (
+        <div>
+          <dt class="t-label">{f.label}</dt>
+          <dd>{f.value}</dd>
+          {f.sub && <dd class="pf-facts__sub">{f.sub}</dd>}
+        </div>
+      ))
+    }
+  </dl>
 </div>
 
 <figure class="pf-stage">
   <Shot src={d.hero} demo={d.heroDemo} video={d.heroVideo} alt={d.alt.hero} placeholder={`Image 1 · hero on ${stageName} stage`} />
 </figure>
 
-<section class="pf-sec">
-  <span class="t-label">The problem I fell for</span>
-  <p class="t-answer">{d.problem}</p>
-</section>
-
-<figure class="pf-pair">
-  <div>
-    <Shot src={d.before} alt={d.alt.before} placeholder="Image 2a · before" />
-    <figcaption>Before</figcaption>
-  </div>
-  <div>
-    <Shot src={d.after} alt={d.alt.after} placeholder="Image 2b · after" class="shot--after" />
-    <figcaption>After</figcaption>
-  </div>
-</figure>
-
-<section class="pf-sec">
-  <span class="t-label">My role</span>
-  <p class="t-answer">{d.role}</p>
-</section>
+{
+  d.story ? (
+    d.story.map((s) => (
+      <>
+        <section class="pf-sec">
+          <span class="t-label pf-prompt">{s.label}</span>
+          <p class="t-answer">{s.answer}</p>
+        </section>
+        {s.media && (
+          <div class="pf-media">
+            {s.media.map((m) =>
+              m.demo ? <Demo name={m.demo} /> : m.src ? <img src={m.src} alt={m.alt ?? ''} loading="lazy" decoding="async" /> : null,
+            )}
+          </div>
+        )}
+      </>
+    ))
+  ) : (
+    <>
+      <section class="pf-sec">
+        <span class="t-label pf-prompt">The problem I fell for</span>
+        <p class="t-answer">{d.problem}</p>
+      </section>
+      <figure class="pf-pair">
+        <div>
+          <Shot src={d.before} alt={d.alt.before} placeholder="Image 2a · before" />
+          <figcaption>Before</figcaption>
+        </div>
+        <div>
+          <Shot src={d.after} alt={d.alt.after} placeholder="Image 2b · after" class="shot--after" />
+          <figcaption>After</figcaption>
+        </div>
+      </figure>
+      <section class="pf-sec">
+        <span class="t-label pf-prompt">My role</span>
+        <p class="t-answer">{d.role}</p>
+      </section>
+    </>
+  )
+}
 
 <section class="pf-flag">
-  <span class="t-label">Green flag</span>
-  <span class="t-stat">{d.stat}</span>
-  <span class="pf-flag__label">{d.statLabel}</span>
+  <span class="t-label pf-prompt">Green flag</span>
+  <div class="pf-flag__main">
+    <span class="t-stat">{d.stat}</span>
+    <span class="pf-flag__label">{d.statLabel}</span>
+  </div>
+  {
+    d.flagItems && (
+      <div class="pf-flag__items">
+        {d.flagItems.map((f) => (
+          <div>
+            <span class="pf-flag__value">{f.value}</span>
+            <span class="pf-flag__item-label">{f.label}</span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+  {d.flagNote && <p class="pf-flag__note">{d.flagNote}</p>}
 </section>
 
-<figure class="pf-photo">
-  <Shot src={d.photo} alt={d.alt.photo} placeholder={`Image 3 · photo graded to ${stageName}`} graded />
-</figure>
+{
+  d.flagMedia && (
+    <div class="pf-media-row" style={`--n: ${d.flagMedia.length}`}>
+      {d.flagMedia.map((m) => (
+        <div><img src={m.src} alt={m.alt ?? ''} loading="lazy" decoding="async" /></div>
+      ))}
+    </div>
+  )
+}
+
+{
+  !d.story && (
+    <figure class="pf-photo">
+      <Shot src={d.photo} alt={d.alt.photo} placeholder={`Image 3 · photo graded to ${stageName}`} graded />
+    </figure>
+  )
+}
 
 <section class="pf-sec">
-  <span class="t-label">What I’d do differently</span>
-  <p class="pf-lesson">{d.lesson}</p>
+  <span class="t-label pf-prompt">{d.lessonLabel ?? 'What I’d do differently'}</span>
+  <p class="t-answer">{d.lesson}</p>
 </section>
-
-<dl class="pf-meta">
-  <div><dt class="t-label">Client</dt><dd>{d.client}</dd></div>
-  <div><dt class="t-label">Platform</dt><dd>{d.platform}</dd></div>
-  <div><dt class="t-label">Led</dt><dd>{d.led}</dd></div>
-  <div><dt class="t-label">Team</dt><dd>{d.team}</dd></div>
-</dl>
