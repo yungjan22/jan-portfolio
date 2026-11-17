@@ -288,12 +288,10 @@ button { font: inherit; color: inherit; }
 .px__count { font-size: var(--text-small); color: var(--muted); }
 .px__count b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
 .px__actions { display: flex; gap: var(--space-2); }
-.px__peek, .px__add { all: unset; cursor: pointer; min-height: 44px; padding: 0 var(--space-4); display: inline-flex; align-items: center; font-weight: 700; font-size: var(--text-small); }
-.px__peek { border: 1px solid var(--line); color: var(--ink); }
-.px__peek[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.px__add { all: unset; cursor: pointer; min-height: 44px; padding: 0 var(--space-4); display: inline-flex; align-items: center; font-weight: 700; font-size: var(--text-small); }
 .px__add { background: var(--ember); color: var(--on-ember); }
 .px__add:disabled { opacity: 0.45; cursor: default; }
-.px__peek:focus-visible, .px__add:focus-visible { outline: 2px solid var(--ember-text); outline-offset: 2px; }
+.px__add:focus-visible { outline: 2px solid var(--ember-text); outline-offset: 2px; }
 .px__status { font-size: var(--text-small); color: var(--muted); min-height: 1.5em; }
 
 /* ---------- Lightbox ---------- */

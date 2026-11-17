@@ -1,5 +1,5 @@
 // The picture behind "Drop a pixel": an original Vancouver scene in pixels,
-// with North Shore mountains, an evergreen forest, and rows of curling waves.
+// a dense evergreen forest above rows of curling ocean waves. No sky.
 // 64 x 28 cells, so each of the four architectural columns holds 16.
 // Every cell maps to one palette key; colours come from the --wave-* tokens.
 
@@ -8,13 +8,11 @@ export const ROWS = 28;
 export const TOTAL = COLS * ROWS;
 
 export type Tone =
-  | 'sky' | 'haze' | 'sun'
-  | 'rock' | 'snow'
-  | 'pineDark' | 'pine' | 'pineLight'
+  | 'pineDeep' | 'pineDark' | 'pine' | 'pineLight'
   | 'foam' | 'light' | 'mid' | 'deep';
 
-const FOREST_BASE = 15; // last forest row; water starts below
-const HORIZON = 16;
+const SHORE = 13; // last forest row; water starts below
+const HORIZON = SHORE + 1;
 
 // Seeded noise so the picture is the same for everyone.
 const rand = (n: number) => {
@@ -22,33 +20,33 @@ const rand = (n: number) => {
   return x - Math.floor(x);
 };
 
-function mountainTop(x: number): number {
-  // North Shore ridges: two peaks around x≈15 and x≈46, low saddles between.
-  const a = 9 - 6 * Math.exp(-(((x - 15) / 8) ** 2));
-  const b = 9 - 6.6 * Math.exp(-(((x - 46) / 10) ** 2));
-  return Math.min(a, b) + 0.35 * Math.sin(x * 0.9);
+// Two layers of conifers. The back layer reaches the top edge so the forest
+// fills the frame; the front layer is shorter and darker.
+const BACK = Array.from({ length: 17 }, (_, k) => ({
+  cx: k * 4 + 1 + rand(k) * 1.2,
+  top: Math.floor(rand(k + 20) * 5) - 2, // -2..2, some run off the top
+}));
+const FRONT = Array.from({ length: 12 }, (_, k) => ({
+  cx: k * 5.4 + 3 + rand(k + 60) * 1.6,
+  top: 3 + Math.floor(rand(k + 90) * 4), // 3..6
+}));
+
+function inTree(t: { cx: number; top: number }, x: number, y: number, slope = 0.55) {
+  if (y < t.top) return null;
+  const d = y - t.top;
+  const half = Math.floor(d / 2) * slope + (d % 2) * 0.9 + 0.5; // tiered branches
+  const dx = x + 0.5 - t.cx;
+  return Math.abs(dx) <= half ? { lit: dx > half - 0.9 } : null;
 }
 
-// Conifers: a row of triangles of different heights.
-const TREES = Array.from({ length: 23 }, (_, k) => {
-  const cx = k * 2.95 + rand(k) * 1.2;
-  const h = 6 + Math.floor(rand(k + 40) * 5); // 6..10 cells tall
-  return { cx, top: FOREST_BASE - h, back: rand(k + 80) > 0.5 };
-});
-
-function treeTone(x: number, y: number): Tone | null {
-  let hit: Tone | null = null;
-  for (const t of TREES) {
-    if (y < t.top || y > FOREST_BASE) continue;
-    const half = (y - t.top) * 0.2 + 0.3 + ((y - t.top) % 2 === 1 ? 0.3 : 0); // tiered branches
-    const dx = x + 0.5 - t.cx;
-    if (Math.abs(dx) <= half) {
-      // Front trees are darker; a lit edge on the right of each tree.
-      const tone: Tone = dx > half - 0.9 ? 'pineLight' : t.back ? 'pine' : 'pineDark';
-      if (!hit || !t.back) hit = tone;
-    }
+function forestTone(x: number, y: number): Tone {
+  if (y === SHORE) return 'pineDeep'; // forest floor
+  for (const t of FRONT) {
+    const hit = inTree(t, x, y);
+    if (hit) return hit.lit ? 'pineLight' : 'pine';
   }
-  return hit;
+  for (const t of BACK) if (inTree(t, x, y, 0.32)) return 'pineDark';
+  return 'pineDeep'; // shade between the trees
 }
 
 // Waves: one hand-drawn 16 x 5 curl (F foam, L light, M mid, . deep water),
@@ -64,6 +62,7 @@ const TILE_TONE: Record<string, Tone> = { F: 'foam', L: 'light', M: 'mid', '.': 
 const WAVE_ROWS = [
   { top: HORIZON + 1, offset: 4 },
   { top: HORIZON + 6, offset: 12 },
+  { top: HORIZON + 11, offset: 4 }, // runs off the bottom edge
 ];
 
 function waterTone(x: number, y: number): Tone {
@@ -72,21 +71,10 @@ function waterTone(x: number, y: number): Tone {
     const ty = y - r.top;
     if (ty >= 0 && ty < WAVE_TILE.length) return TILE_TONE[WAVE_TILE[ty][(x + r.offset) % 16]];
   }
-  // The last row: tips of the next waves coming in.
-  if (y === HORIZON + 11) return TILE_TONE[WAVE_TILE[0][(x + 8) % 16]];
   return 'deep';
 }
 
-export function toneAt(x: number, y: number): Tone {
-  if (y > FOREST_BASE) return waterTone(x, y);
-  const tree = treeTone(x, y);
-  if (tree) return tree;
-  if (y >= FOREST_BASE) return 'pineDark'; // forest floor
-  const m = mountainTop(x);
-  if (y >= m) return y < m + 1.4 && m < 4.6 ? 'snow' : 'rock';
-  if ((x - 31) ** 2 + ((y - 2.6) * 1.1) ** 2 <= 4.2) return 'sun';
-  return y > 5 ? 'haze' : 'sky';
-}
+export const toneAt = (x: number, y: number): Tone => (y > SHORE ? waterTone(x, y) : forestTone(x, y));
 
 /** Tone for every cell, row by row. */
 export const PICTURE: Tone[] = Array.from({ length: TOTAL }, (_, i) => toneAt(i % COLS, Math.floor(i / COLS)));
