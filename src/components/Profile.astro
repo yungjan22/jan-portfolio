@@ -14,30 +14,19 @@ const { entry, headingId, headingLevel = 'h2' } = Astro.props;
 const d = entry.data;
 const stageName = d.stage[0].toUpperCase() + d.stage.slice(1);
 const Heading = headingLevel;
-const facts = [
-  { label: 'My role', value: d.roleTitle ?? d.led, sub: d.roleTitle ? d.led : undefined },
-  { label: 'Team', value: d.team, sub: d.teamSub },
-  d.timeline ? { label: 'Timeline', value: d.timeline, sub: d.timelineSub } : null,
-  { label: d.platformLabel ?? 'Platform', value: d.platform, sub: d.platformSub },
-].filter((f): f is { label: string; value: string; sub?: string } => f !== null);
+const join = (a?: string, b?: string, sep = ', ') => [a, b].filter(Boolean).join(sep);
+const basics = [
+  { label: 'My role', value: join(d.roleTitle, d.led, ' · ') },
+  { label: 'Team', value: join(d.team, d.teamSub) },
+  { label: 'Timeline', value: join(d.timeline, d.timelineSub) },
+  { label: 'Client', value: d.client },
+  { label: d.platformLabel ?? 'Platform', value: join(d.platform, d.platformSub) },
+].filter((b) => b.value);
 ---
 <div class="pf-top">
-  <span class="pf-tag">{d.tag} · {d.org} · {d.year}</span>
   <Heading class="pf-title" id={headingId}>{d.title}</Heading>
-  {d.summary && <p class="pf-client">For {d.client}</p>}
   <p class="t-answer pf-hook">{d.summary ?? d.subtitle}</p>
   <p class="pf-results">{d.results ?? d.short}</p>
-  <dl class="pf-facts" style={`--cols: ${facts.length}`}>
-    {
-      facts.map((f) => (
-        <div>
-          <dt class="t-label">{f.label}</dt>
-          <dd>{f.value}</dd>
-          {f.sub && <dd class="pf-facts__sub">{f.sub}</dd>}
-        </div>
-      ))
-    }
-  </dl>
 </div>
 
 <figure class="pf-stage">
@@ -127,4 +116,18 @@ const facts = [
 <section class="pf-sec">
   <span class="t-label pf-prompt">{d.lessonLabel ?? 'What I’d do differently'}</span>
   <p class="t-answer">{d.lesson}</p>
+</section>
+
+<section class="pf-sec">
+  <span class="t-label pf-prompt">The basics</span>
+  <dl class="pf-basics">
+    {
+      basics.map((b) => (
+        <div>
+          <dt>{b.label}</dt>
+          <dd>{b.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
 </section>

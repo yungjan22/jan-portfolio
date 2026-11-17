@@ -45,14 +45,11 @@ lesson: “What do you want?” got me “more automation.” Asking about their
 closing: I’d love to walk you through it, from hackathon to factory floor.
 client: Super Qin, Taiwan’s first HACCP-certified poultry supplier
 roleTitle: Lead UI/UX Engineer
-led: UX design + hackathon pitch
-team: 1 PM, 5 developers
-teamSub: 1 partnership manager
-timeline: 72-hour hackathon
-timelineSub: + 6-month rollout, 2021–22
+led: UX design and the hackathon pitch
+team: 1 PM, 5 developers, 1 partnership manager
+timeline: 72-hour hackathon, then a 6-month rollout (2021–22)
 platformLabel: Tools
-platform: Figma
-platformSub: Power BI
+platform: Figma, Power BI
 heroDemo: qin-defect-chart
 stageImage: /work/qin-dashboard/stage-bg.webp
 ---

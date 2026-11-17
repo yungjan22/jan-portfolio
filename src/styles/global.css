@@ -317,24 +317,15 @@ button { font: inherit; color: inherit; }
 
 /* Profile content (shared by the lightbox and /work/[slug]/) */
 .pf-top { padding: 48px var(--space-7); display: flex; flex-direction: column; }
-.pf-tag { font-size: var(--text-tag); line-height: var(--lh-tag); font-weight: 700; color: var(--ember-text); }
 .pf-title {
-  margin-top: var(--space-3);
   font-family: var(--font-serif); font-weight: var(--weight-serif);
   font-size: var(--text-pf-title); line-height: var(--lh-pf-title);
 }
-.pf-client { margin-top: 6px; font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); }
-.pf-hook { margin-top: var(--space-5); max-width: 720px; }
+.pf-hook { margin-top: 20px; max-width: 720px; }
 .pf-results { margin-top: var(--space-5); font-weight: 600; color: var(--ember-text); }
-.pf-facts {
-  margin-top: 32px; display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-}
-.pf-facts > div { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); border-left: 1px solid var(--line); }
-.pf-facts > div:first-child { padding-left: 0; border-left: 0; }
-.pf-facts dt { color: var(--muted); }
-.pf-facts dd { font-size: 15px; line-height: 1.45; font-weight: 600; }
-.pf-facts dd.pf-facts__sub { font-size: var(--text-small); font-weight: 400; color: var(--muted); }
+.pf-basics { border-top: 1px solid var(--line); font-size: 15px; line-height: 1.5; }
+.pf-basics > div { display: grid; grid-template-columns: 140px 1fr; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--line); }
+.pf-basics dt { color: var(--muted); }
 .pf-prompt { color: var(--ember-text); }
 .pf-stage { height: 500px; background-color: var(--stage); display: flex; align-items: flex-end; padding: 48px 64px 0; }
 .pf-stage > .shot { flex: 1; height: 100%; border-bottom: 0; }
@@ -441,8 +432,7 @@ button.btn-primary { border: 0; cursor: pointer; font-family: inherit; }
   .lightbox { width: 100vw; height: 100dvh; max-width: 100vw; max-height: 100dvh; margin: 0; border: 0; }
   .lightbox > .h { display: none; }
   .pf-top, .pf-sec, .pf-foot { padding-left: 24px; padding-right: 24px; }
-  .pf-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .pf-facts > div:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .pf-basics > div { grid-template-columns: 1fr; gap: 2px; }
   .pf-flag__items { grid-template-columns: 1fr; }
   .pf-media-row { grid-template-columns: 1fr; }
   .pf-media-row > div { min-height: 0; padding: var(--space-5) 0; }
