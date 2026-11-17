@@ -1,23 +1,23 @@
 ---
 title: QinSight
-subtitle: A centralized dashboard for faster, clearer operational insights
+subtitle: AI image recognition that spots defects on a poultry line, and alerts that reach the right person in time
 category: B2B SaaS · Dashboard
 org: WiAdvance
-year: '2022'
+year: '2021'
 tag: 1st place
 order: 2
 stage: sage
-short: 264 hours saved every month
-metric: An AI factory solution that won a Microsoft hackathon, then saved 264 hours every month in a real factory.
-problem: What did “digital transformation” actually mean to the people in a factory still running on paper records?
-role: I led user interviews, product design and the pitch. The system started as my winning Microsoft hackathon project and became a real-world implementation.
-stat: '264'
-statLabel: hours saved every month, and 83% less production harm.
-lesson: '[One honest reflection.]'
-client: Microsoft · Super Qin Enterprise
-platform: SaaS application
-led: User interviews, product design, presenting
-team: Team of 3
+short: 83% lower defect rate in a real factory
+metric: An AI image-recognition system that won a Microsoft hackathon, then cut the defect rate by 83% in a real factory.
+problem: Shoppers and the government wanted traceable chicken. But defects were still checked by eye and logged by hand.
+role: I led UX and the hackathon pitch. Each team needed something different, and supervisors don’t watch screens, so urgent alerts go to their phones.
+stat: '83%'
+statLabel: lower defect rate, and 264 labor hours saved every month. Measured in production after the 6-month rollout.
+lesson: Start with jobs to be done. Asking “what do you want?” only got me “more automation.”
+client: Super Qin, Taiwan’s first HACCP-certified poultry supplier
+platform: Web dashboard + phone alerts
+led: UX design, user interviews, hackathon pitch
+team: 1 PM, 5 developers, 1 partnership manager
 heroDemo: qin-defect-chart
 stageImage: /work/qin-dashboard/stage-bg.webp
 ---
@@ -26,28 +26,32 @@ stageImage: /work/qin-dashboard/stage-bg.webp
 
 ## How it started
 
-I built an AI-powered factory solution at a Microsoft hackathon, where it took 1st place. Then it became a real-world implementation.
+I designed an AI factory solution in a 72-hour Microsoft hackathon, where it took 1st place among all national partners. Then we spent 6 months turning it into a real system at Super Qin’s factory.
 
 ## The problem we were trying to solve
 
-I interviewed people across the factory to figure out what “digital transformation” actually meant to them:
+Shoppers and the government wanted traceable chicken. But defects were still checked by eye and logged by hand.
 
-- Factory executive
-- Production supervisor
-- Supply chain manager
+I interviewed three groups to find their jobs to be done. Each needed something different:
+
+- **Factory executive:** make quick decisions to improve efficiency.
+- **Production supervisor:** fix issues quickly to reduce loss.
+- **Supply chain manager:** identify low-performing farms and take action.
 
 ## What I designed
 
-I turned those jobs to be done into a system that digitized messy factory data, from paper records to AI-powered image recognition.
+- **Collect:** AI image recognition for four defect types, each traced to a root cause.
+- **Show:** a real-time dashboard that replaced scattered spreadsheets, with per-supplier tracking.
+- **Act:** a dashboard wasn’t enough. Supervisors don’t watch screens, so urgent alerts go to their phones.
 
 [Dataset and dashboard screens.]
 
 ## Good news
 
-- **83% less production harm.**
-- **264 hours saved every month.**
-- **1st place** at the Microsoft hackathon.
+- **83% lower defect rate**, measured in production.
+- **264 labor hours saved every month** by automating defect logging.
+- **1st place** among all national partners at the 2021 Microsoft Hackathon.
 
 ## What I’d do differently
 
-[One honest reflection.]
+Start with jobs to be done. Asking “what do you want?” only got me “more automation.”
