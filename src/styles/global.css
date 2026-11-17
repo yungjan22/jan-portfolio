@@ -367,9 +367,12 @@ button { font: inherit; color: inherit; }
 .pf-flag__note { margin-top: 32px; }
 .pf-photo { margin-top: var(--space-8); height: 440px; background: var(--stage); display: flex; align-items: center; justify-content: center; padding: 48px; }
 .pf-photo > .shot { width: 62%; height: 100%; }
-.pf-foot { margin-top: var(--space-8); padding: var(--space-7); border-top: 1px solid var(--line); display: flex; flex-direction: column; }
-.pf-foot .t-answer { margin-top: 20px; max-width: 720px; }
-.pf-actions { margin-top: 32px; display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: center; }
+.pf-foot {
+  margin-top: var(--space-8); padding: var(--space-6) var(--space-7) var(--space-7); border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); flex-wrap: wrap;
+}
+.pf-foot__note { max-width: 360px; font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); }
+.pf-foot__note a { color: var(--ember-text); font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; }
 .btn-secondary {
   display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-5);
   border: 1px solid var(--ink); color: var(--ink); font-weight: 700; font-size: var(--text-body); text-decoration: none;
