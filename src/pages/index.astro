@@ -7,6 +7,7 @@ import Shot from '../components/Shot.astro';
 import Profile from '../components/Profile.astro';
 import { jobs, schools, projects, about, gallery } from '../data/resume';
 import Gallery from '../components/Gallery.astro';
+import PixelWave from '../components/PixelWave.astro';
 import ExpEntry from '../components/ExpEntry.astro';
 import { stageStyle } from '../lib/stage';
 
@@ -93,6 +94,14 @@ const cards = work.map((entry, i) => {
               <Gallery items={gallery} />
             </div>
           </div>
+        </section>
+
+        <section class="section" id="play" aria-labelledby="play-h">
+          <div class="section__head">
+            <h2 class="t-h2" id="play-h">Add a pixel</h2>
+          </div>
+          <p class="section__lead">Every pixel reveals a little more of a picture. When the last one goes in, you’ll see what we made together.</p>
+          <div class="play__wrap"><PixelWave /></div>
         </section>
       </div>
     </main>

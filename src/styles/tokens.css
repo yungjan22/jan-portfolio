@@ -31,6 +31,16 @@
   --stage-peach: #6E3B24;
   --on-stage: #FBF7F0;    /* Rare caption chip on a stage. */
 
+  /* "Add a pixel" ocean wave (the hidden picture). Same in both themes so the wave keeps its colours. */
+  --wave-sky: #F4D9C2;
+  --wave-haze: #E9C6AE;
+  --wave-sun: #FF6A2C;
+  --wave-foam: #FBF7F0;
+  --wave-light: #8FB3C4;
+  --wave-mid: #3E6E86;
+  --wave-deep: #23404F;
+  --wave-empty: rgba(42,31,24,0.07);
+
   /* Charts inside project demos (e.g. QinSight). Four series that differ in hue AND lightness. */
   --chart-1: #3E6E86;  /* lake blue */
   --chart-2: #D2551E;  /* ember-dark orange */
@@ -125,6 +135,7 @@
     --stage-heather: #BBA7B5;
     --stage-peach: #D2AE96;
     --on-stage: #2A1F18;
+    --wave-empty: rgba(243,236,225,0.07);
     --chart-1: #8DB4C6;
     --chart-2: #FF8A4C;
     --chart-3: #E2B65C;
@@ -161,6 +172,7 @@
   --stage-heather: #BBA7B5;
   --stage-peach: #D2AE96;
   --on-stage: #2A1F18;
+  --wave-empty: rgba(243,236,225,0.07);
   --chart-1: #8DB4C6;
   --chart-2: #FF8A4C;
   --chart-3: #E2B65C;

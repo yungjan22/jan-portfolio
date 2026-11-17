@@ -8,7 +8,7 @@ if (fine.matches) {
   tag.setAttribute('aria-hidden', 'true');
   document.body.append(tag);
 
-  const CLICKABLE = 'a[href], button, summary, label, [role="button"]';
+  const CLICKABLE = 'a[href], button, summary, label, [role="button"], [data-cursor]';
   const label = (el: Element) =>
     (el.getAttribute('data-cursor') || el.getAttribute('aria-label') || el.textContent || '')
       .replace(/\s+/g, ' ')
