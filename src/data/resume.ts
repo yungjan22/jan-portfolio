@@ -68,19 +68,19 @@ export const jobs: Entry[] = [
   },
   {
     org: 'NII Capital',
-    role: 'Designer',
+    role: 'Design Consultant',
     years: '2020–21',
     place: 'Taipei',
-    what: 'Advised 3 startups in art, education and healthcare, from user flows to prototypes, and helped raise $500,000 in seed funding.',
+    what: 'Startup UX: user flows, prototyping, $500K seed funding.',
     logo: '/logos/nii.svg',
     fit: 'contain',
   },
   {
     org: 'Systex',
-    role: 'Marketing Intern',
+    role: 'Design & Marketing Intern',
     years: '2019–20',
     place: 'Taipei',
-    what: 'Started a digital payment service for administrative fees that made a government process 30% more efficient, and made 20 presentations that explained complex ideas clearly.',
+    what: 'Service design: digital payments, +30% process efficiency.',
     logo: '/logos/systex.webp',
   },
 ];
