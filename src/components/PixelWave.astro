@@ -1,6 +1,7 @@
 ---
-// "Add a pixel": a shared canvas on the four columns. Each visitor adds one pixel a day;
-// every pixel reveals one square of a hidden ocean wave (src/lib/wave.ts).
+// "Drop a pixel": a shared canvas on the four columns. The whole Vancouver scene
+// (src/lib/wave.ts) shows faintly; each visitor drops one pixel a day, which lights
+// that square up in full colour, so the canvas never looks empty.
 // Saved through /api/pixels (functions/api/pixels.ts, Cloudflare D1). If that isn't
 // available (local dev, or before storage is set up) it runs in preview mode, saving
 // only in this browser, and says so.
@@ -11,18 +12,18 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
     <canvas
       class="px__canvas"
       role="img"
-      aria-label={`A shared pixel canvas, ${COLS} by ${ROWS}. Each pixel reveals part of an ocean wave.`}
-      data-cursor="Add your pixel"
+      aria-label={`A shared pixel picture of Vancouver: mountains, an evergreen forest and ocean waves, ${COLS} by ${ROWS} squares. Each dropped pixel lights up one square.`}
+      data-cursor="Drop your pixel"
     ></canvas>
   </div>
   <div class="px__bar">
-    <p class="px__count" aria-live="polite"><b data-count>0</b> of {TOTAL} pixels added</p>
+    <p class="px__count" aria-live="polite"><b data-count>0</b> pixels dropped so far</p>
     <div class="px__actions">
-      <button type="button" class="px__peek" aria-pressed="false" data-peek data-cursor="Peek at the finished wave">Peek</button>
-      <button type="button" class="px__add" data-add data-cursor="Add your pixel">Add my pixel</button>
+      <button type="button" class="px__peek" aria-pressed="false" data-peek data-cursor="See it in full colour">Full colour</button>
+      <button type="button" class="px__add" data-add data-cursor="Drop your pixel">Drop my pixel</button>
     </div>
   </div>
-  <p class="px__status" data-status aria-live="polite">Click any empty square, or press “Add my pixel”. One pixel a day.</p>
+  <p class="px__status" data-status aria-live="polite">Click any faded square, or press “Drop my pixel”. One a day.</p>
 </div>
 
 <script>
@@ -56,8 +57,13 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
       const cs = getComputedStyle(document.documentElement);
       const c = (n: string) => cs.getPropertyValue(n).trim();
       return {
-        tone: { sky: c('--wave-sky'), haze: c('--wave-haze'), sun: c('--wave-sun'), foam: c('--wave-foam'), light: c('--wave-light'), mid: c('--wave-mid'), deep: c('--wave-deep') } as Record<Tone, string>,
-        empty: c('--wave-empty'),
+        tone: {
+          sky: c('--wave-sky'), haze: c('--wave-haze'), sun: c('--wave-sun'),
+          rock: c('--wave-rock'), snow: c('--wave-snow'),
+          pineDark: c('--wave-pine-dark'), pine: c('--wave-pine'), pineLight: c('--wave-pine-light'),
+          foam: c('--wave-foam'), light: c('--wave-light'), mid: c('--wave-mid'), deep: c('--wave-deep'),
+        } as Record<Tone, string>,
+        ghost: parseFloat(c('--wave-ghost')) || 0.2,
         ember: c('--ember'),
         bg: c('--bg'),
       };
@@ -84,8 +90,10 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
       for (let i = 0; i < TOTAL; i++) {
         const x = (i % COLS) * cell;
         const y = Math.floor(i / COLS) * cell;
-        ctx.fillStyle = filled.has(i) || peek ? k.tone[PICTURE[i]] : k.empty;
+        ctx.globalAlpha = filled.has(i) || peek ? 1 : k.ghost;
+        ctx.fillStyle = k.tone[PICTURE[i]];
         ctx.fillRect(x + GAP / 2, y + GAP / 2, cell - GAP, cell - GAP);
+        ctx.globalAlpha = 1;
       }
       const frame = (i: number, withHandles: boolean) => {
         const x = (i % COLS) * cell;
@@ -112,7 +120,7 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
     function update() {
       countEl.textContent = filled.size.toLocaleString('en-US');
       addBtn.disabled = !canAdd() || filled.size >= TOTAL;
-      canvas.dataset.cursor = canAdd() ? 'Add your pixel' : 'Back tomorrow';
+      canvas.dataset.cursor = canAdd() ? 'Drop your pixel' : 'Back tomorrow';
       draw();
     }
 
@@ -179,7 +187,7 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
       store.set(MINE_KEY, String(i));
       store.set(DAY_KEY, today);
       update();
-      say(filled.size >= TOTAL ? 'That was the last one. The wave is complete!' : 'Your pixel is in. Come back tomorrow for another.');
+      say(filled.size >= TOTAL ? 'That was the last square. The picture is complete. Thank you.' : 'Your pixel is in. Thank you for being part of the picture.');
     }
 
     const cellAt = (e: PointerEvent | MouseEvent) => {
@@ -202,7 +210,7 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
     canvas.addEventListener('click', (e) => {
       const c = cellAt(e);
       if (c === null) return;
-      if (filled.has(c)) return say('That square is taken. Pick an empty one.');
+      if (filled.has(c)) return say('Someone’s already there. Pick a faded square.');
       if (!canAdd()) return say('Your pixel for today is in. Come back tomorrow for another.');
       add(c);
     });
@@ -214,8 +222,7 @@ import { COLS, ROWS, TOTAL } from '../lib/wave';
     peekBtn.addEventListener('click', () => {
       peek = !peek;
       peekBtn.setAttribute('aria-pressed', String(peek));
-      peekBtn.textContent = peek ? 'Hide' : 'Peek';
-      peekBtn.dataset.cursor = peek ? 'Hide the finished wave' : 'Peek at the finished wave';
+      peekBtn.dataset.cursor = peek ? 'Back to the pixels' : 'See it in full colour';
       draw();
     });
 

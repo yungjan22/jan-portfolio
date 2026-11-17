@@ -1,6 +1,6 @@
 -- Schema for "Add a pixel" (Cloudflare D1). Run once in the D1 console.
 CREATE TABLE IF NOT EXISTS pixels (
-  i INTEGER PRIMARY KEY,      -- cell index, 0..959 (48 x 20)
+  i INTEGER PRIMARY KEY,      -- cell index, 0..1791 (64 x 28)
   added INTEGER NOT NULL      -- ms timestamp
 );
 CREATE TABLE IF NOT EXISTS visits (

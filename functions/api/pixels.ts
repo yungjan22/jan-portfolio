@@ -9,7 +9,7 @@ interface Env {
   DB?: D1Database;
 }
 
-const TOTAL = 48 * 20;
+const TOTAL = 64 * 28; // keep in sync with src/lib/wave.ts
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
