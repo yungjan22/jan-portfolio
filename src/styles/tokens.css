@@ -54,6 +54,9 @@
   --chart-card-line: rgba(42,31,24,0.12);
   --chart-muted: #4F4236;  /* Muted text on the see-through panels (stays ≥4.5:1) */
   --chart-accent-text: #8F3208; /* Orange text on the see-through panels */
+  /* Text and cards placed on a light photo. The photo stays light in both themes, so these do not flip. */
+  --photo-ink: #2A1F18;
+  --photo-card: rgba(251,247,240,0.88);
   /* Duotone grading pair: the "other" end of each stage (used for photo grading). */
   --stage-sage-alt: #AEB99C;
   --stage-ochre-alt: #C7B587;
@@ -65,6 +68,9 @@
   --font-serif: Newsreader, Georgia, serif;          /* Everything you notice. */
   --font-sans: Figtree, system-ui, sans-serif;       /* Everything you read or click. */
 
+  --text-pf-title: 28px;       --lh-pf-title: 1.1; /* Small project title in the profile (the answers are the hero) */
+  --text-pf-flag: 30px;        --lh-pf-flag: 1.2;  /* Label beside the Green flag stat */
+  --text-pf-flag-item: 40px;   /* Secondary Green flag numbers */
   --text-stat: 148px;         --lh-stat: 1;     --ls-stat: -0.04em;
   --text-display-lg: 76px;    --lh-display-lg: 1.04; --ls-display-lg: -0.025em;
   --text-display: 56px;       --lh-display: 1.06;    --ls-display: -0.025em;

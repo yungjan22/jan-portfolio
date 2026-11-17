@@ -45,6 +45,33 @@ const work = defineCollection({
         photo: z.string().optional(),
       })
       .default({}),
+    // ---- Optional fields for the Hinge-style lightbox (fall back to the fields above) ----
+    summary: z.string().optional(), // Big one-line hook under the title (default: subtitle)
+    results: z.string().optional(), // Ember result line under the hook (default: short)
+    roleTitle: z.string().optional(), // Job title shown above `led` in the facts row
+    timeline: z.string().optional(),
+    timelineSub: z.string().optional(),
+    teamSub: z.string().optional(),
+    platformSub: z.string().optional(),
+    platformLabel: z.string().optional(), // Facts-row label for `platform` (default "Platform")
+    // Prompts in order, each optionally followed by joined images or coded demos.
+    // When set, replaces the default problem → before/after → role sections.
+    story: z
+      .array(
+        z.object({
+          label: z.string(),
+          answer: z.string(),
+          media: z
+            .array(z.object({ src: z.string().optional(), alt: z.string().optional(), demo: z.string().optional() }))
+            .optional(),
+        }),
+      )
+      .optional(),
+    flagItems: z.array(z.object({ value: z.string(), label: z.string() })).optional(), // Smaller results beside the big stat
+    flagNote: z.string().optional(), // How the result was measured
+    flagMedia: z.array(z.object({ src: z.string(), alt: z.string().optional() })).optional(), // Images in one row under the Green flag
+    lessonLabel: z.string().optional(), // Default "What I’d do differently"
+    closing: z.string().optional(), // Answer for "Want the full story?" above the buttons
     draft: z.boolean().default(false),
   }),
 });
