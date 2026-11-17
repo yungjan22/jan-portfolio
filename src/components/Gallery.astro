@@ -1,0 +1,75 @@
+---
+// One photo at a time; crossfades to the next every few seconds.
+// Pauses on hover/focus and with the pause button; never auto-advances with reduced motion.
+import type { gallery as G } from '../data/resume';
+interface Props { items: typeof G }
+const { items } = Astro.props;
+---
+<figure class="gal" data-gallery aria-roledescription="carousel" aria-label="Photos of Jan">
+  <div class="gal__frame">
+    {
+      items.map((it, i) => (
+        <div class:list={['gal__slide', { 'is-on': i === 0 }]} aria-hidden={i === 0 ? 'false' : 'true'}>
+          {it.src ? <img src={it.src} alt={it.alt} loading="lazy" decoding="async" /> : <span class="gal__ph">[Photo · {it.alt}]</span>}
+        </div>
+      ))
+    }
+  </div>
+  <figcaption class="gal__bar">
+    <span class="gal__cap" aria-live="polite">{items[0]?.caption}</span>
+    <span class="gal__ctrl">
+      {items.map((it, i) => (
+        <button type="button" class="gal__dot" aria-label={`Show photo ${i + 1}: ${it.alt}`} aria-current={i === 0 ? 'true' : 'false'} data-cursor={it.alt} data-go={i}></button>
+      ))}
+      <button type="button" class="gal__pause" aria-pressed="false" aria-label="Pause slideshow" data-cursor="Pause">
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path class="gal__ico-pause" d="M3 2v8M9 2v8" stroke="currentColor" stroke-width="1.6"/><path class="gal__ico-play" d="M3 2l7 4-7 4z" fill="currentColor"/></svg>
+      </button>
+    </span>
+  </figcaption>
+  <script type="application/json" data-captions set:html={JSON.stringify(items.map((i) => i.caption))}></script>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((g) => {
+    const slides = [...g.querySelectorAll<HTMLElement>('.gal__slide')];
+    const dots = [...g.querySelectorAll<HTMLButtonElement>('.gal__dot')];
+    const cap = g.querySelector<HTMLElement>('.gal__cap')!;
+    const pauseBtn = g.querySelector<HTMLButtonElement>('.gal__pause')!;
+    const captions: string[] = JSON.parse(g.querySelector('[data-captions]')!.textContent || '[]');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    let i = 0;
+    let paused = still.matches;
+    let hovering = false;
+    let visible = false;
+
+    const show = (n: number) => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => {
+        s.classList.toggle('is-on', k === i);
+        s.setAttribute('aria-hidden', String(k !== i));
+      });
+      dots.forEach((d, k) => d.setAttribute('aria-current', String(k === i)));
+      cap.textContent = captions[i] ?? '';
+    };
+    const syncPause = () => {
+      pauseBtn.setAttribute('aria-pressed', String(paused));
+      pauseBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      pauseBtn.dataset.cursor = paused ? 'Play' : 'Pause';
+    };
+    syncPause();
+
+    setInterval(() => {
+      if (!paused && !hovering && visible && slides.length > 1) show(i + 1);
+    }, 5000);
+    dots.forEach((d) => d.addEventListener('click', () => show(Number(d.dataset.go))));
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      syncPause();
+    });
+    g.addEventListener('pointerenter', () => (hovering = true));
+    g.addEventListener('pointerleave', () => (hovering = false));
+    g.addEventListener('focusin', () => (hovering = true));
+    g.addEventListener('focusout', () => (hovering = false));
+    new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.3 }).observe(g);
+  });
+</script>

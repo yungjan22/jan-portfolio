@@ -89,6 +89,8 @@
   --cursor-arrow: url('/cursors/arrow.svg');        /* Design-tool cursor */
   --cursor-hover: url('/cursors/arrow-hover.svg');  /* Same arrow, ~30% larger, over clickable things */ /* Readable line length for card title + description. */
   --avatar-size: 64px;
+  --gallery-ratio: 4 / 5; /* About gallery photo */
+  --dur-gallery: 700ms;    /* Crossfade between gallery photos */
   --logo-box: 56px; /* Logo box in Experience */
   --logo-bg: #FFFFFF; /* Behind logos, which are made for white (both themes) */ /* Photo beside name and role in the panel. */
   --column-count: 4;

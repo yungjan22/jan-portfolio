@@ -5,7 +5,8 @@ import Panel from '../components/Panel.astro';
 import Handles from '../components/Handles.astro';
 import Shot from '../components/Shot.astro';
 import Profile from '../components/Profile.astro';
-import { value, jobs, schools, projects, notes, skills } from '../data/resume';
+import { jobs, schools, projects, about, gallery } from '../data/resume';
+import Gallery from '../components/Gallery.astro';
 import ExpEntry from '../components/ExpEntry.astro';
 import { stageStyle } from '../lib/stage';
 
@@ -66,24 +67,6 @@ const cards = work.map((entry, i) => {
           </div>
         </section>
 
-        <section class="section" id="value" aria-labelledby="value-h">
-          <div class="section__head">
-            <h2 class="t-h2" id="value-h">How I can help your team</h2>
-          </div>
-          <p class="section__lead">
-            I lead end-to-end design as a tech-literate architect, prototyper and alignment facilitator.
-          </p>
-          {
-            value.map((v) => (
-              <div class="exp-row">
-                <span class="exp-row__year">{v.label}</span>
-                <span class="exp-row__org">{v.title}</span>
-                <span class="exp-row__what">{v.text}</span>
-              </div>
-            ))
-          }
-        </section>
-
         <section class="section" id="experience" aria-labelledby="exp-h">
           <div class="section__head"><h2 class="t-h2" id="exp-h">Experience</h2></div>
           <div class="xp-grid">
@@ -104,26 +87,11 @@ const cards = work.map((entry, i) => {
           <div class="section__head"><h2 class="t-h2" id="about-h">About</h2></div>
           <div class="about">
             <div class="about__text">
-              <p>
-                Outside of Figma and front-end code, I’m an open-water swimmer, a plant parent and an
-                avid picnicker.
-              </p>
-              <p>
-                Engineering and business degrees in Taipei, then an MS in Human Centered Design &amp;
-                Engineering at the University of Washington. I’m also a Toastmasters club president,
-                so yes, I like meetings.
-              </p>
+              {about.map((p) => <p>{p}</p>)}
             </div>
-            <div class="about__notes">
-              {notes.map((n) => (
-                <div class="sticky"><b>{n.title}.</b> {n.text}</div>
-              ))}
+            <div class="about__gallery">
+              <Gallery items={gallery} />
             </div>
-            <dl class="skills">
-              {skills.map((s) => (
-                <div><dt class="t-label">{s.name}</dt><dd>{s.items}</dd></div>
-              ))}
-            </dl>
           </div>
         </section>
       </div>

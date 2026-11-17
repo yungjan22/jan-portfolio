@@ -1,24 +1,6 @@
 // Content from jan.bitbypixel.com (primary) and Jan's "Product Designer" resume in
 // Reactive Resume (to fill gaps). Keep in sync with both.
 
-export const value = [
-  {
-    label: 'Code literacy',
-    title: 'Technical UX',
-    text: 'I read HTML, CSS and JavaScript, so I design with technical constraints in mind and close the gap between UI and front end.',
-  },
-  {
-    label: 'Architecture',
-    title: 'Complex information, made clear',
-    text: 'I map complex technologies and fragmented data into data visualization systems and AI interaction models.',
-  },
-  {
-    label: 'Facilitation',
-    title: 'Team alignment',
-    text: 'When stakeholders disagree, I turn conflicting opinions into quick AI or hand-drawn prototypes the team can test right away.',
-  },
-];
-
 // Experience, in three groups. `logo` is a file under public/logos/; without one,
 // a box with `mark` (initials) shows instead. Pass noLogo to ExpEntry to drop the box. `fit: 'contain'` pads wordmark logos.
 export type Entry = {
@@ -121,35 +103,18 @@ export const projects: Entry[] = [
   },
 ];
 
-export const notes = [
-  {
-    title: 'The open-water swimmer',
-    text: 'I like challenges that take mental grit, like a 3,300-metre open-water marathon swim.',
-  },
-  {
-    title: 'The plant parent',
-    text: 'I propagate large-leaf indoor trees and grow Thai basil on my balcony.',
-  },
-  {
-    title: 'The sun-chaser',
-    text: 'When the sun’s out, I’m on a picnic mat at a local park, catching up with friends.',
-  },
+// About: a short story in Jan's voice (one string per paragraph).
+export const about = [
+  'I grew up between a designer mom and a colour consultant dad, so I was opening Photoshop and Illustrator by the time I was eight.',
+  'That curiosity took me to graphic arts and business at NTNU, then to an MS in Human Centered Design & Engineering at UW. Along the way I realised I care less about how things look and more about why they work.',
+  'That’s still how I design. I dig into the why, read the code, and turn messy systems into something people understand the first time. When a team disagrees, I sketch or prototype it so we can test instead of argue.',
+  'And yes, I really do like meetings.',
 ];
 
-export const skills = [
-  {
-    name: 'Product & interaction design',
-    items:
-      'End-to-end product design, information architecture, journey mapping, service blueprints, design systems and tokens, prototyping in Figma.',
-  },
-  {
-    name: 'Research & strategy',
-    items:
-      'Usability testing (qual and quant), interviews and observation, A/B tests, competitive analysis, stakeholder workshops, design specs.',
-  },
-  {
-    name: 'AI & build',
-    items:
-      'Claude, Cursor, MCP, prompt engineering, prototyping in HTML/CSS/Next.js/Tailwind, Git, Cloudflare, Power BI.',
-  },
+// About gallery: one photo at a time, changing every few seconds.
+// Put photos in public/about/ and set src (e.g. '/about/swim.jpg'). Without src, a labelled placeholder shows.
+export const gallery: { src?: string; alt: string; caption: string }[] = [
+  { alt: 'Open-water swim', caption: 'Finishing a 3,300 m open-water swim' },
+  { alt: 'Plants on a balcony', caption: 'Large-leaf trees and Thai basil on the balcony' },
+  { alt: 'Picnic in a park', caption: 'Picnic season in Vancouver' },
 ];
