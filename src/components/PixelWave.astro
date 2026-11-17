@@ -1,0 +1,225 @@
+---
+// "Drop a pixel": a shared canvas on the four columns. The picture (src/lib/wave.ts)
+// stays hidden: empty squares are a plain grid, and each visitor drops one pixel a day,
+// which reveals that one square of the forest-and-ocean scene.
+// Saved through /api/pixels (functions/api/pixels.ts, Cloudflare D1). If that isn't
+// available (local dev, or before storage is set up) it runs in preview mode, saving
+// only in this browser, and says so.
+import { COLS, ROWS, TOTAL } from '../lib/wave';
+---
+<div class="px" data-pixels data-cols={COLS} data-rows={ROWS}>
+  <div class="px__frame">
+    <canvas
+      class="px__canvas"
+      role="img"
+      aria-label={`A shared pixel picture, ${COLS} by ${ROWS} squares. Each dropped pixel reveals one square of a hidden scene.`}
+      data-cursor="Drop your pixel"
+    ></canvas>
+  </div>
+  <div class="px__bar">
+    <p class="px__count" aria-live="polite"><b data-count>0</b> pixels dropped so far</p>
+    <div class="px__actions">
+      <button type="button" class="px__add" data-add data-cursor="Drop your pixel">Drop my pixel</button>
+    </div>
+  </div>
+  <p class="px__status" data-status aria-live="polite">Click any empty square, or press “Drop my pixel”. One a day.</p>
+</div>
+
+<script>
+  import { COLS, ROWS, TOTAL, PICTURE, type Tone } from '../lib/wave';
+
+  const root = document.querySelector<HTMLElement>('[data-pixels]');
+  if (root) {
+    const canvas = root.querySelector('canvas')!;
+    const ctx = canvas.getContext('2d')!;
+    const countEl = root.querySelector<HTMLElement>('[data-count]')!;
+    const statusEl = root.querySelector<HTMLElement>('[data-status]')!;
+    const addBtn = root.querySelector<HTMLButtonElement>('[data-add]')!;
+
+    const filled = new Set<number>();
+    let mine: number | null = null;
+    let hover: number | null = null;
+    let mode: 'shared' | 'local' = 'shared';
+    const LOCAL_KEY = 'px-local';
+    const MINE_KEY = 'px-mine';
+    const DAY_KEY = 'px-day';
+    const today = new Date().toISOString().slice(0, 10);
+
+    const store = {
+      get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } },
+      set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch {} },
+    };
+
+    const colors = () => {
+      const cs = getComputedStyle(document.documentElement);
+      const c = (n: string) => cs.getPropertyValue(n).trim();
+      return {
+        tone: {
+          sky: c('--wave-sky'), pineDeep: c('--wave-pine-deep'), pineDark: c('--wave-pine-dark'), pine: c('--wave-pine'), pineLight: c('--wave-pine-light'),
+          foam: c('--wave-foam'), light: c('--wave-light'), mid: c('--wave-mid'), deep: c('--wave-deep'),
+        } as Record<Tone, string>,
+        empty: parseFloat(c('--wave-empty')) || 0.5,
+        line: c('--line'),
+        ember: c('--ember'),
+        bg: c('--bg'),
+      };
+    };
+
+    let cell = 10;
+    const GAP = 1;
+    function resize() {
+      const fs = getComputedStyle(canvas.parentElement!);
+      const w = canvas.parentElement!.clientWidth - parseFloat(fs.paddingLeft) - parseFloat(fs.paddingRight);
+      cell = w / COLS;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(cell * ROWS * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${cell * ROWS}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+
+    function draw() {
+      const k = colors();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < TOTAL; i++) {
+        const x = (i % COLS) * cell;
+        const y = Math.floor(i / COLS) * cell;
+        const on = filled.has(i);
+        ctx.globalAlpha = on ? 1 : k.empty;
+        ctx.fillStyle = on ? k.tone[PICTURE[i]] : k.line;
+        ctx.fillRect(x + GAP / 2, y + GAP / 2, cell - GAP, cell - GAP);
+        ctx.globalAlpha = 1;
+      }
+      const frame = (i: number, withHandles: boolean) => {
+        const x = (i % COLS) * cell;
+        const y = Math.floor(i / COLS) * cell;
+        ctx.strokeStyle = k.ember;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(x + 0.75, y + 0.75, cell - 1.5, cell - 1.5);
+        if (!withHandles) return;
+        const h = 5;
+        for (const [hx, hy] of [[x, y], [x + cell, y], [x, y + cell], [x + cell, y + cell]]) {
+          ctx.fillStyle = k.bg;
+          ctx.fillRect(hx - h / 2, hy - h / 2, h, h);
+          ctx.strokeStyle = k.ember;
+          ctx.lineWidth = 1;
+          ctx.strokeRect(hx - h / 2 + 0.5, hy - h / 2 + 0.5, h - 1, h - 1);
+        }
+      };
+      if (hover !== null && !filled.has(hover) && canAdd()) frame(hover, false);
+      if (mine !== null) frame(mine, true);
+    }
+
+    const canAdd = () => store.get(DAY_KEY) !== today;
+
+    function update() {
+      countEl.textContent = filled.size.toLocaleString('en-US');
+      addBtn.disabled = !canAdd() || filled.size >= TOTAL;
+      canvas.dataset.cursor = canAdd() ? 'Drop your pixel' : 'Back tomorrow';
+      draw();
+    }
+
+    function say(msg: string) {
+      statusEl.textContent = msg;
+    }
+
+    async function load() {
+      try {
+        const r = await fetch('/api/pixels', { headers: { accept: 'application/json' } });
+        if (!r.ok) throw new Error(String(r.status));
+        const data = (await r.json()) as { filled: number[] };
+        data.filled.forEach((i) => filled.add(i));
+      } catch {
+        mode = 'local';
+        JSON.parse(store.get(LOCAL_KEY) || '[]').forEach((i: number) => filled.add(i));
+        root.classList.add('is-local');
+      }
+      const m = Number(store.get(MINE_KEY));
+      if (store.get(MINE_KEY) !== null && Number.isInteger(m)) mine = m;
+      // Testing aid: ?fill=0.4 shows a canvas 40% full (this browser only, not saved).
+      const fill = Number(new URLSearchParams(location.search).get('fill'));
+      if (fill > 0) for (let i = 0; i < TOTAL; i++) if (Math.random() < fill) filled.add(i);
+      if (mode === 'local') say('For now, pixels are saved only in your browser.');
+      if (!canAdd()) say('Your pixel for today is in. Come back tomorrow for another.');
+      update();
+    }
+
+    async function add(i: number) {
+      if (!canAdd() || filled.has(i)) return;
+      filled.add(i);
+      mine = i;
+      update();
+      if (mode === 'shared') {
+        try {
+          const r = await fetch('/api/pixels', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ i }),
+          });
+          if (r.status === 429) {
+            filled.delete(i);
+            mine = Number(store.get(MINE_KEY)) || null;
+            store.set(DAY_KEY, today);
+            update();
+            return say('You’ve already added a pixel today. Come back tomorrow.');
+          }
+          if (r.status === 409) {
+            filled.delete(i);
+            mine = null;
+            update();
+            return say('Someone just took that square. Try another one.');
+          }
+          if (!r.ok) throw new Error(String(r.status));
+        } catch {
+          filled.delete(i);
+          mine = null;
+          update();
+          return say('That didn’t save. Please try again in a moment.');
+        }
+      } else {
+        store.set(LOCAL_KEY, JSON.stringify([...filled]));
+      }
+      store.set(MINE_KEY, String(i));
+      store.set(DAY_KEY, today);
+      update();
+      say(filled.size >= TOTAL ? 'That was the last square. The picture is complete. Thank you.' : 'Your pixel is in. Thank you for being part of the picture.');
+    }
+
+    const cellAt = (e: PointerEvent | MouseEvent) => {
+      const r = canvas.getBoundingClientRect();
+      const x = Math.floor((e.clientX - r.left) / cell);
+      const y = Math.floor((e.clientY - r.top) / cell);
+      return x >= 0 && x < COLS && y >= 0 && y < ROWS ? y * COLS + x : null;
+    };
+    canvas.addEventListener('pointermove', (e) => {
+      const c = cellAt(e);
+      if (c !== hover) {
+        hover = c;
+        draw();
+      }
+    });
+    canvas.addEventListener('pointerleave', () => {
+      hover = null;
+      draw();
+    });
+    canvas.addEventListener('click', (e) => {
+      const c = cellAt(e);
+      if (c === null) return;
+      if (filled.has(c)) return say('Someone’s already there. Pick an empty square.');
+      if (!canAdd()) return say('Your pixel for today is in. Come back tomorrow for another.');
+      add(c);
+    });
+    addBtn.addEventListener('click', () => {
+      const empty = [];
+      for (let i = 0; i < TOTAL; i++) if (!filled.has(i)) empty.push(i);
+      if (empty.length) add(empty[Math.floor(Math.random() * empty.length)]);
+    });
+
+    new ResizeObserver(resize).observe(canvas.parentElement!);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+    load();
+  }
+</script>
