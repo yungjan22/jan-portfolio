@@ -126,14 +126,14 @@ const cards = work.map((entry, i) => {
             <article data-profile={entry.id} hidden={i !== 0} style={stageStyle(entry)}>
               <Profile entry={entry} headingId={`lb-title-${i}`} />
               <div class="pf-foot">
-                <span class="t-label pf-prompt">Want the full story?</span>
-                <p class="t-answer">{entry.data.closing ?? 'I’d love to walk you through it.'}</p>
-                <div class="pf-actions">
-                  <button class="btn-primary" type="button" data-next={next.id} data-cursor={`Next: ${next.data.title}`}>
-                    Next profile: {next.data.title} →
-                  </button>
-                  {site.email && <a class="btn-secondary" href={`mailto:${site.email}`}>Contact me</a>}
-                </div>
+                <p class="pf-foot__note">
+                  {entry.data.closing ?? 'I’d love to walk you through it.'}{' '}
+                  {site.email && <a href={`mailto:${site.email}`}>Contact me</a>}
+                </p>
+                <button class="next-link" type="button" data-next={next.id} data-cursor={`Next: ${next.data.title}`}>
+                  <span>Next profile</span>
+                  <span>{next.data.title} →</span>
+                </button>
               </div>
             </article>
           );

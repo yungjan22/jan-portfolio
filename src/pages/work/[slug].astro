@@ -34,13 +34,14 @@ const d = entry.data;
           <Content />
         </div>
         <div class="pf-foot">
-          <span class="t-label pf-prompt">Want the full story?</span>
-          <p class="t-answer">{d.closing ?? 'I’d love to walk you through it.'}</p>
-          <div class="pf-actions">
-            <a class="btn-primary" href={`/work/${next.id}/`}>Next case study: {next.data.title} →</a>
-            {site.email && <a class="btn-secondary" href={`mailto:${site.email}`}>Contact me</a>}
-            <a class="back-link" href="/#work">← All work</a>
-          </div>
+          <p class="pf-foot__note">
+            {d.closing ?? 'I’d love to walk you through it.'}{' '}
+            {site.email && <a href={`mailto:${site.email}`}>Contact me</a>}
+          </p>
+          <a class="next-link" href={`/work/${next.id}/`}>
+            <span>Next case study</span>
+            <span>{next.data.title} →</span>
+          </a>
         </div>
       </article>
     </main>
