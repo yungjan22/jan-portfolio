@@ -19,12 +19,10 @@
 
     <div class="sm-body" aria-hidden="true">
       <div class="sm-mode sm-mode--iterate">
-        <p class="sm-hint">Changes your app</p>
         <span class="sm-chip"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M5.6 11.2h4.8M6.4 13.6h3.2M8 2a4.2 4.2 0 0 0-2.4 7.6v1.6h4.8V9.6A4.2 4.2 0 0 0 8 2Z" /></svg>Add a search bar to the top</span>
         <span class="sm-input">Describe a change to your app…</span>
       </div>
       <div class="sm-mode sm-mode--explain">
-        <p class="sm-hint">Answers without editing</p>
         <span class="sm-chip"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M5.6 11.2h4.8M6.4 13.6h3.2M8 2a4.2 4.2 0 0 0-2.4 7.6v1.6h4.8V9.6A4.2 4.2 0 0 0 8 2Z" /></svg>Where is my flashcard data stored?</span>
         <span class="sm-input">Ask without editing your app…</span>
       </div>
@@ -35,15 +33,14 @@
 <style>
   .sm { height: 400px; display: flex; align-items: center; justify-content: center; padding: 48px 72px; background-color: var(--stage); }
   .sm-panel {
-    width: 100%; max-width: 520px; padding: var(--space-5); border-radius: 12px;
-    background: var(--chart-card); border: 1px solid var(--chart-card-line); color: var(--ink);
-    font-family: var(--font-sans); font-size: var(--text-small); backdrop-filter: blur(6px);
+    width: 100%; max-width: 520px; color: var(--ink);
+    font-family: var(--font-sans); font-size: var(--text-small);
   }
 
   /* Segmented switch: the thumb slides from Iterate to Explain */
   .sm-switch {
     position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 8px;
-    background: var(--chart-chip); border: 1px solid var(--chart-card-line);
+    background: var(--chart-card); border: 1px solid var(--chart-card-line); backdrop-filter: blur(6px);
   }
   .sm-thumb {
     position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 6px;
@@ -59,15 +56,14 @@
   /* Both modes share one grid cell and crossfade */
   .sm-body { display: grid; margin-top: var(--space-5); }
   .sm-mode { grid-area: 1 / 1; display: flex; flex-direction: column; gap: var(--space-3); }
-  .sm-hint { font-size: var(--text-tag); color: var(--chart-muted); }
   .sm-chip {
     align-self: flex-start; display: flex; align-items: center; gap: var(--space-2); padding: 8px 12px; border-radius: 6px;
-    background: color-mix(in srgb, var(--chart-3) 18%, transparent); color: var(--ink);
+    background: color-mix(in srgb, var(--chart-3) 22%, var(--chart-card)); color: var(--ink); backdrop-filter: blur(6px);
   }
   .sm-chip svg { fill: none; stroke: var(--chart-3); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
   .sm-input {
     display: block; margin-top: var(--space-2); padding: 14px var(--space-4); border-radius: 8px;
-    border: 1px solid var(--chart-card-line); background: var(--chart-chip); color: var(--chart-muted);
+    border: 1px solid var(--chart-card-line); background: var(--chart-card); color: var(--chart-muted); backdrop-filter: blur(6px);
   }
 
   /* Resting state (before it plays): Iterate */
