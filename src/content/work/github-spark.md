@@ -7,31 +7,35 @@ year: '2025'
 tag: Shipped
 order: 1
 stage: heather
-short: My research informed GitHub Spark’s public preview.
+short: My research and concepts informed GitHub Spark’s public preview.
 metric: I designed for people who aren’t engineers using GitHub’s vibe coding tool. My research and concepts informed GitHub Spark’s public preview.
-summary: Helping people who don’t code go from an app the AI built to an app they understand and can change.
-results: 387 survey responses · 4 design recommendations for GitHub
+summary: Founders who can’t code lost control when the AI rewrote their apps. I led the research and four design concepts that informed GitHub Spark’s public preview.
+results: Informed Spark’s July 2025 public preview · 4 recommendations presented to GitHub
 problem: People felt they had lost control of the AI. They asked for one change and it changed everything.
-role: I led research and design. I narrowed a fuzzy brief to one audience, non-technical founders, and turned what we learned into principles the team could design from.
+role: I led research and design in a team of 3, from setting the scope with GitHub to presenting our four recommendations.
 story:
   - label: The problem I fell for
-    answer: Building the first version with AI was easy. Changing it was not. Founders couldn’t tell what the AI changed, or whether a simple question would break their app.
+    answer: GitHub’s research had always studied developers. AI tools like Spark opened the door to founders who can’t code, and they got stuck the moment they tried to change what the AI built.
+  - label: My role
+    answer: Project lead and design research lead in a team of 3, working with GitHub’s research and Spark teams. I set the scope, led the research, wrote the design principles and led communication with GitHub.
   - label: What I found
-    answer: We got 387 survey responses, interviewed 7 founders, and had people with and without coding skills build the same app in 6 AI tools. One participant put it best. “I’m just asking a question or changing one thing. Why did it change everything?”
-  - label: The call I’m proudest of
-    answer: Principles before screens. I set four, starting with “separate learning from editing.” That became Explain mode, where you can ask about your app without changing it, beside Iterate mode, where you change it on purpose.
+    answer: 387 survey responses, 7 founder interviews, and the same app built in 6 AI tools by people with and without coding skills. The pattern was loss of control. “I’m just asking a question or changing one thing. Why did it change everything?”
+  - label: The calls I made
+    answer: I narrowed “anyone building with AI” to non-technical founders, a group GitHub hadn’t studied. I parked API setup, deployment and scaling to focus on the build, test and refine loop the Spark team cared about most. With six months and no working AI to test, we ran 3 rounds of concept testing and never claimed more than that.
   - label: What we designed
-    answer: Four concepts, refined over 3 rounds of concept testing. Explain and Iterate modes. Select a component to inspect or edit it. A change history that shows what was added and removed. A technical level setting so explanations match the person.
+    answer: Four principles, then four concepts. Explain mode lets you ask about your app without changing it; Iterate mode changes it on purpose. You can also select a component to inspect it, see a history of what the AI added and removed, and set your technical level so answers match you.
+  - label: How I won buy-in
+    answer: I agreed the scope with GitHub’s research team up front and shared findings as we went. Spark’s PM then reached out to us, and we presented our four recommendations to GitHub.
 stat: Jul 2025
-statLabel: GitHub launched Spark’s public preview, with ask-without-editing interactions like the ones our research informed.
+statLabel: Spark’s public preview launched with ways to ask about your app without changing it, the direction our research informed.
 flagItems:
   - value: '387'
     label: survey responses, plus 7 founder interviews
   - value: '4'
     label: design recommendations presented to GitHub’s Spark team
-flagNote: We shared our research with GitHub’s research and Spark teams during the project. Part of UW’s MS in Human Centered Design & Engineering capstone.
+flagNote: 'Before: in the tools we tested, asking the AI a question could rewrite the app. Part of UW’s MS in Human Centered Design & Engineering capstone.'
 lesson: '[One honest reflection.]'
-closing: I’d love to walk you through it, from the first survey to the four concepts.
+closing: In an interview I’ll walk you through the 6-tool comparison, all 3 rounds of concept testing, and the long-term ideas we handed GitHub.
 client: GitHub
 roleTitle: Project lead, design research lead
 platform: AI web application
