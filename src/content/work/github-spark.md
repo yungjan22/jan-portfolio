@@ -23,15 +23,14 @@ story:
         alt: 'The project team with our design process laid over the photo: research (online observation, 387 survey responses, 7 interviews, competitive analysis, thematic analysis), ideation (storyboards, sketches), prototype and evaluation (medium-fidelity prototype, concept testing), and solution (design principles, guidelines and product recommendations for Spark)'
   - label: What I found
     answer: 387 survey responses, 7 founder interviews, and the same app built in 6 AI tools by people with and without coding skills. The pattern was loss of control. “I’m just asking a question or changing one thing. Why did it change everything?”
-    media:
-      - placeholder: 'Image · research synthesis (survey results, affinity map or the 6-tool comparison)'
   - label: The calls I made
     answer: I narrowed the audience to non-technical founders, a group GitHub hadn’t studied. Then I chose to fix iteration first, the part the Spark team wanted most, even though our survey said deployment and API setup hurt more.
-  - label: What we designed
-    answer: Two design principles first, then three concepts. We tested them in 3 rounds with the same participants, who understood the problem right away.
     media:
       - src: /work/github-spark/concept-testing.webp
         alt: 'Left: the product creation workflow, from idea to talk to AI, test, refine and share, with our focus on the iteration cycle. Right: early concept sketches on sticky notes from concept testing.'
+  - label: What we designed
+    answer: Two design principles first, then three concepts. We tested them in 3 rounds with the same participants, who understood the problem right away.
+    media:
       - demo: spark-modes
       - demo: spark-select
         size: half
