@@ -1,0 +1,70 @@
+---
+// GitHub Spark concept 2, half row, still: select a component in the preview, then
+// ask or change just that part. Example prompt from Jan's concept testing.
+---
+<div class="ss demo-stage">
+  <div class="ss-panel" role="img" aria-label="An app preview with one restaurant card selected and a prompt beside it: Add the ability to bookmark favorite restaurant">
+    <div class="ss-bar" aria-hidden="true">
+      <span>Restaurant finder</span>
+      <svg class="ss-target" viewBox="0 0 20 20" width="18" height="18"><circle cx="10" cy="10" r="6" /><path d="M10 1.5v4M10 14.5v4M1.5 10h4M14.5 10h4" /></svg>
+    </div>
+    <div class="ss-list" aria-hidden="true">
+      <div class="ss-row"><span class="ss-thumb"></span><span class="ss-lines"><b>Noodle House</b><i>4.6 · Ramen · 0.4 km</i></span></div>
+      <div class="ss-row is-selected">
+        <span class="ss-tag">RestaurantCard</span>
+        <span class="ss-thumb"></span><span class="ss-lines"><b>Green Table</b><i>4.8 · Vegan · 0.9 km</i></span>
+      </div>
+      <div class="ss-row"><span class="ss-thumb"></span><span class="ss-lines"><b>Harbour Grill</b><i>4.3 · Seafood · 1.2 km</i></span></div>
+    </div>
+    <div class="ss-prompt" aria-hidden="true">
+      <span>Add the ability to bookmark favorite restaurant</span>
+      <span class="ss-go">Go</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ss { height: 380px; display: flex; align-items: center; justify-content: center; padding: 40px 32px; background-color: var(--stage); }
+  .ss-panel {
+    position: relative; width: 100%; max-width: 340px; border-radius: 12px; overflow: visible;
+    background: var(--chart-card); border: 1px solid var(--chart-card-line); color: var(--ink);
+    font-family: var(--font-sans); font-size: var(--text-tag); backdrop-filter: blur(6px);
+  }
+  .ss-bar {
+    display: flex; align-items: center; justify-content: space-between; padding: 12px var(--space-4);
+    border-bottom: 1px solid var(--chart-card-line); font-weight: 600; font-size: var(--text-label);
+  }
+  .ss-target { fill: none; stroke: var(--chart-1); stroke-width: 1.6; stroke-linecap: round; }
+  .ss-list { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4) 64px; }
+  .ss-row {
+    position: relative; display: flex; align-items: center; gap: var(--space-3); padding: 10px; border-radius: 8px;
+    background: var(--chart-chip); border: 1px solid var(--chart-card-line);
+  }
+  .ss-thumb { width: 36px; height: 36px; border-radius: 6px; flex: none; background: color-mix(in srgb, var(--chart-4) 30%, transparent); }
+  .ss-lines { display: flex; flex-direction: column; gap: 2px; }
+  .ss-lines b { font-weight: 600; font-size: var(--text-label); }
+  .ss-lines i { font-style: normal; color: var(--chart-muted); }
+
+  /* The selected component: outline + name tag */
+  .ss-row.is-selected { outline: 2px solid var(--chart-1); outline-offset: 2px; }
+  .ss-tag {
+    position: absolute; top: -12px; left: 8px; padding: 1px 6px; border-radius: 4px;
+    background: var(--chart-1); color: var(--surface); font-size: var(--text-badge); font-weight: 600;
+  }
+
+  /* Prompt anchored to the selection */
+  .ss-prompt {
+    position: absolute; left: 24px; right: -16px; bottom: 16px; display: flex; align-items: center; gap: var(--space-2);
+    padding: 8px 8px 8px 14px; border-radius: 10px; background: var(--surface); border: 2px solid var(--chart-1);
+    font-size: var(--text-label); line-height: 1.3;
+  }
+  .ss-prompt span:first-child { flex: 1; }
+  .ss-go {
+    padding: 6px 10px; border-radius: 6px; font-weight: 600; color: var(--ink);
+    background: color-mix(in srgb, var(--chart-1) 22%, transparent);
+  }
+
+  @media (max-width: 899px) {
+    .ss { height: auto; padding: 32px 40px 40px 24px; }
+  }
+</style>

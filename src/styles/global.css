@@ -166,11 +166,12 @@ button { font: inherit; color: inherit; }
 .card--wide .card__desc { font-size: var(--text-body); }
 
 /* Optional stage background image (stageImage in frontmatter), same in both themes. */
-.card__img, .pf-stage { background-image: var(--stage-image, none); background-size: cover; background-position: center; }
+/* .demo-stage: coded demos that sit on the project's stage image */
+.card__img, .pf-stage, .demo-stage { background-image: var(--stage-image, none); background-size: cover; background-position: center; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) :is(.card__img, .pf-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
+  :root:not([data-theme="light"]) :is(.card__img, .pf-stage, .demo-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
 }
-:root[data-theme="dark"] :is(.card__img, .pf-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
+:root[data-theme="dark"] :is(.card__img, .pf-stage, .demo-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
 
 /* Coded demos are centred in the stage (screenshots sit on the bottom edge instead). */
 
@@ -331,8 +332,10 @@ button { font: inherit; color: inherit; }
 .pf-stage > .shot { flex: 1; height: 100%; border-bottom: 0; }
 .pf-sec { padding: var(--space-8) var(--space-7) 0; display: flex; flex-direction: column; gap: 20px; }
 .pf-sec .t-answer { max-width: 720px; }
-.pf-media { margin-top: var(--space-7); display: flex; flex-direction: column; gap: 2px; }
-.pf-media > img { display: block; width: 100%; height: auto; }
+.pf-media { margin-top: var(--space-7); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; }
+.pf-media__item { grid-column: 1 / -1; min-width: 0; }
+.pf-media__item.is-half { grid-column: auto; }
+.pf-media__item > img { display: block; width: 100%; height: auto; }
 .pf-media__slot { aspect-ratio: 16 / 10; } /* empty image slot until the real screenshot lands */
 .pf-media-row { display: grid; grid-template-columns: 7fr 4fr; gap: 2px; }
 .pf-media-row > div { background: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 320px; }
@@ -436,6 +439,7 @@ button.btn-primary { border: 0; cursor: pointer; font-family: inherit; }
   .pf-basics > div { grid-template-columns: 1fr; gap: 2px; }
   .pf-flag__items { grid-template-columns: 1fr; }
   .pf-media-row { grid-template-columns: 1fr; }
+  .pf-media__item.is-half { grid-column: 1 / -1; }
   .pf-media-row > div { min-height: 0; padding: var(--space-5) 0; }
   .t-answer { font-size: 28px; }
   .t-stat { font-size: 96px; }

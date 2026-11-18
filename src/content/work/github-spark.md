@@ -9,10 +9,10 @@ order: 1
 stage: heather
 short: My research and concepts informed GitHub Spark’s public preview.
 metric: I designed for people who aren’t engineers using GitHub’s vibe coding tool. My research and concepts informed GitHub Spark’s public preview.
-summary: Founders who can’t code lost control when the AI rewrote their apps. I led the research and four design concepts that informed GitHub Spark’s public preview.
-results: Informed Spark’s July 2025 public preview · 4 recommendations presented to GitHub
+summary: Founders who can’t code lost control when the AI rewrote their apps. I led the research and three design concepts that informed GitHub Spark’s public preview.
+results: Informed Spark’s July 2025 public preview · 3 design concepts presented to GitHub
 problem: People felt they had lost control of the AI. They asked for one change and it changed everything.
-role: I led research and design in a team of 3, from setting the scope with GitHub to presenting our four recommendations.
+role: I led research and design in a team of 3, from setting the scope with GitHub to presenting our three concepts.
 story:
   - label: The problem I fell for
     answer: GitHub’s research had always studied developers. AI tools like Spark opened the door to founders who can’t code, and they got stuck the moment they tried to change what the AI built.
@@ -27,23 +27,24 @@ story:
   - label: The calls I made
     answer: I narrowed the audience to non-technical founders, a group GitHub hadn’t studied. Then I chose to fix iteration first, the part the Spark team wanted most, even though our survey said deployment and API setup hurt more.
   - label: What we designed
-    answer: Four design principles first, then four concepts. We tested them in 3 rounds with the same participants, who understood the problem right away.
+    answer: Two design principles first, then three concepts. We tested them in 3 rounds with the same participants, who understood the problem right away.
     media:
-      - placeholder: 'Image · concept 1: Explain mode and Iterate mode'
-      - placeholder: 'Image · concept 2: select a component to inspect, edit or ask'
-      - placeholder: 'Image · concept 3: change history, added and removed code'
-      - placeholder: 'Image · concept 4: technical level setting'
+      - demo: spark-modes
+      - demo: spark-select
+        size: half
+      - demo: spark-level
+        size: half
   - label: What my mentor said
     answer: “One of her standout contributions was guiding the team to first define clear design principles.” Jared Bauer, PhD, our project mentor
 stat: Jul 2025
-statLabel: Spark’s public preview launched with an Iterate tab and point-and-select editing, close to two of our four concepts.
+statLabel: Spark’s public preview launched with an Iterate tab and point-and-select editing, close to two of our three concepts.
 flagItems:
   - value: '387'
     label: survey responses, plus 7 founder interviews
   - value: '3'
     label: rounds of concept testing with the same participants
 flagNote: 'Our mentor wrote that the insights “played a meaningful role in internal GitHub product conversations.” Part of UW’s MS in Human Centered Design & Engineering capstone.'
-lesson: We presented our four recommendations to GitHub after Spark’s PM reached out. GitHub retired Spark in August 2026, and getting to a real, launched app was one of its weak spots, the pain I chose to set aside. Next time I’d keep one concept on the hardest pain point, and bring in an engineer to make it testable.
+lesson: We presented our three concepts to GitHub after Spark’s PM reached out. GitHub retired Spark in August 2026, and getting to a real, launched app was one of its weak spots, the pain I chose to set aside. Next time I’d keep one concept on the hardest pain point, and bring in an engineer to make it testable.
 closing: In an interview I’ll walk you through the 6-tool comparison, all 3 rounds of concept testing, and the long-term ideas we handed GitHub.
 client: GitHub
 roleTitle: Project lead, design research lead
@@ -86,14 +87,11 @@ I designed features that gave users more control:
 
 - **Explain and Iterate modes.** Ask about your app without changing it, or change it on purpose.
 - **Select a component** to inspect it, edit it or ask about it.
-- **History and version control** that shows what the AI added and removed.
 - **A technical level setting**, so explanations match the person reading them.
-
-[Before and after screens of the four concepts.]
 
 ## The part I’m proud of
 
-We presented our research and four recommendations to GitHub. Its July 2025 public preview of Spark launched with an Iterate tab and point-and-select editing, close to two of our four concepts.
+We presented our research and three concepts to GitHub. Its July 2025 public preview of Spark launched with an Iterate tab and point-and-select editing, close to two of our three concepts.
 
 ## What I’d do differently
 

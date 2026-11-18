@@ -62,7 +62,7 @@ const work = defineCollection({
           label: z.string(),
           answer: z.string(),
           media: z
-            .array(z.object({ src: z.string().optional(), alt: z.string().optional(), demo: z.string().optional(), placeholder: z.string().optional() }))
+            .array(z.object({ src: z.string().optional(), alt: z.string().optional(), demo: z.string().optional(), placeholder: z.string().optional(), size: z.enum(['full', 'half']).optional() }))
             .optional(),
         }),
       )

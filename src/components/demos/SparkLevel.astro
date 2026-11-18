@@ -1,0 +1,96 @@
+---
+// GitHub Spark concept 3, half row: "Customize Spark". The coding-experience dropdown
+// opens, the first level is picked, and explanations switch to plain language.
+// Reduced motion shows the finished choice.
+---
+<div class="sl demo-stage" data-sl-play>
+  <div class="sl-panel" role="img" aria-label="Customize Spark: the coding experience dropdown is set to I'm new to coding or rarely write code, so technical terms are explained in plain language">
+    <p class="sl-title" aria-hidden="true">Customize Spark</p>
+    <div class="sl-field" aria-hidden="true">
+      <p class="sl-label">How would you describe your coding experience?</p>
+      <div class="sl-select">
+        <span class="sl-value">
+          <span class="sl-value--empty">Choose your level</span>
+          <span class="sl-value--set">I’m new to coding or rarely write code</span>
+        </span>
+        <svg viewBox="0 0 12 12" width="10" height="10"><path d="M2 4h8L6 8.5Z" /></svg>
+        <div class="sl-menu">
+          <span class="sl-opt sl-opt--pick">I’m new to coding or rarely write code</span>
+          <span class="sl-opt">I can read code and make small edits</span>
+          <span class="sl-opt">I write code most days</span>
+        </div>
+      </div>
+    </div>
+    <div class="sl-field sl-field--after" aria-hidden="true">
+      <p class="sl-label">When Spark uses technical terms…</p>
+      <div class="sl-select"><span class="sl-value">Explain them in plain language</span><svg viewBox="0 0 12 12" width="10" height="10"><path d="M2 4h8L6 8.5Z" /></svg></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sl { height: 380px; display: flex; align-items: center; justify-content: center; padding: 40px 32px; background-color: var(--stage); }
+  .sl-panel {
+    width: 100%; max-width: 340px; padding: var(--space-4); border-radius: 12px;
+    background: var(--chart-card); border: 1px solid var(--chart-card-line); color: var(--ink);
+    font-family: var(--font-sans); font-size: var(--text-label); backdrop-filter: blur(6px);
+  }
+  .sl-title { font-weight: 600; font-size: var(--text-small); padding-bottom: var(--space-3); border-bottom: 1px solid var(--chart-card-line); }
+  .sl-field { margin-top: var(--space-4); }
+  .sl-label { font-weight: 600; font-size: var(--text-tag); margin-bottom: 6px; }
+  .sl-select {
+    position: relative; display: flex; align-items: center; gap: var(--space-2); padding: 10px 12px; border-radius: 6px;
+    background: var(--chart-chip); border: 1px solid var(--chart-card-line);
+  }
+  .sl-select > svg { fill: var(--ink); flex: none; }
+  .sl-value { flex: 1; display: grid; }
+  .sl-value > span { grid-area: 1 / 1; }
+  .sl-value--empty { color: var(--chart-muted); }
+
+  .sl-menu {
+    position: absolute; z-index: 1; top: calc(100% + 4px); left: 0; right: 0; display: flex; flex-direction: column;
+    padding: 4px; border-radius: 6px; background: var(--surface); border: 1px solid var(--chart-card-line);
+    transform-origin: top; opacity: 0; transform: scaleY(0.9); pointer-events: none;
+  }
+  .sl-opt { padding: 8px; border-radius: 4px; }
+
+  /* Resting state (before it plays): empty, second setting hidden */
+  .sl-value--set { opacity: 0; }
+  .sl-field--after { opacity: 0; }
+
+  .is-playing .sl-menu { animation: sl-menu 1500ms ease 700ms both; }
+  .is-playing .sl-opt--pick { animation: sl-hover 300ms ease 1300ms both; }
+  .is-playing .sl-value--empty { animation: sl-out 200ms ease 2150ms both; }
+  .is-playing .sl-value--set { animation: sl-in 200ms ease 2150ms both; }
+  .is-playing .sl-field--after { animation: sl-rise 400ms ease 2500ms both; }
+
+  @keyframes sl-menu {
+    0% { opacity: 0; transform: scaleY(0.9); }
+    15%, 85% { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: scaleY(0.9); }
+  }
+  @keyframes sl-hover { to { background: color-mix(in srgb, var(--chart-1) 18%, transparent); } }
+  @keyframes sl-out { to { opacity: 0; } }
+  @keyframes sl-in { to { opacity: 1; } }
+  @keyframes sl-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sl .sl-menu { animation: none !important; opacity: 0; }
+    .sl .sl-value--empty { animation: none !important; opacity: 0; }
+    .sl .sl-value--set, .sl .sl-field--after { animation: none !important; opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 899px) {
+    .sl { height: auto; padding: 32px 24px; }
+  }
+</style>
+
+<script>
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) e.target.classList.toggle('is-playing', e.isIntersecting);
+    },
+    { threshold: 0.5 },
+  );
+  document.querySelectorAll('[data-sl-play]').forEach((el) => io.observe(el));
+</script>
