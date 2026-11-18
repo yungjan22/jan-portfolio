@@ -374,7 +374,7 @@ button { font: inherit; color: inherit; }
   display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); flex-wrap: wrap;
 }
 .pf-foot__note { max-width: 360px; font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); }
-.pf-foot__note a { color: var(--ember-text); font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; }
+.pf-foot__note a { color: var(--ember-text); font-weight: 600; padding: 12px 0; } /* inline: padding enlarges the 44px tap area without changing line height */
 .btn-secondary {
   display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-5);
   border: 1px solid var(--ink); color: var(--ink); font-weight: 700; font-size: var(--text-body); text-decoration: none;
@@ -466,6 +466,8 @@ button.btn-primary { border: 0; cursor: pointer; font-family: inherit; }
 /* Coded demos and videos fill the stage edge to edge (screenshots keep their padding).
    Kept last so it wins over the stage padding above and in the phone layout. */
 .card__img:has(.shot--demo, .shot--video), .pf-stage:has(.shot--demo, .shot--video) { padding: 0; align-items: stretch; }
+/* GitHub Spark's logo hero fills a 16:9 stage at every width. */
+.pf-stage:has(.spark-demo) { height: auto; aspect-ratio: 16 / 9; }
 .shot.shot--video { padding: 0; background: transparent; border: 0; }
 .shot--video video { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
 

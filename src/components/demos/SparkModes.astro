@@ -1,7 +1,7 @@
 ---
-// GitHub Spark concept 1, full row: the Iterate / Explain switch. Plays once when it
-// scrolls into view: starts in Iterate, then the switch slides to Explain and the
-// suggested question and input change with it. Reduced motion shows Explain only.
+// GitHub Spark concept 1, full row: the Iterate / Explain switch. While in view it
+// switches back and forth every few seconds; the suggested question and input change
+// with it. Reduced motion shows Explain only, with no switching.
 ---
 <div class="sm" data-sm-play>
   <div class="sm-panel" role="img" aria-label="Spark panel switching from Iterate mode, which changes your app, to Explain mode, which answers questions without editing it">
@@ -66,28 +66,21 @@
     border: 1px solid var(--chart-card-line); background: var(--chart-card); color: var(--chart-muted); backdrop-filter: blur(6px);
   }
 
-  /* Resting state (before it plays): Iterate */
+  /* Iterate is the resting state; .is-explain slides the switch over */
+  .sm-thumb { transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1); }
+  .sm-tab { transition: color 300ms ease; }
+  .sm-mode { transition: opacity 300ms ease, transform 300ms ease; }
   .sm-tab--iterate { color: var(--ink); }
-  .sm-mode--explain { opacity: 0; }
+  .sm-mode--explain { opacity: 0; transform: translateY(6px); }
 
-  .is-playing .sm-thumb { animation: sm-slide 420ms cubic-bezier(0.4, 0, 0.2, 1) 1400ms both; }
-  .is-playing .sm-tab--iterate { animation: sm-dim 420ms ease 1400ms both; }
-  .is-playing .sm-tab--explain { animation: sm-lit 420ms ease 1400ms both; }
-  .is-playing .sm-mode--iterate { animation: sm-out 260ms ease 1450ms both; }
-  .is-playing .sm-mode--explain { animation: sm-in 360ms ease 1650ms both; }
-
-  @keyframes sm-slide { to { transform: translateX(100%); } }
-  @keyframes sm-dim { to { color: var(--chart-muted); } }
-  @keyframes sm-lit { to { color: var(--ink); } }
-  @keyframes sm-out { to { opacity: 0; transform: translateY(-6px); } }
-  @keyframes sm-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .is-explain .sm-thumb { transform: translateX(100%); }
+  .is-explain .sm-tab--iterate { color: var(--chart-muted); }
+  .is-explain .sm-tab--explain { color: var(--ink); }
+  .is-explain .sm-mode--iterate { opacity: 0; transform: translateY(-6px); }
+  .is-explain .sm-mode--explain { opacity: 1; transform: none; transition-delay: 150ms; }
 
   @media (prefers-reduced-motion: reduce) {
-    .sm .sm-thumb { transform: translateX(100%); animation: none !important; }
-    .sm .sm-tab--iterate { color: var(--chart-muted); animation: none !important; }
-    .sm .sm-tab--explain { color: var(--ink); animation: none !important; }
-    .sm .sm-mode--iterate { opacity: 0; animation: none !important; }
-    .sm .sm-mode--explain { opacity: 1; animation: none !important; }
+    .sm * { transition: none !important; }
   }
 
   @media (max-width: 899px) {
@@ -99,12 +92,19 @@
 </style>
 
 <script>
-  // Play when visible; reset when out of view so it replays next time.
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) e.target.classList.toggle('is-playing', e.isIntersecting);
-    },
-    { threshold: 0.5 },
-  );
-  document.querySelectorAll('[data-sm-play]').forEach((el) => io.observe(el));
+  // Switch Iterate <-> Explain every 2.6s while visible; stop when out of view.
+  // Reduced motion: hold on Explain.
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-sm-play]').forEach((el) => {
+    let timer: number | undefined;
+    const stop = () => { clearInterval(timer); timer = undefined; };
+    new IntersectionObserver(([e]) => {
+      if (still.matches) { stop(); el.classList.add('is-explain'); return; }
+      if (e.isIntersecting && !timer) {
+        timer = window.setInterval(() => el.classList.toggle('is-explain'), 2600);
+      } else if (!e.isIntersecting) {
+        stop(); el.classList.remove('is-explain');
+      }
+    }, { threshold: 0.5 }).observe(el);
+  });
 </script>
