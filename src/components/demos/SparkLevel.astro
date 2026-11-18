@@ -40,7 +40,9 @@
   }
   .sl-select > svg { fill: var(--ink); flex: none; }
   .sl-value { flex: 1; display: grid; }
-  .sl-value > span { grid-area: 1 / 1; }
+  .sl-value { min-width: 0; font-size: var(--text-tag); }
+  .sl-value > span { grid-area: 1 / 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sl-menu { font-size: var(--text-tag); }
   .sl-value--empty { color: var(--chart-muted); }
 
   .sl-menu {
