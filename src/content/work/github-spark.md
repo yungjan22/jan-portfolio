@@ -20,20 +20,31 @@ story:
     answer: Project lead and design research lead in a team of 3, working with GitHub’s research and Spark teams. I set the scope, led the research, wrote the design principles and led communication with GitHub.
   - label: What I found
     answer: 387 survey responses, 7 founder interviews, and the same app built in 6 AI tools by people with and without coding skills. The pattern was loss of control. “I’m just asking a question or changing one thing. Why did it change everything?”
+    media:
+      - placeholder: 'Image · research synthesis (survey results, affinity map or the 6-tool comparison)'
   - label: The calls I made
-    answer: I narrowed “anyone building with AI” to non-technical founders, a group GitHub hadn’t studied. I parked API setup, deployment and scaling to focus on the build, test and refine loop the Spark team cared about most. With six months and no working AI to test, we ran 3 rounds of concept testing and never claimed more than that.
+    answer: I narrowed “anyone building with AI” to non-technical founders, a group GitHub hadn’t studied. Our survey said deployment and API setup hurt most, but I chose the build, test and refine loop. The Spark team wanted it first, and a team of designers and researchers could test it well in six months. Deployment and APIs went to GitHub as long-term opportunities.
   - label: What we designed
-    answer: Four principles, then four concepts. Explain mode lets you ask about your app without changing it; Iterate mode changes it on purpose. You can also select a component to inspect it, see a history of what the AI added and removed, and set your technical level so answers match you.
+    answer: Four principles, then four concepts, tested in 3 rounds with the same participants. Explain mode lets you ask about your app without changing it; Iterate mode changes it on purpose. You can also select a component, see what the AI added and removed, and set your technical level. Participants got the problem right away, and they spotted our trade-off too. Deployment was still waiting.
+    media:
+      - placeholder: 'Image · concept 1: Explain mode and Iterate mode'
+      - placeholder: 'Image · concept 2: select a component to inspect, edit or ask'
+      - placeholder: 'Image · concept 3: change history, added and removed code'
+      - placeholder: 'Image · concept 4: technical level setting'
   - label: How I won buy-in
     answer: I agreed the scope with GitHub’s research team up front and shared findings as we went. Spark’s PM then reached out to us, and we presented our four recommendations to GitHub.
+    media:
+      - placeholder: 'Image · presenting to GitHub or at the UW Capstone Showcase'
+  - label: What my mentor said
+    answer: “One of her standout contributions was guiding the team to first define clear design principles.” Jared Bauer, PhD, our project mentor
 stat: Jul 2025
-statLabel: Spark’s public preview launched with ways to ask about your app without changing it, the direction our research informed.
+statLabel: Spark’s public preview launched with an Iterate tab and point-and-select editing, close to two of our four concepts.
 flagItems:
   - value: '387'
     label: survey responses, plus 7 founder interviews
-  - value: '4'
-    label: design recommendations presented to GitHub’s Spark team
-flagNote: 'Before: in the tools we tested, asking the AI a question could rewrite the app. Part of UW’s MS in Human Centered Design & Engineering capstone.'
+  - value: '3'
+    label: rounds of concept testing with the same participants
+flagNote: 'Our mentor wrote that the insights “played a meaningful role in internal GitHub product conversations.” Part of UW’s MS in Human Centered Design & Engineering capstone.'
 lesson: '[One honest reflection.]'
 closing: In an interview I’ll walk you through the 6-tool comparison, all 3 rounds of concept testing, and the long-term ideas we handed GitHub.
 client: GitHub
@@ -84,7 +95,7 @@ I designed features that gave users more control:
 
 ## The part I’m proud of
 
-We presented our research and four recommendations to GitHub. Its July 2025 public preview of Spark included ask-without-editing interactions like the ones our research informed.
+We presented our research and four recommendations to GitHub. Its July 2025 public preview of Spark launched with an Iterate tab and point-and-select editing, close to two of our four concepts.
 
 ## What I’d do differently
 

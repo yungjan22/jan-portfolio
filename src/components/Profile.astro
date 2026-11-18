@@ -44,7 +44,7 @@ const basics = [
         {s.media && (
           <div class="pf-media">
             {s.media.map((m) =>
-              m.demo ? <Demo name={m.demo} /> : m.src ? <img src={m.src} alt={m.alt ?? ''} loading="lazy" decoding="async" /> : null,
+              m.demo ? <Demo name={m.demo} /> : m.src ? <img src={m.src} alt={m.alt ?? ''} loading="lazy" decoding="async" /> : m.placeholder ? <Shot placeholder={m.placeholder} class="pf-media__slot" /> : null,
             )}
           </div>
         )}

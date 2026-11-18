@@ -333,6 +333,7 @@ button { font: inherit; color: inherit; }
 .pf-sec .t-answer { max-width: 720px; }
 .pf-media { margin-top: var(--space-7); display: flex; flex-direction: column; gap: 2px; }
 .pf-media > img { display: block; width: 100%; height: auto; }
+.pf-media__slot { aspect-ratio: 16 / 10; } /* empty image slot until the real screenshot lands */
 .pf-media-row { display: grid; grid-template-columns: 7fr 4fr; gap: 2px; }
 .pf-media-row > div { background: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 320px; }
 .pf-media-row > div:first-child img { width: 100%; height: 100%; object-fit: cover; display: block; }
