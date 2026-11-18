@@ -61,12 +61,16 @@ const work = defineCollection({
         z.object({
           label: z.string(),
           answer: z.string(),
+          // Who said it, when the answer is a quote: shown under it with a small photo
+          quoteBy: z.object({ name: z.string(), role: z.string().optional(), photo: z.string().optional(), url: z.string().optional() }).optional(),
           media: z
-            .array(z.object({ src: z.string().optional(), alt: z.string().optional(), demo: z.string().optional(), placeholder: z.string().optional(), size: z.enum(['full', 'half']).optional() }))
+            .array(z.object({ src: z.string().optional(), alt: z.string().optional(), demo: z.string().optional(), video: z.string().optional(), placeholder: z.string().optional(), size: z.enum(['full', 'half']).optional() }))
             .optional(),
         }),
       )
       .optional(),
+    // Full-width media (e.g. a demo video) right before the Green flag
+    flagLeadMedia: z.array(z.object({ src: z.string().optional(), video: z.string().optional(), alt: z.string().optional() })).optional(),
     flagItems: z.array(z.object({ value: z.string(), label: z.string() })).optional(), // Smaller results beside the big stat
     flagNote: z.string().optional(), // How the result was measured
     flagMedia: z.array(z.object({ src: z.string(), alt: z.string().optional() })).optional(), // Images in one row under the Green flag

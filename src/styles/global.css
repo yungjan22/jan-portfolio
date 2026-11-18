@@ -336,6 +336,13 @@ button { font: inherit; color: inherit; }
 .pf-media__item.is-half { grid-column: auto; }
 @media (max-width: 599px) { .pf-media__item.is-half { grid-column: 1 / -1; } }
 .pf-media__item > img { display: block; width: 100%; height: auto; }
+.pf-media__video { aspect-ratio: 16 / 9; }
+.pf-media--lead { margin-top: var(--space-8); }
+.pf-quote-by { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-small); line-height: var(--lh-small); }
+.pf-quote-by img { width: var(--space-7); height: var(--space-7); object-fit: cover; flex: none; }
+.pf-quote-by > span { display: flex; flex-direction: column; }
+.pf-quote-by a { display: inline-flex; align-items: center; min-height: 44px; margin: -10px 0; font-weight: 600; color: var(--ember-text); text-decoration: underline; text-underline-offset: 3px; }
+.pf-quote-by span span { color: var(--muted); }
 .pf-media__slot { aspect-ratio: 16 / 10; } /* empty image slot until the real screenshot lands */
 .pf-media-row { display: grid; grid-template-columns: 7fr 4fr; gap: 2px; }
 .pf-media-row > div { background: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 320px; }
