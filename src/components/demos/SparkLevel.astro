@@ -3,7 +3,7 @@
 // opens and the first level is picked.
 // Reduced motion shows the finished choice.
 ---
-<div class="sl demo-stage" data-sl-play>
+<div class="sl" data-sl-play>
   <div class="sl-panel" role="img" aria-label="Customize Spark: the coding experience dropdown opens and I'm new to coding or rarely write code is picked">
     <div class="sl-field" aria-hidden="true">
       <p class="sl-label">How would you describe your coding experience?</p>
@@ -24,9 +24,9 @@
 </div>
 
 <style>
-  .sl { height: 380px; display: flex; align-items: center; justify-content: center; padding: 40px 32px; background-color: var(--stage); }
+  .sl { height: 380px; display: flex; align-items: center; justify-content: center; padding: 40px 72px; background: var(--stage) url('/work/github-spark/concept-level-bg.webp') center / cover no-repeat; }
   .sl-panel {
-    width: 100%; max-width: 320px; margin-bottom: 96px; color: var(--ink);
+    width: 100%; max-width: 260px; margin-bottom: 96px; color: var(--ink);
     font-family: var(--font-sans); font-size: var(--text-label);
   }
   .sl-field { margin: 0; }
@@ -74,7 +74,7 @@
   }
 
   @media (max-width: 899px) {
-    .sl { height: 100%; min-height: 320px; padding: 32px 16px; }
+    .sl { height: 100%; min-height: 320px; padding: 32px 28px; }
   }
 </style>
 

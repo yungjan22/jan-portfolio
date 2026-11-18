@@ -3,7 +3,7 @@
 // scrolls into view: starts in Iterate, then the switch slides to Explain and the
 // suggested question and input change with it. Reduced motion shows Explain only.
 ---
-<div class="sm demo-stage" data-sm-play>
+<div class="sm" data-sm-play>
   <div class="sm-panel" role="img" aria-label="Spark panel switching from Iterate mode, which changes your app, to Explain mode, which answers questions without editing it">
     <div class="sm-switch" aria-hidden="true">
       <span class="sm-thumb"></span>
@@ -31,9 +31,9 @@
 </div>
 
 <style>
-  .sm { height: 400px; display: flex; align-items: center; justify-content: center; padding: 48px 72px; background-color: var(--stage); }
+  .sm { height: 400px; display: flex; align-items: center; justify-content: center; padding: 48px 144px; background: var(--stage) url('/work/github-spark/concept-modes-bg.webp') center / cover no-repeat; }
   .sm-panel {
-    width: 100%; max-width: 520px; color: var(--ink);
+    width: 100%; max-width: 420px; color: var(--ink);
     font-family: var(--font-sans); font-size: var(--text-small);
   }
 
@@ -91,7 +91,7 @@
   }
 
   @media (max-width: 899px) {
-    .sm { height: auto; padding: 32px 24px; }
+    .sm { height: auto; padding: 40px 48px; }
   }
 </style>
 

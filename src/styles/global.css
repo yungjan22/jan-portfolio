@@ -166,12 +166,11 @@ button { font: inherit; color: inherit; }
 .card--wide .card__desc { font-size: var(--text-body); }
 
 /* Optional stage background image (stageImage in frontmatter), same in both themes. */
-/* .demo-stage: coded demos that sit on the project's stage image */
-.card__img, .pf-stage, .demo-stage { background-image: var(--stage-image, none); background-size: cover; background-position: center; }
+.card__img, .pf-stage { background-image: var(--stage-image, none); background-size: cover; background-position: center; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) :is(.card__img, .pf-stage, .demo-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
+  :root:not([data-theme="light"]) :is(.card__img, .pf-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
 }
-:root[data-theme="dark"] :is(.card__img, .pf-stage, .demo-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
+:root[data-theme="dark"] :is(.card__img, .pf-stage) { background-image: var(--stage-image-dark, var(--stage-image, none)); }
 
 /* Coded demos are centred in the stage (screenshots sit on the bottom edge instead). */
 
