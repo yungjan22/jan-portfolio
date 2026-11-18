@@ -1,22 +1,24 @@
 ---
-// GitHub Spark concept 3, half row: "Customize Spark". The coding-experience dropdown
-// opens and the first level is picked.
-// Reduced motion shows the finished choice.
+// GitHub Spark concept 3, half row: "Customize Spark". While in view, the
+// coding-experience dropdown opens, the next level is picked, and it closes again,
+// cycling through all three levels. Reduced motion shows the first level, still.
+const levels = [
+  'I’m new to coding or rarely write code',
+  'I can read code and make small edits',
+  'I write code most days',
+];
 ---
 <div class="sl" data-sl-play>
-  <div class="sl-panel" role="img" aria-label="Customize Spark: the coding experience dropdown opens and I'm new to coding or rarely write code is picked">
+  <div class="sl-panel" role="img" aria-label="Customize Spark: a dropdown for your coding experience, from I'm new to coding or rarely write code, to I can read code and make small edits, to I write code most days">
     <div class="sl-field" aria-hidden="true">
       <p class="sl-label">How would you describe your coding experience?</p>
       <div class="sl-select">
         <span class="sl-value">
-          <span class="sl-value--empty">Choose your level</span>
-          <span class="sl-value--set">I’m new to coding or rarely write code</span>
+          {levels.map((l, i) => <span class:list={{ 'is-on': i === 0 }}>{l}</span>)}
         </span>
         <svg viewBox="0 0 12 12" width="10" height="10"><path d="M2 4h8L6 8.5Z" /></svg>
         <div class="sl-menu">
-          <span class="sl-opt sl-opt--pick">I’m new to coding or rarely write code</span>
-          <span class="sl-opt">I can read code and make small edits</span>
-          <span class="sl-opt">I write code most days</span>
+          {levels.map((l, i) => <span class:list={['sl-opt', { 'is-on': i === 0 }]}>{l}</span>)}
         </div>
       </div>
     </div>
@@ -29,7 +31,6 @@
     width: 100%; max-width: 260px; margin-bottom: 96px; color: var(--ink);
     font-family: var(--font-sans); font-size: var(--text-label);
   }
-  .sl-field { margin: 0; }
   .sl-label {
     display: inline-block; font-weight: 600; font-size: var(--text-label); margin-bottom: var(--space-2); padding: 6px 10px; border-radius: 6px;
     background: var(--chart-card); backdrop-filter: blur(6px);
@@ -39,40 +40,25 @@
     background: var(--chart-card); border: 1px solid var(--chart-card-line); backdrop-filter: blur(6px);
   }
   .sl-select > svg { fill: var(--ink); flex: none; }
-  .sl-value { flex: 1; display: grid; }
-  .sl-value { min-width: 0; font-size: var(--text-tag); }
-  .sl-value > span { grid-area: 1 / 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sl-menu { font-size: var(--text-tag); }
-  .sl-value--empty { color: var(--chart-muted); }
+  .sl-value { flex: 1; min-width: 0; display: grid; font-size: var(--text-tag); }
+  .sl-value > span {
+    grid-area: 1 / 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    opacity: 0; transition: opacity 200ms ease;
+  }
+  .sl-value > span.is-on { opacity: 1; }
 
   .sl-menu {
     position: absolute; z-index: 1; top: calc(100% + 4px); left: 0; right: 0; display: flex; flex-direction: column;
-    padding: 4px; border-radius: 6px; background: var(--surface); border: 1px solid var(--chart-card-line);
+    padding: 4px; border-radius: 6px; background: var(--surface); border: 1px solid var(--chart-card-line); font-size: var(--text-tag);
     transform-origin: top; opacity: 0; transform: scaleY(0.9); pointer-events: none;
+    transition: opacity 200ms ease, transform 200ms ease;
   }
-  .sl-opt { padding: 8px; border-radius: 4px; }
-
-  /* Resting state (before it plays): empty, second setting hidden */
-  .sl-value--set { opacity: 0; }
-
-  .is-playing .sl-menu { animation: sl-menu 1500ms ease 700ms both; }
-  .is-playing .sl-opt--pick { animation: sl-hover 300ms ease 1300ms both; }
-  .is-playing .sl-value--empty { animation: sl-out 200ms ease 2150ms both; }
-  .is-playing .sl-value--set { animation: sl-in 200ms ease 2150ms both; }
-
-  @keyframes sl-menu {
-    0% { opacity: 0; transform: scaleY(0.9); }
-    15%, 85% { opacity: 1; transform: none; }
-    100% { opacity: 0; transform: scaleY(0.9); }
-  }
-  @keyframes sl-hover { to { background: color-mix(in srgb, var(--chart-1) 18%, transparent); } }
-  @keyframes sl-out { to { opacity: 0; } }
-  @keyframes sl-in { to { opacity: 1; } }
+  .is-open .sl-menu { opacity: 1; transform: none; }
+  .sl-opt { padding: 8px; border-radius: 4px; transition: background-color 200ms ease; }
+  .sl-opt.is-on { background: color-mix(in srgb, var(--chart-1) 18%, transparent); }
 
   @media (prefers-reduced-motion: reduce) {
-    .sl .sl-menu { animation: none !important; opacity: 0; }
-    .sl .sl-value--empty { animation: none !important; opacity: 0; }
-    .sl .sl-value--set { animation: none !important; opacity: 1; }
+    .sl * { transition: none !important; }
   }
 
   @media (max-width: 899px) {
@@ -81,11 +67,36 @@
 </style>
 
 <script>
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) e.target.classList.toggle('is-playing', e.isIntersecting);
-    },
-    { threshold: 0.5 },
-  );
-  document.querySelectorAll('[data-sl-play]').forEach((el) => io.observe(el));
+  // Every 3s while visible: open the menu, move the highlight to the next level,
+  // then close with that level chosen. Stops (and resets) when out of view.
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-sl-play]').forEach((el) => {
+    const values = [...el.querySelectorAll<HTMLElement>('.sl-value > span')];
+    const opts = [...el.querySelectorAll<HTMLElement>('.sl-opt')];
+    let i = 0;
+    let timer: number | undefined;
+    const show = (n: number, list: HTMLElement[]) => list.forEach((x, k) => x.classList.toggle('is-on', k === n));
+    const step = () => {
+      const next = (i + 1) % values.length;
+      el.classList.add('is-open');
+      setTimeout(() => show(next, opts), 600);
+      setTimeout(() => {
+        show(next, values);
+        el.classList.remove('is-open');
+        i = next;
+      }, 1300);
+    };
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !timer && !still.matches) {
+        timer = window.setInterval(step, 3000);
+      } else if (!e.isIntersecting) {
+        clearInterval(timer);
+        timer = undefined;
+        el.classList.remove('is-open');
+        i = 0;
+        show(0, values);
+        show(0, opts);
+      }
+    }, { threshold: 0.5 }).observe(el);
+  });
 </script>
