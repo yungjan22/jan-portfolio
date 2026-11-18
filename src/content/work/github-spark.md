@@ -15,16 +15,16 @@ problem: People felt they had lost control of the AI. They asked for one change 
 role: I led research and design in a team of 3, from setting the scope with GitHub to presenting our three concepts.
 story:
   - label: The problem I fell for
-    answer: GitHub’s research had always studied developers. AI tools like Spark opened the door to founders who can’t code, and they got stuck the moment they tried to change what the AI built.
+    answer: AI made it easy for founders who can’t code to build an app, and hard to change it. GitHub’s research had only ever studied developers.
   - label: My role
-    answer: Project lead and design research lead in a team of 3, working with GitHub’s research and Spark teams. I set the scope, led the research, wrote the design principles and led communication with GitHub.
+    answer: Project lead and design research lead. I set the scope, led the research, wrote the design principles and was the team’s voice to GitHub.
     media:
       - src: /work/github-spark/design-process.webp
         alt: 'The project team with our design process laid over the photo: research (online observation, 387 survey responses, 7 interviews, competitive analysis, thematic analysis), ideation (storyboards, sketches), prototype and evaluation (medium-fidelity prototype, concept testing), and solution (design principles, guidelines and product recommendations for Spark)'
   - label: What I found
-    answer: 387 survey responses, 7 founder interviews, and the same app built in 6 AI tools by people with and without coding skills. The pattern was loss of control. “I’m just asking a question or changing one thing. Why did it change everything?”
+    answer: People felt they had lost control. “I’m just asking a question or changing one thing. Why did it change everything?”
   - label: The calls I made
-    answer: I narrowed the audience to non-technical founders, a group GitHub hadn’t studied. Then I chose to fix iteration first, the part the Spark team wanted most, even though our survey said deployment and API setup hurt more.
+    answer: I focused on non-technical founders, and on fixing iteration first as the Spark team wanted, even though our survey said deployment hurt more.
     media:
       - src: /work/github-spark/concept-testing.webp
         alt: 'Left: the product creation workflow, from idea to talk to AI, test, refine and share, with our focus on the iteration cycle. Right: early concept sketches on sticky notes from concept testing.'
