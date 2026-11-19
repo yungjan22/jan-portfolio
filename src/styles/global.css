@@ -331,8 +331,19 @@ button { font: inherit; color: inherit; }
 .pf-stage > .shot { flex: 1; height: 100%; border-bottom: 0; }
 .pf-sec { padding: var(--space-8) var(--space-7) 0; display: flex; flex-direction: column; gap: 20px; }
 .pf-sec .t-answer { max-width: 720px; }
-.pf-media { margin-top: var(--space-7); display: flex; flex-direction: column; gap: 2px; }
-.pf-media > img { display: block; width: 100%; height: auto; }
+.pf-media { margin-top: var(--space-7); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; }
+.pf-media__item { grid-column: 1 / -1; min-width: 0; }
+.pf-media__item.is-half { grid-column: auto; }
+@media (max-width: 599px) { .pf-media__item.is-half { grid-column: 1 / -1; } }
+.pf-media__item > img { display: block; width: 100%; height: auto; }
+.pf-media__video { aspect-ratio: 16 / 9; }
+.pf-media--lead { margin-top: var(--space-8); }
+.pf-quote-by { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-small); line-height: var(--lh-small); }
+.pf-quote-by img { width: var(--space-7); height: var(--space-7); object-fit: cover; flex: none; }
+.pf-quote-by > span { display: flex; flex-direction: column; }
+.pf-quote-by a { display: inline-flex; align-items: center; min-height: 44px; margin: -10px 0; font-weight: 600; color: var(--ember-text); text-decoration: underline; text-underline-offset: 3px; }
+.pf-quote-by span span { color: var(--muted); }
+.pf-media__slot { aspect-ratio: 16 / 10; } /* empty image slot until the real screenshot lands */
 .pf-media-row { display: grid; grid-template-columns: 7fr 4fr; gap: 2px; }
 .pf-media-row > div { background: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 320px; }
 .pf-media-row > div:first-child img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -363,7 +374,7 @@ button { font: inherit; color: inherit; }
   display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); flex-wrap: wrap;
 }
 .pf-foot__note { max-width: 360px; font-size: var(--text-small); line-height: var(--lh-small); color: var(--muted); }
-.pf-foot__note a { color: var(--ember-text); font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; }
+.pf-foot__note a { color: var(--ember-text); font-weight: 600; padding: 12px 0; } /* inline: padding enlarges the 44px tap area without changing line height */
 .btn-secondary {
   display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-5);
   border: 1px solid var(--ink); color: var(--ink); font-weight: 700; font-size: var(--text-body); text-decoration: none;
@@ -455,6 +466,8 @@ button.btn-primary { border: 0; cursor: pointer; font-family: inherit; }
 /* Coded demos and videos fill the stage edge to edge (screenshots keep their padding).
    Kept last so it wins over the stage padding above and in the phone layout. */
 .card__img:has(.shot--demo, .shot--video), .pf-stage:has(.shot--demo, .shot--video) { padding: 0; align-items: stretch; }
+/* GitHub Spark's logo hero fills a 16:9 stage at every width. */
+.pf-stage:has(.spark-demo) { height: auto; aspect-ratio: 16 / 9; }
 .shot.shot--video { padding: 0; background: transparent; border: 0; }
 .shot--video video { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
 

@@ -40,12 +40,27 @@ const basics = [
         <section class="pf-sec">
           <span class="t-label pf-prompt">{s.label}</span>
           <p class="t-answer">{s.answer}</p>
+          {s.quoteBy && (
+            <p class="pf-quote-by">
+              {s.quoteBy.photo && <img src={s.quoteBy.photo} alt="" width="56" height="56" loading="lazy" decoding="async" />}
+              <span>
+                {s.quoteBy.url ? (
+                  <a href={s.quoteBy.url} target="_blank" rel="noopener" data-cursor={`Open ${s.quoteBy.name}’s LinkedIn`}>{s.quoteBy.name} ↗</a>
+                ) : (
+                  <b>{s.quoteBy.name}</b>
+                )}
+                {s.quoteBy.role && <span>{s.quoteBy.role}</span>}
+              </span>
+            </p>
+          )}
         </section>
         {s.media && (
           <div class="pf-media">
-            {s.media.map((m) =>
-              m.demo ? <Demo name={m.demo} /> : m.src ? <img src={m.src} alt={m.alt ?? ''} loading="lazy" decoding="async" /> : null,
-            )}
+            {s.media.map((m) => (
+              <div class:list={['pf-media__item', { 'is-half': m.size === 'half' }]}>
+                {m.demo ? <Demo name={m.demo} /> : m.video ? <Shot video={m.video} alt={m.alt} placeholder="" class="pf-media__video" /> : m.src ? <img src={m.src} alt={m.alt ?? ''} loading="lazy" decoding="async" /> : m.placeholder ? <Shot placeholder={m.placeholder} class="pf-media__slot" /> : null}
+              </div>
+            ))}
           </div>
         )}
       </>
@@ -71,6 +86,18 @@ const basics = [
         <p class="t-answer">{d.role}</p>
       </section>
     </>
+  )
+}
+
+{
+  d.flagLeadMedia && (
+    <div class="pf-media pf-media--lead">
+      {d.flagLeadMedia.map((m) => (
+        <div class="pf-media__item">
+          {m.video ? <Shot video={m.video} alt={m.alt} placeholder="" class="pf-media__video" /> : m.src ? <img src={m.src} alt={m.alt ?? ''} loading="lazy" decoding="async" /> : null}
+        </div>
+      ))}
+    </div>
   )
 }
 

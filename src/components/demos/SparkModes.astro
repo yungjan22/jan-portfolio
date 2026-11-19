@@ -1,0 +1,110 @@
+---
+// GitHub Spark concept 1, full row: the Iterate / Explain switch. While in view it
+// switches back and forth every few seconds; the suggested question and input change
+// with it. Reduced motion shows Explain only, with no switching.
+---
+<div class="sm" data-sm-play>
+  <div class="sm-panel" role="img" aria-label="Spark panel switching from Iterate mode, which changes your app, to Explain mode, which answers questions without editing it">
+    <div class="sm-switch" aria-hidden="true">
+      <span class="sm-thumb"></span>
+      <span class="sm-tab sm-tab--iterate">
+        <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1.5 9.6 6.4 14.5 8 9.6 9.6 8 14.5 6.4 9.6 1.5 8 6.4 6.4Z" /></svg>
+        Iterate
+      </span>
+      <span class="sm-tab sm-tab--explain">
+        <svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.2" fill="none" stroke-width="1.5" /><path d="M8 7.2v4" stroke-width="1.6" stroke-linecap="round" /><circle cx="8" cy="4.9" r="0.9" /></svg>
+        Explain
+      </span>
+    </div>
+
+    <div class="sm-body" aria-hidden="true">
+      <div class="sm-mode sm-mode--iterate">
+        <span class="sm-chip"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M5.6 11.2h4.8M6.4 13.6h3.2M8 2a4.2 4.2 0 0 0-2.4 7.6v1.6h4.8V9.6A4.2 4.2 0 0 0 8 2Z" /></svg>Add a search bar to the top</span>
+        <span class="sm-input">Describe a change to your app…</span>
+      </div>
+      <div class="sm-mode sm-mode--explain">
+        <span class="sm-chip"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M5.6 11.2h4.8M6.4 13.6h3.2M8 2a4.2 4.2 0 0 0-2.4 7.6v1.6h4.8V9.6A4.2 4.2 0 0 0 8 2Z" /></svg>Where is my flashcard data stored?</span>
+        <span class="sm-input">Ask without editing your app…</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sm { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; padding: 96px 144px; background: var(--stage) url('/work/github-spark/concept-modes-bg.webp') center / cover no-repeat; }
+  .sm-panel {
+    width: 100%; max-width: 420px; color: var(--ink);
+    font-family: var(--font-sans); font-size: var(--text-small);
+  }
+
+  /* Segmented switch: the thumb slides from Iterate to Explain */
+  .sm-switch {
+    position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 8px;
+    background: var(--chart-card); border: 1px solid var(--chart-card-line); backdrop-filter: blur(6px);
+  }
+  .sm-thumb {
+    position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--chart-card-line);
+  }
+  .sm-tab {
+    position: relative; display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 0; font-weight: 600; color: var(--chart-muted);
+  }
+  .sm-tab svg { fill: currentColor; stroke: currentColor; }
+  .sm-tab--iterate svg { stroke: none; }
+
+  /* Both modes share one grid cell and crossfade */
+  .sm-body { display: grid; margin-top: var(--space-6); }
+  .sm-mode { grid-area: 1 / 1; display: flex; flex-direction: column; gap: var(--space-3); }
+  .sm-chip {
+    align-self: flex-start; display: flex; align-items: center; gap: var(--space-2); padding: 8px 12px; border-radius: 6px;
+    background: color-mix(in srgb, var(--chart-3) 22%, var(--chart-card)); color: var(--ink); backdrop-filter: blur(6px);
+  }
+  .sm-chip svg { fill: none; stroke: var(--chart-3); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .sm-input {
+    display: block; margin-top: var(--space-2); padding: 14px var(--space-4); border-radius: 8px;
+    border: 1px solid var(--chart-card-line); background: var(--chart-card); color: var(--chart-muted); backdrop-filter: blur(6px);
+  }
+
+  /* Iterate is the resting state; .is-explain slides the switch over */
+  .sm-thumb { transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1); }
+  .sm-tab { transition: color 300ms ease; }
+  .sm-mode { transition: opacity 300ms ease, transform 300ms ease; }
+  .sm-tab--iterate { color: var(--ink); }
+  .sm-mode--explain { opacity: 0; transform: translateY(6px); }
+
+  .is-explain .sm-thumb { transform: translateX(100%); }
+  .is-explain .sm-tab--iterate { color: var(--chart-muted); }
+  .is-explain .sm-tab--explain { color: var(--ink); }
+  .is-explain .sm-mode--iterate { opacity: 0; transform: translateY(-6px); }
+  .is-explain .sm-mode--explain { opacity: 1; transform: none; transition-delay: 150ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sm * { transition: none !important; }
+  }
+
+  @media (max-width: 899px) {
+    .sm { padding: 64px 96px; }
+  }
+  @media (max-width: 599px) {
+    .sm { aspect-ratio: auto; padding: 56px 32px; }
+  }
+</style>
+
+<script>
+  // Switch Iterate <-> Explain every 2.6s while visible; stop when out of view.
+  // Reduced motion: hold on Explain.
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-sm-play]').forEach((el) => {
+    let timer: number | undefined;
+    const stop = () => { clearInterval(timer); timer = undefined; };
+    new IntersectionObserver(([e]) => {
+      if (still.matches) { stop(); el.classList.add('is-explain'); return; }
+      if (e.isIntersecting && !timer) {
+        timer = window.setInterval(() => el.classList.toggle('is-explain'), 2600);
+      } else if (!e.isIntersecting) {
+        stop(); el.classList.remove('is-explain');
+      }
+    }, { threshold: 0.5 }).observe(el);
+  });
+</script>

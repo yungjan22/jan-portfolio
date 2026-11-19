@@ -28,7 +28,7 @@ export const jobs: Entry[] = [
     role: 'UX Researcher & Designer · UW capstone',
     years: '2024–25',
     place: 'Seattle',
-    what: 'Led research and design for GitHub Spark; my design became part of the features it launched with.',
+    what: 'Led research and design for GitHub Spark; my research and concepts informed its public preview.',
     logo: '/logos/github.svg',
     fit: 'contain',
   },

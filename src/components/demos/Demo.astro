@@ -5,8 +5,11 @@ import SparkLogo from './SparkLogo.astro';
 import QinDefectChart from './QinDefectChart.astro';
 import WebSeoOverview from './WebSeoOverview.astro';
 import QinAlert from './QinAlert.astro';
+import SparkModes from './SparkModes.astro';
+import SparkSelect from './SparkSelect.astro';
+import SparkLevel from './SparkLevel.astro';
 
-const demos = { 'spark-logo': SparkLogo, 'qin-defect-chart': QinDefectChart, 'web-seo-overview': WebSeoOverview, 'qin-alert': QinAlert } as const;
+const demos = { 'spark-logo': SparkLogo, 'qin-defect-chart': QinDefectChart, 'web-seo-overview': WebSeoOverview, 'qin-alert': QinAlert, 'spark-modes': SparkModes, 'spark-select': SparkSelect, 'spark-level': SparkLevel } as const;
 export type DemoName = keyof typeof demos;
 
 interface Props {
